@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 public class PlayerTank extends Tank {
 
+    public PlayerTank(double xPos, double yPos, double maxSpeed, double gunRotationSpeed) {
+        super(xPos, yPos, maxSpeed, gunRotationSpeed);
+    }
+
     public void operate(ArrayList<String> input, Point mousePos) {
         if(input.contains("W")) {
             isMoving = true;
@@ -52,10 +56,6 @@ public class PlayerTank extends Tank {
 
         processMovement();
         rotateGun(mousePos);
-    }
-
-    public PlayerTank(double xPos, double yPos, double maxSpeed, double gunRotationSpeed) {
-        super(xPos, yPos, maxSpeed, gunRotationSpeed);
     }
 
 }
