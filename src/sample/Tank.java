@@ -9,7 +9,6 @@ import java.awt.*;
 
 public class Tank {
 
-
     double xPos;
     double yPos;
     int direction;
@@ -60,27 +59,63 @@ public class Tank {
             slowDown();
         }
 
-        switch (direction) {
-            case 0 -> yPos -= currentSpeed;
-            case 1 -> {
-                xPos += currentSpeed / Math.sqrt(2);
-                yPos -= currentSpeed / Math.sqrt(2);
-            }
-            case 2 -> xPos += currentSpeed;
-            case 3 -> {
-                xPos += currentSpeed / Math.sqrt(2);
-                yPos += currentSpeed / Math.sqrt(2);
-            }
-            case 4 -> yPos += currentSpeed;
-            case 5 -> {
-                xPos -= currentSpeed / Math.sqrt(2);
-                yPos += currentSpeed / Math.sqrt(2);
-            }
-            case 6 -> xPos -= currentSpeed;
-            case 7 -> {
-                xPos -= currentSpeed / Math.sqrt(2);
-                yPos -= currentSpeed / Math.sqrt(2);
-            }
+        switch(direction) {
+            case 0:
+                if(yPos <= 0){
+                    currentSpeed = 0;
+                }
+                yPos -= currentSpeed;
+                break;
+            case 1:
+                if(!(yPos <= 0)){
+                    yPos -= currentSpeed / Math.sqrt(2);
+                }
+                if(!(xPos >= Main.FIELD_WIDTH)){
+                    xPos += currentSpeed / Math.sqrt(2);
+                }
+                break;
+            case 2:
+                if(xPos >= Main.FIELD_WIDTH){
+                    currentSpeed = 0;
+                }
+                xPos += currentSpeed;
+                break;
+            case 3:
+                if(!(yPos >= Main.FIELD_HEIGHT)){
+                    yPos += currentSpeed / Math.sqrt(2);
+                }
+                if(!(xPos >= Main.FIELD_WIDTH)){
+                    xPos += currentSpeed / Math.sqrt(2);
+                }
+                break;
+            case 4:
+                if(yPos >= Main.FIELD_HEIGHT){
+                    currentSpeed = 0;
+                }
+                yPos += currentSpeed;
+                break;
+            case 5:
+                if(!(yPos >= Main.FIELD_HEIGHT)){
+                    yPos += currentSpeed / Math.sqrt(2);
+                }
+                if(!(xPos <= 0)){
+                    xPos -= currentSpeed / Math.sqrt(2);
+                }
+                break;
+            case 6:
+                if(xPos <= 0){
+                    currentSpeed = 0;
+                }
+                xPos -= currentSpeed;
+                break;
+            case 7:
+                if(!(yPos <= 0)){
+                    yPos -= currentSpeed / Math.sqrt(2);
+                }
+                if(!(xPos <= 0)){
+                    xPos -= currentSpeed / Math.sqrt(2);
+                }
+                break;
         }
     }
 
