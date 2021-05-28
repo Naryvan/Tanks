@@ -26,9 +26,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        int width = 800;
+        int height = 600;
         Group root = new Group();
         primaryStage.setTitle("Hello World");
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, width, height);
         primaryStage.setScene(scene);
         primaryStage.show();
         Canvas canvas = new Canvas(800, 600);
@@ -58,7 +60,8 @@ public class Main extends Application {
                 }
         );
 
-        Tank tank = new Tank();
+        Tank tank = new Tank(width, height);
+
 
         new AnimationTimer() {
             @Override
@@ -66,13 +69,43 @@ public class Main extends Application {
                 tank.operate(input, mousePos);
 
                 gc.clearRect(0, 0, 800,600);
+
+                Wall wall = new Wall(1 , 1);
+                wall.render(gc);
                 tank.render(gc);
             }
         }.start();
     }
 
+    class Wall{
+
+        int a;
+        int b;
+
+        public Wall(int a, int b){
+            this.a = a;
+            this.b = b;
+        }
+
+        private void drawWall(GraphicsContext gc){
+            gc.setFill(Color.rgb(156,36,36));
+            gc.save();
+            gc.fillRect((a-1)*50,  (b-1)*50, a*50, b*50);
+            gc.strokeRect((a-1)*50, (b-1)*50, a*50, b*50);
+            gc.restore();
+
+        }
+        public void render(GraphicsContext gc) {
+            drawWall(gc);
+        }
+    }
+
+
+
     class Tank {
 
+        int width;
+        int height;
         double x;
         double y;
         int direction;
@@ -81,50 +114,52 @@ public class Main extends Application {
         double gunDirection;
         double rotationSpeed = 2;
 
-        public Tank() {
-            x = 50;
-            y = 50;
+        public Tank ( int width, int height) {
+            this.width = width;
+            this.height = height;
+            x = 0;
+            y = 0;
             direction = 0;
         }
 
         public void operate(ArrayList<String> input, Point mousePos) {
             if(input.contains("W")) {
-                direction = 0;
+                direction = 0; //UP
                 if(input.contains("D")) {
-                    direction = 1;
+                    direction = 1; //UPRIGHT
                 }
                 else if(input.contains("A")) {
-                    direction = 7;
+                    direction = 7; //UPLEFT
                 }
                 accelerate();
             }
             else if(input.contains("D")) {
-                direction = 2;
+                direction = 2;  //RIGHT
                 if(input.contains("S")) {
-                    direction = 3;
+                    direction = 3; //RIGHTDOWN
                 }
                 else if(input.contains("W")) {
-                    direction = 1;
+                    direction = 1; //UPRIGHT
                 }
                 accelerate();
             }
             else if(input.contains("S")) {
-                direction = 4;
+                direction = 4; //DOWN
                 if(input.contains("A")) {
-                    direction = 5;
+                    direction = 5; //DOWNLEFT
                 }
                 else if(input.contains("D")) {
-                    direction = 3;
+                    direction = 3; //RIGHTDOWN
                 }
                 accelerate();
             }
             else if(input.contains("A")) {
-                direction = 6;
+                direction = 6; //LEFT
                 if(input.contains("W")) {
-                    direction = 7;
+                    direction = 7; //UPLEFT
                 }
                 else if(input.contains("S")) {
-                    direction = 5;
+                    direction = 5; //DOWNLEFT
                 }
                 accelerate();
             }
@@ -154,38 +189,67 @@ public class Main extends Application {
         }
 
         private void move() {
+
             if(speed == 0) {
                 return;
             }
 
             switch(direction) {
                 case 0:
+                    if(y <= 0){
+                        speed = 0;
+                    }
                     y -= speed;
                     break;
                 case 1:
-                    x += speed / Math.sqrt(2);
-                    y -= speed / Math.sqrt(2);
+                    if(!(y <= 0)){
+                        y -= speed / Math.sqrt(2);
+                    }
+                    if(!(x >= width)){
+                        x += speed / Math.sqrt(2);
+                    }
                     break;
                 case 2:
+                    if(x >= width){
+                        speed = 0;
+                    }
                     x += speed;
                     break;
                 case 3:
-                    x += speed / Math.sqrt(2);
-                    y += speed / Math.sqrt(2);
+                    if(!(y >= height)){
+                        y += speed / Math.sqrt(2);
+                    }
+                    if(!(x >= width)){
+                        x += speed / Math.sqrt(2);
+                    }
                     break;
                 case 4:
+                    if(y >= height){
+                        speed = 0;
+                    }
                     y += speed;
                     break;
                 case 5:
-                    x -= speed / Math.sqrt(2);
-                    y += speed / Math.sqrt(2);
+                    if(!(y >= height)){
+                        y += speed / Math.sqrt(2);
+                    }
+                    if(!(x <= 0)){
+                        x -= speed / Math.sqrt(2);
+                    }
                     break;
                 case 6:
+                    if(x <= 0){
+                        speed = 0;
+                    }
                     x -= speed;
                     break;
                 case 7:
-                    x -= speed / Math.sqrt(2);
-                    y -= speed / Math.sqrt(2);
+                    if(!(y <= 0)){
+                        y -= speed / Math.sqrt(2);
+                    }
+                    if(!(x <= 0)){
+                        x -= speed / Math.sqrt(2);
+                    }
                     break;
             }
         }
@@ -225,6 +289,7 @@ public class Main extends Application {
             drawBody(gc);
             drawGun(gc);
         }
+
 
         private void drawBody(GraphicsContext gc) {
             gc.save();
