@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="sample.TitleWindow"
+            prefHeight="400.0" prefWidth="650.0">
+    <center>
+        <GridPane alignment="CENTER">
+            <Text text="Tanks 2021"
+                  GridPane.columnIndex="0"
+                  GridPane.rowIndex="0">
+                <font>
+                    <Font name="Comic Sans MS" size="40.0" />
+                </font>
+            </Text>
+
+            <Text text="Press any key to start"
+                  GridPane.columnIndex="0"
+                  GridPane.rowIndex="1">
+                <font>
+                    <Font name="Comic Sans MS" size="25.0" />
+                </font>
+            </Text>
+        </GridPane>
+    </center>
+</BorderPane>
