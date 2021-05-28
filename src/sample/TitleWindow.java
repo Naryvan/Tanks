@@ -13,29 +13,38 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class TitleWindow extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    static Parent root = new Group();
+    static Stage stage = new Stage();
+
     @Override
     public void start(Stage primaryStage) {
-        Parent root = new Group();
+
         try {
             root = FXMLLoader.load(getClass().getResource("title_window.fxml"));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        Stage stage = new Stage();
+
         Scene scene = new Scene(root, 600, 600, Color.GREEN.brighter());
         stage.setScene(scene);
         stage.show();
+        scene.setOnMouseClicked(e -> setGarageRoot());
+    }
 
-        scene.setOnMouseClicked(e -> {
-            GarageWindow garageWindow = new GarageWindow();
-            garageWindow.start(new Stage());
-            stage.hide();
-        });
+    private void setGarageRoot() {
+        try {
+            root = FXMLLoader.load(getClass().getResource("garage_window.fxml"));
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        stage.setScene(new Scene(root, 600, 600, Color.BLUE.brighter()));
     }
 }
