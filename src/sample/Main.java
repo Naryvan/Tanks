@@ -42,6 +42,7 @@ public class Main extends Application {
         scene.setOnKeyPressed(
                 keyEvent -> {
                     String code = keyEvent.getCode().toString();
+                    System.out.println(code);
                     if(!input.contains(code)) {
                         input.add(code);
                     }

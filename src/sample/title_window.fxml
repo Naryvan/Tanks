@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="textPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#switchToGarageScene" onMouseClicked="#switchToGarageScene" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TitleController">
+   <children>
+      <ImageView fitHeight="556.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/GameBack.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="146.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanks 2021">
+         <font>
+            <Font name="Comic Sans MS" size="48.0" />
+         </font>
+      </Text>
+      <Text fx:id="keyPressPrompt" layoutX="274.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="press any key to start">
+         <font>
+            <Font name="Comic Sans MS" size="36.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

@@ -9,6 +9,14 @@ public class PlayerTank extends Tank {
         super(xPos, yPos, maxSpeed, gunRotationSpeed);
     }
 
+    public double getX(){
+        return xPos;
+    }
+
+    public double getY(){
+        return yPos;
+    }
+
     public void operate(ArrayList<String> input, Point mousePos) {
         if(input.contains("W")) {
             isMoving = true;
