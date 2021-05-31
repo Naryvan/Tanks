@@ -30,7 +30,7 @@ public class GarageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         tankEntity.setFocusTraversable(true);
-        playerTank = new PlayerTank(350, 450, 4, 3);
+        playerTank = new PlayerTank(350, 450, 0, 4, 3);
         gc = tankEntity.getGraphicsContext2D();
         tankEntity.setOnKeyPressed(
                 keyEvent -> {
