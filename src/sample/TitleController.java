@@ -11,8 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -27,7 +26,7 @@ public class TitleController implements Initializable {
 
 
     @FXML
-    private GridPane textPanel;
+    private Pane textPanel;
 
     public void switchToGarageScene(javafx.scene.input.InputEvent e) {
         FadeTransition fade = new FadeTransition();
