@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.TitleWindow"
-            prefHeight="400.0" prefWidth="650.0">
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TitleController">
     <center>
-        <GridPane alignment="CENTER">
-            <Text text="Tanks 2021"
-                  GridPane.columnIndex="0"
-                  GridPane.rowIndex="0">
-                <font>
-                    <Font name="Comic Sans MS" size="40.0" />
-                </font>
-            </Text>
+        <GridPane id="gridPane" fx:id="textPanel" alignment="CENTER" onKeyPressed="#switchToGarageScene" onMouseClicked="#switchToGarageScene">
+           <children>
 
-            <Text text="Press any key to start"
-                  GridPane.columnIndex="0"
-                  GridPane.rowIndex="1">
-                <font>
-                    <Font name="Comic Sans MS" size="25.0" />
-                </font>
-            </Text>
+                        <Text id="keyPressPrompt" fx:id="keyPressPrompt" text="Press any key to start" GridPane.rowIndex="1">
+                   <font>
+                       <Font name="Comic Sans MS" size="25.0" />
+                   </font>
+               </Text>
+               <Text text="Tanks 2021" wrappingWidth="214.87109375">
+                   <font>
+                       <Font name="Comic Sans MS" size="40.0" />
+                   </font>
+               </Text>
+           </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
     </center>
 </BorderPane>
