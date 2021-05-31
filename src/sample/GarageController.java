@@ -23,7 +23,7 @@ public class GarageController implements Initializable {
     GraphicsContext gc;
     ArrayList<String> input = new ArrayList<>();
     Point mousePos = new Point();
-    FillTransition fillTransition = new FillTransition();
+    FadeTransition fadeTransition = new FadeTransition();
     @FXML
     private Canvas tankEntity;
 
@@ -75,10 +75,10 @@ public class GarageController implements Initializable {
         if (upgradeTankPoint.contains(new Point2D((int) playerTank.getX(), (int) playerTank.getY()))) {
             return upgradeTankPoint;
         }
-        fillTransition.setOnFinished(null);
-        fillTransition.stop();
-        fillTransition.setToValue(Color.WHITE);
-        fillTransition.play();
+        fadeTransition.setOnFinished(null);
+        fadeTransition.stop();
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
         return null;
     }
 
@@ -88,13 +88,13 @@ public class GarageController implements Initializable {
         }
 
         if (rectangle.contains(new Point2D((int) playerTank.getX(), (int) playerTank.getY()))) {
-            fillTransition.stop();
-            fillTransition.setShape(rectangle);
-            fillTransition.setFromValue(Color.WHITE);
-            fillTransition.setToValue(Color.GREEN.brighter());
-            fillTransition.setDuration(Duration.millis(900));
-            fillTransition.setOnFinished(actionEvent -> Platform.exit());
-            fillTransition.play();
+            fadeTransition.stop();
+            fadeTransition.setNode(rectangle);
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(0.7);
+            fadeTransition.setDuration(Duration.millis(800));
+            fadeTransition.setOnFinished(actionEvent -> Platform.exit());
+            fadeTransition.play();
         }
     }
 }

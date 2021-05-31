@@ -1,6 +1,5 @@
 package sample;
 
-import com.sun.glass.ui.Application;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -23,7 +22,6 @@ public class TitleController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
 
     @FXML
     private Pane textPanel;
