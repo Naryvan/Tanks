@@ -12,6 +12,7 @@ public class Tank {
     double xPos;
     double yPos;
     int direction;
+    double currentDirection;
 
     double maxSpeed;
     double acceleration;
@@ -25,6 +26,7 @@ public class Tank {
         this.xPos = 50;
         this.yPos = 50;
         direction = 0;
+        currentDirection = 0;
         gunDirection = 0;
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
@@ -35,16 +37,18 @@ public class Tank {
         this.xPos = xPos;
         this.yPos = yPos;
         direction = 0;
+        currentDirection = 0;
         gunDirection = 0;
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
         gunRotationSpeed = 2;
     }
 
-    public Tank(double xPos, double yPos, double maxSpeed, double gunRotationSpeed) {
+    public Tank(double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
-        direction = 0;
+        this.direction = direction;
+        currentDirection = direction * 45;
         gunDirection = 0;
         this.maxSpeed = maxSpeed;
         acceleration = maxSpeed / 40;
@@ -59,64 +63,65 @@ public class Tank {
             slowDown();
         }
 
-        switch(direction) {
-            case 0:
-                if(yPos <= 0){
+        switch (direction) {
+            case 0 -> {
+                if (yPos <= 0) {
                     currentSpeed = 0;
                 }
                 yPos -= currentSpeed;
-                break;
-            case 1:
-                if(!(yPos <= 0)){
+            }
+            case 1 -> {
+                if (!(yPos <= 0)) {
                     yPos -= currentSpeed / Math.sqrt(2);
                 }
-                if(!(xPos >= Main.FIELD_WIDTH)){
+                if (!(xPos >= Main.FIELD_WIDTH)) {
                     xPos += currentSpeed / Math.sqrt(2);
                 }
-                break;
-            case 2:
-                if(xPos >= Main.FIELD_WIDTH){
+            }
+            case 2 -> {
+                if (xPos >= Main.FIELD_WIDTH) {
                     currentSpeed = 0;
                 }
                 xPos += currentSpeed;
-                break;
-            case 3:
-                if(!(yPos >= Main.FIELD_HEIGHT)){
+            }
+            case 3 -> {
+                if (!(yPos >= Main.FIELD_HEIGHT)) {
                     yPos += currentSpeed / Math.sqrt(2);
                 }
-                if(!(xPos >= Main.FIELD_WIDTH)){
+                if (!(xPos >= Main.FIELD_WIDTH)) {
                     xPos += currentSpeed / Math.sqrt(2);
                 }
-                break;
-            case 4:
-                if(yPos >= Main.FIELD_HEIGHT){
+            }
+            case 4 -> {
+                if (yPos >= Main.FIELD_HEIGHT) {
                     currentSpeed = 0;
                 }
                 yPos += currentSpeed;
-                break;
-            case 5:
-                if(!(yPos >= Main.FIELD_HEIGHT)){
+            }
+            case 5 -> {
+                if (!(yPos >= Main.FIELD_HEIGHT)) {
                     yPos += currentSpeed / Math.sqrt(2);
                 }
-                if(!(xPos <= 0)){
+                if (!(xPos <= 0)) {
                     xPos -= currentSpeed / Math.sqrt(2);
                 }
-                break;
-            case 6:
-                if(xPos <= 0){
+            }
+            case 6 -> {
+                if (xPos <= 0) {
                     currentSpeed = 0;
                 }
                 xPos -= currentSpeed;
-                break;
-            case 7:
-                if(!(yPos <= 0)){
+            }
+            case 7 -> {
+                if (!(yPos <= 0)) {
                     yPos -= currentSpeed / Math.sqrt(2);
                 }
-                if(!(xPos <= 0)){
+                if (!(xPos <= 0)) {
                     xPos -= currentSpeed / Math.sqrt(2);
                 }
-                break;
+            }
         }
+        rotateBody();
     }
 
     private void accelerate() {
@@ -168,6 +173,49 @@ public class Tank {
 
     }
 
+    private void rotateBody() {
+        if(direction * 45 == currentDirection) {
+            return;
+        }
+
+        double rotationLength = 360;
+        double rotationSpeed;
+
+        if((currentDirection < 180 && direction * 45 > 180) && (direction * 45 - currentDirection > 180)) {
+            //rotationLength = direction * 45 - currentDirection;
+            rotationSpeed = - 12;
+        }
+        else if((currentDirection > 180 && direction * 45 < 180) && (currentDirection - direction * 45 > 180)) {
+            //rotationLength = currentDirection - direction * 45;
+            rotationSpeed = 12;
+        }
+        else {
+            if(currentDirection < direction * 45) {
+                //rotationLength = direction * 45 - currentDirection;
+                rotationSpeed = 12;
+            }
+            else {
+                //rotationLength = currentDirection - direction * 45;
+                rotationSpeed = - 12;
+            }
+        }
+
+        if(Math.abs(currentDirection - (direction != 0 ? direction * 45 : 360)) < rotationSpeed) {
+            currentDirection = direction * 45;
+            return;
+        }
+
+        currentDirection += rotationSpeed;
+
+        if(currentDirection > 360) {
+            currentDirection -= 360;
+        }
+        if(currentDirection < 0) {
+            currentDirection = 360 + currentDirection;
+        }
+
+    }
+
     public void render(GraphicsContext gc) {
         renderBody(gc);
         renderGun(gc);
@@ -175,7 +223,7 @@ public class Tank {
 
     private void renderBody(GraphicsContext gc) {
         gc.save();
-        gc.transform(new Affine(new Rotate(direction * 45, xPos, yPos)));
+        gc.transform(new Affine(new Rotate(currentDirection, xPos, yPos)));
         gc.setFill(javafx.scene.paint.Color.rgb(0, 60, 0));
         gc.fillRoundRect(xPos - 15, yPos - 25, 30, 50, 5, 5);
         gc.strokeRoundRect(xPos - 15, yPos - 25, 30, 50, 5, 5);

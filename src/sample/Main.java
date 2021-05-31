@@ -25,6 +25,7 @@ public class Main extends Application {
     public final static int FIELD_WIDTH = 800;
     public final static int FIELD_HEIGHT = 600;
 
+
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
@@ -57,7 +58,7 @@ public class Main extends Application {
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
 
-        PlayerTank tank = new PlayerTank(50, 50, 4, 2);
+        PlayerTank tank = new PlayerTank(50, 50, 0, 4, 2);
 
         new AnimationTimer() {
             @Override

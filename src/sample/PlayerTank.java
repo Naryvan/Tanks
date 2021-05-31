@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class PlayerTank extends Tank {
 
-    public PlayerTank(double xPos, double yPos, double maxSpeed, double gunRotationSpeed) {
-        super(xPos, yPos, maxSpeed, gunRotationSpeed);
+    public PlayerTank(double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+        super(xPos, yPos, direction, maxSpeed, gunRotationSpeed);
     }
 
     public void operate(ArrayList<String> input, Point mousePos) {
