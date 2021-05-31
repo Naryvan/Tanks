@@ -22,8 +22,8 @@ import java.util.Random;
 
 public class Main extends Application {
 
-    public final static int FIELD_WIDTH = 800;
-    public final static int FIELD_HEIGHT = 600;
+    public final static int FIELD_WIDTH = 700;
+    public final static int FIELD_HEIGHT = 700;
 
 
     @Override
