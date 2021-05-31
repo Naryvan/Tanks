@@ -30,6 +30,7 @@ public class TitleWindow extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

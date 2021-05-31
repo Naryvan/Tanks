@@ -6,9 +6,9 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="textPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#switchToGarageScene" onMouseClicked="#switchToGarageScene" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TitleController">
+<Pane fx:id="textPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TitleController">
    <children>
-      <ImageView fitHeight="556.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backgroundImage" fitHeight="557.0" fitWidth="700.0" onKeyPressed="#switchToGarageScene" onMouseClicked="#switchToGarageScene" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/GameBack.jpg" />
          </image>

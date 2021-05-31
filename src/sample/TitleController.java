@@ -10,19 +10,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import javafx.util.Duration;
+
 import java.util.ResourceBundle;
 
 public class TitleController implements Initializable {
+    public ImageView backgroundImage;
     private Stage stage;
     private Scene scene;
     private Parent root;
-
     @FXML
     private Pane textPanel;
 
@@ -54,6 +56,7 @@ public class TitleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        backgroundImage.setFocusTraversable(true);
         FadeTransition fade = new FadeTransition();
         fade.setNode(keyPressPrompt);
         fade.setCycleCount(Animation.INDEFINITE);
