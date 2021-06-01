@@ -31,4 +31,3 @@ public class Wall {
         return new Rectangle2D(x - 25, y - 25, 50, 50);
     }
 }
-

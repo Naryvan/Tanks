@@ -90,7 +90,7 @@ public class Tank {
     }
 
     protected void processMovement() {
-         checkCollision();
+        checkCollision();
 
         if(isMoving) {
             accelerate();
