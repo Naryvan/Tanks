@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StartMenuController">
+   <children>
+      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="43.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <items>
+            <Text fx:id="nameLevel0" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 1: Polygon" wrappingWidth="238.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <Text fx:id="statusLevel0" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Completed" wrappingWidth="238.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+         </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="138.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <items>
+            <Text fx:id="nameLevel1" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 2: Operation Goodwood" wrappingWidth="330.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="statusLevel1" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Completed" wrappingWidth="238.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+         </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="230.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <items>
+            <Text fx:id="nameLevel2" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 3: Battle of Brody" wrappingWidth="320.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="statusLevel2" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Completed" wrappingWidth="238.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+         </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="320.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <items>
+            <Text fx:id="nameLevel3" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 4:  Battle of Normandy" wrappingWidth="338.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="statusLevel3" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Completed" wrappingWidth="238.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+         </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="413.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <items>
+            <Text fx:id="nameLevel4" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 5: Vietnam Insurgency" wrappingWidth="334.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="statusLevel4" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Completed" wrappingWidth="238.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+         </items>
+      </SplitPane>
+      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="509.0" orientation="VERTICAL" prefHeight="71.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <items>
+            <Text fx:id="nameLevel5" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Level 6: The Six Day War" wrappingWidth="316.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="statusLevel5" fill="#b50909" strokeType="OUTSIDE" strokeWidth="0.0" text="Not Completed" wrappingWidth="238.6708984375">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="24.0" />
+               </font>
+            </Text>
+         </items>
+      </SplitPane>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="152.0" layoutY="607.0" mnemonicParsing="false" onMouseClicked="#returnToGarage" prefHeight="51.0" prefWidth="396.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000;" text="Return to garage" textFill="#b50909">
+         <font>
+            <Font name="Comic Sans MS Italic" size="24.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fx:id="lockLevel1" fitHeight="53.0" fitWidth="56.0" layoutX="57.0" layoutY="150.0">
+         <image>
+            <Image url="@../images/512px-Lock_Icon.svg.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="lockLevel2" fitHeight="53.0" fitWidth="56.0" layoutX="57.0" layoutY="241.0">
+         <image>
+            <Image url="@../images/512px-Lock_Icon.svg.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="lockLevel3" fitHeight="53.0" fitWidth="56.0" layoutX="57.0" layoutY="331.0">
+         <image>
+            <Image url="@../images/512px-Lock_Icon.svg.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="lockLevel4" fitHeight="53.0" fitWidth="56.0" layoutX="57.0" layoutY="424.0">
+         <image>
+            <Image url="@../images/512px-Lock_Icon.svg.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="lockLevel5" fitHeight="53.0" fitWidth="56.0" layoutX="57.0" layoutY="520.0">
+         <image>
+            <Image url="@../images/512px-Lock_Icon.svg.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="level0" layoutX="152.0" layoutY="43.0" onMouseClicked="#setLevelLayout" onMouseExited="#hideBorder" onMouseMoved="#showBorder" prefHeight="76.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Pane>
+      <Pane fx:id="level1" layoutX="152.0" layoutY="138.0" onMouseClicked="#setLevelLayout" onMouseExited="#hideBorder" onMouseMoved="#showBorder" prefHeight="76.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Pane>
+      <Pane fx:id="level2" layoutX="152.0" layoutY="230.0" onMouseClicked="#setLevelLayout" onMouseExited="#hideBorder" onMouseMoved="#showBorder" prefHeight="76.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Pane>
+      <Pane fx:id="level3" layoutX="152.0" layoutY="320.0" onMouseClicked="#setLevelLayout" onMouseExited="#hideBorder" onMouseMoved="#showBorder" prefHeight="76.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Pane>
+      <Pane fx:id="level4" layoutX="152.0" layoutY="413.0" onMouseClicked="#setLevelLayout" onMouseExited="#hideBorder" onMouseMoved="#showBorder" prefHeight="76.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Pane>
+      <Pane fx:id="level5" layoutX="152.0" layoutY="509.0" onMouseClicked="#setLevelLayout" onMouseExited="#hideBorder" onMouseMoved="#showBorder" prefHeight="76.0" prefWidth="396.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Pane>
+   </children>
+</Pane>
