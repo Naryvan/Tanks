@@ -3,18 +3,26 @@ package sample;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GarageController implements Initializable {
+
+    private Parent root;
     public Rectangle startGamePoint;
     public Rectangle upgradeTankPoint;
     public Rectangle exitGamePoint;
@@ -28,7 +36,6 @@ public class GarageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         tankEntity.setFocusTraversable(true);
         playerTank = new PlayerTank(350, 450, 0, 4, 3);
         gc = tankEntity.getGraphicsContext2D();
@@ -92,8 +99,26 @@ public class GarageController implements Initializable {
             fadeTransition.setFromValue(0);
             fadeTransition.setToValue(0.7);
             fadeTransition.setDuration(Duration.millis(800));
-            fadeTransition.setOnFinished(actionEvent -> Platform.exit());
+            if (exitGamePoint.equals(rectangle)) {
+                fadeTransition.setOnFinished(actionEvent -> Platform.exit());
+            } else if (startGamePoint.equals(rectangle)) {
+                fadeTransition.setOnFinished(actionEvent -> changeScene("start_menu.fxml"));
+            } else if (upgradeTankPoint.equals(rectangle)) {
+                fadeTransition.setOnFinished(actionEvent -> changeScene("tank_upgrade_menu.fxml"));
+            }
             fadeTransition.play();
         }
+    }
+
+    private void changeScene(String s) {
+        try {
+            root = FXMLLoader.load(getClass().getResource(s));
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Stage stage = (Stage) tankEntity.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -23,6 +24,11 @@ public class TitleWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Level[] levels = StartMenuController.getLevels();
+        for(int i = 0; i < levels.length; i++){
+            levels[i] = new Level("#level" + i);
+        }
+        levels[0].setLocked(false);
         Parent root = new Group();
         Stage stage = new Stage();
         try {
