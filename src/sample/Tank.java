@@ -32,10 +32,10 @@ public class Tank {
     boolean isLeftBlocked;
     boolean isRightBlocked;
 
-    Level level;
+    LevelWindow levelWindow;
     GraphicsContext gc;
 
-    public Tank(Level level) {
+    public Tank(LevelWindow levelWindow) {
         this.xPos = 50;
         this.yPos = 50;
         direction = 0;
@@ -44,11 +44,11 @@ public class Tank {
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
         gunRotationSpeed = 2;
-        this.level = level;
-        this.gc = level.getGraphicsContext();
+        this.levelWindow = levelWindow;
+        this.gc = levelWindow.getGraphicsContext();
     }
 
-    public Tank(Level level, double xPos, double yPos) {
+    public Tank(LevelWindow levelWindow, double xPos, double yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
         direction = 0;
@@ -57,12 +57,12 @@ public class Tank {
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
         gunRotationSpeed = 2;
-        this.level = level;
-        this.gc = level.getGraphicsContext();
+        this.levelWindow = levelWindow;
+        this.gc = levelWindow.getGraphicsContext();
     }
 
     //For levels
-    public Tank(Level level, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+    public Tank(LevelWindow levelWindow, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.direction = direction;
@@ -71,8 +71,8 @@ public class Tank {
         this.maxSpeed = maxSpeed;
         acceleration = maxSpeed / 40;
         this.gunRotationSpeed = gunRotationSpeed;
-        this.level = level;
-        this.gc = level.getGraphicsContext();
+        this.levelWindow = levelWindow;
+        this.gc = levelWindow.getGraphicsContext();
     }
 
     //For garage
@@ -85,7 +85,7 @@ public class Tank {
         this.maxSpeed = maxSpeed;
         acceleration = maxSpeed / 40;
         this.gunRotationSpeed = gunRotationSpeed;
-        this.level = null;
+        this.levelWindow = null;
         this.gc = gc;
     }
 
@@ -268,11 +268,11 @@ public class Tank {
         }
 
         //garage
-        if(level == null) {
+        if(levelWindow == null) {
             return;
         }
 
-        ArrayList<Wall> walls = level.getCloseWalls(xPos, yPos);
+        ArrayList<Wall> walls = levelWindow.getCloseWalls(xPos, yPos);
 
         for(Wall wall : walls) {
             if(getTopBoundary().intersects(wall.getBoundary())) {

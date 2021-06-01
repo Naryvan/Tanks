@@ -13,8 +13,8 @@ public class PlayerTank extends Tank {
     }
 
     //For levels
-    public PlayerTank(Level level, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
-        super(level, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
+    public PlayerTank(LevelWindow levelWindow, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+        super(levelWindow, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
     }
 
     public double getX(){

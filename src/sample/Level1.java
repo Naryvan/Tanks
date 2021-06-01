@@ -1,6 +1,6 @@
 package sample;
 
-public class Level1 extends Level{
+public class Level1 extends LevelWindow {
 
     protected void addWalls() {
         walls.add(new Wall(250, 200));

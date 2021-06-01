@@ -21,7 +21,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Level extends Application {
+public class LevelWindow extends Application {
 
     public static int FIELD_WIDTH = 700;
     public static int FIELD_HEIGHT = 700;
