@@ -1,12 +1,20 @@
 package sample;
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class PlayerTank extends Tank {
 
-    public PlayerTank(double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
-        super(xPos, yPos, direction, maxSpeed, gunRotationSpeed);
+    //For garage
+    public PlayerTank(GraphicsContext gc, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+        super(gc, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
+    }
+
+    //For levels
+    public PlayerTank(Level level, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+        super(level, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
     }
 
     public double getX(){

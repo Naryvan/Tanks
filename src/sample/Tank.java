@@ -1,13 +1,18 @@
 package sample;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Tank {
+
+    final static double WIDTH = 40;
+    final static double HEIGHT = 40;
 
     double xPos;
     double yPos;
@@ -22,7 +27,15 @@ public class Tank {
     double gunDirection;
     double gunRotationSpeed;
 
-    public Tank() {
+    boolean isTopBlocked;
+    boolean isBottomBlocked;
+    boolean isLeftBlocked;
+    boolean isRightBlocked;
+
+    Level level;
+    GraphicsContext gc;
+
+    public Tank(Level level) {
         this.xPos = 50;
         this.yPos = 50;
         direction = 0;
@@ -31,9 +44,11 @@ public class Tank {
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
         gunRotationSpeed = 2;
+        this.level = level;
+        this.gc = level.getGraphicsContext();
     }
 
-    public Tank(double xPos, double yPos) {
+    public Tank(Level level, double xPos, double yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
         direction = 0;
@@ -42,9 +57,12 @@ public class Tank {
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
         gunRotationSpeed = 2;
+        this.level = level;
+        this.gc = level.getGraphicsContext();
     }
 
-    public Tank(double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+    //For levels
+    public Tank(Level level, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.direction = direction;
@@ -53,9 +71,27 @@ public class Tank {
         this.maxSpeed = maxSpeed;
         acceleration = maxSpeed / 40;
         this.gunRotationSpeed = gunRotationSpeed;
+        this.level = level;
+        this.gc = level.getGraphicsContext();
+    }
+
+    //For garage
+    public Tank(GraphicsContext gc, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.direction = direction;
+        currentDirection = direction * 45;
+        gunDirection = 0;
+        this.maxSpeed = maxSpeed;
+        acceleration = maxSpeed / 40;
+        this.gunRotationSpeed = gunRotationSpeed;
+        this.level = null;
+        this.gc = gc;
     }
 
     protected void processMovement() {
+         checkCollision();
+
         if(isMoving) {
             accelerate();
         }
@@ -65,58 +101,54 @@ public class Tank {
 
         switch (direction) {
             case 0 -> {
-                if (yPos <= 0) {
-                    currentSpeed = 0;
+                if(!isTopBlocked) {
+                    yPos -= currentSpeed;
                 }
-                yPos -= currentSpeed;
             }
             case 1 -> {
-                if (!(yPos <= 0)) {
+                if(!isTopBlocked) {
                     yPos -= currentSpeed / Math.sqrt(2);
                 }
-                if (!(xPos >= Main.FIELD_WIDTH)) {
+                if(!isRightBlocked) {
                     xPos += currentSpeed / Math.sqrt(2);
                 }
             }
             case 2 -> {
-                if (xPos >= Main.FIELD_WIDTH) {
-                    currentSpeed = 0;
+                if(!isRightBlocked) {
+                    xPos += currentSpeed;
                 }
-                xPos += currentSpeed;
             }
             case 3 -> {
-                if (!(yPos >= Main.FIELD_HEIGHT)) {
+                if(!isBottomBlocked) {
                     yPos += currentSpeed / Math.sqrt(2);
                 }
-                if (!(xPos >= Main.FIELD_WIDTH)) {
+                if(!isRightBlocked) {
                     xPos += currentSpeed / Math.sqrt(2);
                 }
             }
             case 4 -> {
-                if (yPos >= Main.FIELD_HEIGHT) {
-                    currentSpeed = 0;
+                if(!isBottomBlocked) {
+                    yPos += currentSpeed;
                 }
-                yPos += currentSpeed;
             }
             case 5 -> {
-                if (!(yPos >= Main.FIELD_HEIGHT)) {
+                if(!isBottomBlocked) {
                     yPos += currentSpeed / Math.sqrt(2);
                 }
-                if (!(xPos <= 0)) {
+                if(!isLeftBlocked) {
                     xPos -= currentSpeed / Math.sqrt(2);
                 }
             }
             case 6 -> {
-                if (xPos <= 0) {
-                    currentSpeed = 0;
+                if(!isLeftBlocked) {
+                    xPos -= currentSpeed;
                 }
-                xPos -= currentSpeed;
             }
             case 7 -> {
-                if (!(yPos <= 0)) {
+                if(!isTopBlocked) {
                     yPos -= currentSpeed / Math.sqrt(2);
                 }
-                if (!(xPos <= 0)) {
+                if(!isLeftBlocked) {
                     xPos -= currentSpeed / Math.sqrt(2);
                 }
             }
@@ -216,21 +248,63 @@ public class Tank {
 
     }
 
-    public void render(GraphicsContext gc) {
-        renderBody(gc);
-        renderGun(gc);
+    private void checkCollision() {
+        isTopBlocked = false;
+        isBottomBlocked = false;
+        isLeftBlocked = false;
+        isRightBlocked = false;
+
+        if(yPos <= 25) {
+            isTopBlocked = true;
+        }
+        if(yPos >= gc.getCanvas().getHeight() - 25) {
+            isBottomBlocked = true;
+        }
+        if(xPos <= 25) {
+            isLeftBlocked = true;
+        }
+        if(xPos >= gc.getCanvas().getWidth() - 25) {
+            isRightBlocked = true;
+        }
+
+        //garage
+        if(level == null) {
+            return;
+        }
+
+        ArrayList<Wall> walls = level.getCloseWalls(xPos, yPos);
+
+        for(Wall wall : walls) {
+            if(getTopBoundary().intersects(wall.getBoundary())) {
+                isTopBlocked = true;
+            }
+            if(getBottomBoundary().intersects(wall.getBoundary())) {
+                isBottomBlocked = true;
+            }
+            if(getLeftBoundary().intersects(wall.getBoundary())) {
+                isLeftBlocked = true;
+            }
+            if(getRightBoundary().intersects(wall.getBoundary())) {
+                isRightBlocked = true;
+            }
+        }
     }
 
-    private void renderBody(GraphicsContext gc) {
+    public void render() {
+        renderBody();
+        renderGun();
+    }
+
+    private void renderBody() {
         gc.save();
         gc.transform(new Affine(new Rotate(currentDirection, xPos, yPos)));
         gc.setFill(javafx.scene.paint.Color.rgb(0, 60, 0));
-        gc.fillRoundRect(xPos - 15, yPos - 25, 30, 50, 5, 5);
-        gc.strokeRoundRect(xPos - 15, yPos - 25, 30, 50, 5, 5);
+        gc.fillRoundRect(xPos - WIDTH / 2, yPos - HEIGHT / 2, WIDTH, HEIGHT, 5, 5);
+        gc.strokeRoundRect(xPos - WIDTH / 2, yPos - HEIGHT / 2, WIDTH, HEIGHT, 5, 5);
         gc.restore();
     }
 
-    private void renderGun(GraphicsContext gc) {
+    private void renderGun() {
         gc.setFill(javafx.scene.paint.Color.rgb(0, 75, 0));
         gc.save();
         gc.transform(new Affine(new Rotate(gunDirection, xPos, yPos)));
@@ -250,6 +324,24 @@ public class Tank {
         return Math.toDegrees(Math.atan2(height, length));
     }
 
+    public Rectangle2D getBoundary() {
+        return new Rectangle2D(xPos - 25, yPos - 25, 50, 50);
+    }
 
+    public Rectangle2D getTopBoundary() {
+        return new Rectangle2D(xPos - WIDTH / 2, yPos - HEIGHT / 2 - 6, WIDTH, 1);
+    }
+
+    public Rectangle2D getBottomBoundary() {
+        return new Rectangle2D(xPos - WIDTH / 2, yPos + HEIGHT / 2 + 5, WIDTH, 1);
+    }
+
+    public Rectangle2D getLeftBoundary() {
+        return new Rectangle2D(xPos - WIDTH / 2 - 6, yPos - HEIGHT / 2, 1, HEIGHT);
+    }
+
+    public Rectangle2D getRightBoundary() {
+        return new Rectangle2D(xPos + WIDTH / 2 + 5, yPos - HEIGHT / 2, 1, HEIGHT);
+    }
 
 }
