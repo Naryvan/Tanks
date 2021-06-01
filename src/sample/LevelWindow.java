@@ -107,11 +107,11 @@ public class LevelWindow extends Application {
         ArrayList<Wall> closeWalls = new ArrayList<>();
         Rectangle2D closeRectangle = new Rectangle2D(xPos - 100, yPos - 100, 200, 200);
 
-        for(Wall wall : walls) {
+        /*for(Wall wall : walls) {
             if(wall.getBoundary().intersects(closeRectangle)) {
                 closeWalls.add(wall);
             }
-        }
+        }*/
 
         return closeWalls;
     }
