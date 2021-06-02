@@ -32,10 +32,10 @@ public class Tank {
     boolean isLeftBlocked;
     boolean isRightBlocked;
 
-    LevelWindow levelWindow;
+    LevelBuilder levelWindow;
     GraphicsContext gc;
 
-    public Tank(LevelWindow levelWindow) {
+    public Tank(LevelBuilder levelWindow) {
         this.xPos = 50;
         this.yPos = 50;
         direction = 0;
@@ -48,7 +48,7 @@ public class Tank {
         this.gc = levelWindow.getGraphicsContext();
     }
 
-    public Tank(LevelWindow levelWindow, double xPos, double yPos) {
+    public Tank(LevelBuilder levelWindow, double xPos, double yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
         direction = 0;
@@ -62,7 +62,7 @@ public class Tank {
     }
 
     //For levels
-    public Tank(LevelWindow levelWindow, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+    public Tank(LevelBuilder levelWindow, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.direction = direction;

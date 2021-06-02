@@ -10,7 +10,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,9 +21,18 @@ import java.util.ResourceBundle;
 public class StartMenuController implements Initializable {
     public Pane mainPanel;
     private Parent root;
-    private static final Level[] levels = new Level[6];
+    private static final LevelMenu[] levels = new LevelMenu[6];
+    private static int currentLevelId;
 
-    public static Level[] getLevels() {
+    public static int getCurrentLevelId() {
+        return currentLevelId;
+    }
+
+    public static void setCurrentLevelId(int currentLevelId) {
+        StartMenuController.currentLevelId = currentLevelId;
+    }
+
+    public static LevelMenu[] getLevels() {
         return levels;
     }
 
@@ -62,7 +70,7 @@ public class StartMenuController implements Initializable {
     public void showBorder(MouseEvent mouseEvent) {
         boolean canChangeBorder = false;
         Pane pane = (Pane) mouseEvent.getSource();
-        for (Level level : levels) {
+        for (LevelMenu level : levels) {
             if (("#" + pane.getId()).equals(level.getLevelPane()) && !level.isLocked()) {
                 canChangeBorder = true;
             }
@@ -81,14 +89,25 @@ public class StartMenuController implements Initializable {
     public void setLevelLayout(MouseEvent mouseEvent) {
         boolean canStartLevel = false;
         Pane pane = (Pane) mouseEvent.getSource();
-        for (Level level : levels) {
+        for (LevelMenu level : levels) {
             if (("#" + pane.getId()).equals(level.getLevelPane()) && !level.isLocked()) {
                 canStartLevel = true;
             }
         }
 
+        currentLevelId = pane.getId().charAt(pane.getId().length() - 1) - '0';
+        System.out.println(currentLevelId);
         if (canStartLevel) {
             System.out.println("Go to another level");
+            try {
+                root = FXMLLoader.load(getClass().getResource("level_layout.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            Stage stage = (Stage) mainPanel.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } else {
             System.out.println("Level locked");
         }

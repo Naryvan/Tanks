@@ -1,11 +1,11 @@
 package sample;
 
-public class Level {
-    private String id;
+public class LevelMenu {
+    private final String id;
     private boolean locked = true;
     private boolean completed;
 
-    Level(String id) {
+    LevelMenu(String id) {
         this.id = id;
     }
 

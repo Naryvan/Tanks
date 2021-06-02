@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LevelController">
+   <children>
+      <Canvas fx:id="gameField" height="700.0" width="700.0" />
+      <GridPane fx:id="menuWin" layoutX="204.0" layoutY="218.0" opacity="0.0" prefHeight="276.0" prefWidth="292.0" style="-fx-border-width: 1; -fx-border-color: #000000; -fx-background-color: #ccebff;">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="296.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#resumeGame" prefHeight="53.0" prefWidth="205.0" style="-fx-border-width: 3;" text="Resume" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onMouseClicked="#returnToMenu" prefHeight="53.0" prefWidth="205.0" style="-fx-border-width: 3;" text="Return to menu" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Button mnemonicParsing="false" onMouseClicked="#exitGame" prefHeight="53.0" prefWidth="205.0" style="-fx-border-width: 3;" text="Exit game" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+   </children>
+</Pane>

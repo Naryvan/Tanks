@@ -60,14 +60,15 @@ public class GarageController implements Initializable {
         );
 
 
-        new AnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long CurrentNanoTime) {
                 playerTank.operate(input, mousePos);
                 gc.clearRect(0, 0, 700, 700);
                 playerTank.render();
             }
-        }.start();
+        };
+        animationTimer.start();
     }
 
     private Rectangle getNeededRectangle() {

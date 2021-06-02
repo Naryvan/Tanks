@@ -1,8 +1,8 @@
 package sample;
 
-public class Level1 extends LevelWindow {
+public class Level1 extends LevelBuilder {
 
-    protected void addWalls() {
+    /*protected void addWalls() {
         walls.add(new Wall(250, 200));
         walls.add(new Wall(250, 250));
         walls.add(new Wall(250, 300));
@@ -11,6 +11,6 @@ public class Level1 extends LevelWindow {
 
     public static void main(String[] args) {
         launch(args);
-    }
+    }*/
 
 }

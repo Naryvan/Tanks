@@ -1,18 +1,11 @@
 package sample;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 public class TitleWindow extends Application {
 
@@ -24,9 +17,9 @@ public class TitleWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Level[] levels = StartMenuController.getLevels();
+        LevelMenu[] levels = StartMenuController.getLevels();
         for(int i = 0; i < levels.length; i++){
-            levels[i] = new Level("#level" + i);
+            levels[i] = new LevelMenu("#level" + i);
         }
         levels[0].setLocked(false);
         Parent root = new Group();
