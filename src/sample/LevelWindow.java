@@ -1,23 +1,36 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
-public class LevelWindow1 {
+public class LevelWindow extends Application {
 
     public static int FIELD_WIDTH = 700;
     public static int FIELD_HEIGHT = 700;
 
-    protected static ArrayList<Wall> walls = new ArrayList<>();
+    protected ArrayList<Wall> walls = new ArrayList<>();
     protected GraphicsContext gc;
 
-    public void setGc(GraphicsContext gc) {
-        this.gc = gc;
-    }
-
-    /*public void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
         Group root = new Group();
         primaryStage.setTitle("Hello World");
         Scene scene = new Scene(root, FIELD_WIDTH, FIELD_HEIGHT);
@@ -66,44 +79,24 @@ public class LevelWindow1 {
                 }
             }
         }.start();
-    }*/
-
-    protected void addWalls(int currentLevelId) {
-        switch (currentLevelId) {
-            case 0:
-                firstLevelLayout();
-                break;
-            case 1:
-                secondLevelLayout();
-                break;
-            case 2:
-                //thirdLevelLayout();
-                break;
-            case 3:
-                //fourthLevelLayout();
-                break;
-            case 4:
-                //fifthLevelLayout();
-                break;
-            case 5:
-                //sixthLevelLayout();
-                break;
-        }
     }
 
-    private void firstLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(i, 25));
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
-        }
-    }
-
-    private void secondLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
-        }
+    protected void addWalls() {
+        walls.add(new Wall(100, 100));
+        walls.add(new Wall(150, 100));
+        walls.add(new Wall(200, 100));
+        walls.add(new Wall(250, 100));
+        walls.add(new Wall(300, 100));
+        walls.add(new Wall(350, 100));
+        walls.add(new Wall(350, 150));
+        walls.add(new Wall(350, 200));
+        walls.add(new Wall(350, 250));
+        walls.add(new Wall(350, 300));
+        walls.add(new Wall(350, 350));
+        walls.add(new Wall(250, 200));
+        walls.add(new Wall(250, 250));
+        walls.add(new Wall(250, 300));
+        walls.add(new Wall(250, 350));
     }
 
     public ArrayList<Wall> getWalls() {
@@ -114,8 +107,8 @@ public class LevelWindow1 {
         ArrayList<Wall> closeWalls = new ArrayList<>();
         Rectangle2D closeRectangle = new Rectangle2D(xPos - 100, yPos - 100, 200, 200);
 
-        for (Wall wall : walls) {
-            if (wall.getBoundary().intersects(closeRectangle)) {
+        for(Wall wall : walls) {
+            if(wall.getBoundary().intersects(closeRectangle)) {
                 closeWalls.add(wall);
             }
         }
@@ -125,5 +118,9 @@ public class LevelWindow1 {
 
     public GraphicsContext getGraphicsContext() {
         return gc;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
