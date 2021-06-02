@@ -1,4 +1,4 @@
-package sample;
+/*package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -61,7 +61,7 @@ public class LevelWindow extends Application {
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
 
-        PlayerTank tank = new PlayerTank(this, 50, 50, 0, 4, 2);
+        PlayerTank tank = new PlayerTank(new LevelWindow(), 50, 50, 0, 4, 2);
 
         addWalls();
 
@@ -123,4 +123,4 @@ public class LevelWindow extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}
+}*/

@@ -1,6 +1,6 @@
-package sample;
+/*package sample;
 
-public class Level1 extends LevelBuilder {
+public class Level1 extends LevelWindow {
 
     protected void addWalls() {
         walls.add(new Wall(250, 200));
@@ -13,4 +13,4 @@ public class Level1 extends LevelBuilder {
         launch(args);
     }
 
-}
+}*/
