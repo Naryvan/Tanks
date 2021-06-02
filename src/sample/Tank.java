@@ -32,10 +32,10 @@ public class Tank {
     boolean isLeftBlocked;
     boolean isRightBlocked;
 
-    LevelBuilder levelWindow;
+    LevelBuilder levelBuilder;
     GraphicsContext gc;
 
-    public Tank(LevelBuilder levelWindow) {
+    public Tank(LevelBuilder levelBuilder) {
         this.xPos = 50;
         this.yPos = 50;
         direction = 0;
@@ -44,11 +44,11 @@ public class Tank {
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
         gunRotationSpeed = 2;
-        this.levelWindow = levelWindow;
-        this.gc = levelWindow.getGraphicsContext();
+        this.levelBuilder = levelBuilder;
+        this.gc = levelBuilder.getGraphicsContext();
     }
 
-    public Tank(LevelBuilder levelWindow, double xPos, double yPos) {
+    public Tank(LevelBuilder levelBuilder, double xPos, double yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
         direction = 0;
@@ -57,12 +57,12 @@ public class Tank {
         maxSpeed = 4;
         acceleration = maxSpeed / 40;
         gunRotationSpeed = 2;
-        this.levelWindow = levelWindow;
-        this.gc = levelWindow.getGraphicsContext();
+        this.levelBuilder = levelBuilder;
+        this.gc = levelBuilder.getGraphicsContext();
     }
 
     //For levels
-    public Tank(LevelBuilder levelWindow, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+    public Tank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.direction = direction;
@@ -71,8 +71,8 @@ public class Tank {
         this.maxSpeed = maxSpeed;
         acceleration = maxSpeed / 40;
         this.gunRotationSpeed = gunRotationSpeed;
-        this.levelWindow = levelWindow;
-        this.gc = levelWindow.getGraphicsContext();
+        this.levelBuilder = levelBuilder;
+        this.gc = levelBuilder.getGraphicsContext();
     }
 
     //For garage
@@ -85,7 +85,7 @@ public class Tank {
         this.maxSpeed = maxSpeed;
         acceleration = maxSpeed / 40;
         this.gunRotationSpeed = gunRotationSpeed;
-        this.levelWindow = null;
+        this.levelBuilder = null;
         this.gc = gc;
     }
 
@@ -248,7 +248,7 @@ public class Tank {
 
     }
 
-    private void checkCollision() {
+    protected void checkCollision() {
         isTopBlocked = false;
         isBottomBlocked = false;
         isLeftBlocked = false;
@@ -268,11 +268,11 @@ public class Tank {
         }
 
         //garage
-        if(levelWindow == null) {
+        if(levelBuilder == null) {
             return;
         }
 
-        ArrayList<Wall> walls = levelWindow.getCloseWalls(xPos, yPos);
+        ArrayList<Wall> walls = levelBuilder.getCloseWalls(xPos, yPos);
 
         for(Wall wall : walls) {
             if(getTopBoundary().intersects(wall.getBoundary())) {
@@ -288,6 +288,42 @@ public class Tank {
                 isRightBlocked = true;
             }
         }
+
+        ArrayList<EnemyTank> enemyTanks = levelBuilder.getEnemyTanks();
+        //enemyTanks.remove(this);
+
+        for(EnemyTank enemyTank : enemyTanks) {
+            if(getTopBoundary().intersects(enemyTank.getBoundary())) {
+                isTopBlocked = true;
+            }
+            if(getBottomBoundary().intersects(enemyTank.getBoundary())) {
+                isBottomBlocked = true;
+            }
+            if(getLeftBoundary().intersects(enemyTank.getBoundary())) {
+                isLeftBlocked = true;
+            }
+            if(getRightBoundary().intersects(enemyTank.getBoundary())) {
+                isRightBlocked = true;
+            }
+        }
+
+        if(getTopBoundary().intersects(levelBuilder.getPlayerTank().getBoundary())) {
+            isTopBlocked = true;
+        }
+        if(getBottomBoundary().intersects(levelBuilder.getPlayerTank().getBoundary())) {
+            isBottomBlocked = true;
+        }
+        if(getLeftBoundary().intersects(levelBuilder.getPlayerTank().getBoundary())) {
+            isLeftBlocked = true;
+        }
+        if(getRightBoundary().intersects(levelBuilder.getPlayerTank().getBoundary())) {
+            isRightBlocked = true;
+        }
+
+    }
+
+    public boolean isNearWall() {
+        return isTopBlocked || isBottomBlocked || isLeftBlocked || isRightBlocked;
     }
 
     public void render() {
@@ -342,6 +378,12 @@ public class Tank {
 
     public Rectangle2D getRightBoundary() {
         return new Rectangle2D(xPos + WIDTH / 2 + 5, yPos - HEIGHT / 2, 1, HEIGHT);
+    }
+
+    public Point getTileCoordinates() {
+        int tileX = ((int)xPos / 50 + 1) * 50 - 25;
+        int tileY = ((int)yPos / 50 + 1) * 50 - 25;
+        return new Point(tileX, tileY);
     }
 
 }
