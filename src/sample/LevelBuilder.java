@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class LevelBuilder {
 
-    protected static ArrayList<Wall> walls = new ArrayList<>();
+    protected ArrayList<Wall> walls = new ArrayList<>();
     protected GraphicsContext gc;
 
     public void setGc(GraphicsContext gc) {
@@ -32,24 +32,12 @@ public class LevelBuilder {
 
     protected void addWalls(int currentLevelId) {
         switch (currentLevelId) {
-            case 0:
-                firstLevelLayout();
-                break;
-            case 1:
-                secondLevelLayout();
-                break;
-            case 2:
-                thirdLevelLayout();
-                break;
-            case 3:
-                fourthLevelLayout();
-                break;
-            case 4:
-                fifthLevelLayout();
-                break;
-            case 5:
-                sixthLevelLayout();
-                break;
+            case 0 -> firstLevelLayout();
+            case 1 -> secondLevelLayout();
+            case 2 -> thirdLevelLayout();
+            case 3 -> fourthLevelLayout();
+            case 4 -> fifthLevelLayout();
+            case 5 -> sixthLevelLayout();
         }
     }
 

@@ -28,6 +28,7 @@ public class LevelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         LevelBuilder levelBuilder = new LevelBuilder();
         menuWin.setDisable(true);
         gc = gameField.getGraphicsContext2D();

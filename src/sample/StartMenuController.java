@@ -96,9 +96,7 @@ public class StartMenuController implements Initializable {
         }
 
         currentLevelId = pane.getId().charAt(pane.getId().length() - 1) - '0';
-        System.out.println(currentLevelId);
         if (canStartLevel) {
-            System.out.println("Go to another level");
             try {
                 root = FXMLLoader.load(getClass().getResource("level_layout.fxml"));
             } catch (IOException ioException) {

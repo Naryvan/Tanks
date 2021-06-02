@@ -20,7 +20,6 @@ public class Wall {
         gc.fillRect(x - 25,  y - 25, 50, 50);
         gc.strokeRect(x - 25, y - 25, 50, 50);
         gc.restore();
-
     }
 
     public void render(GraphicsContext gc) {

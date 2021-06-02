@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -22,11 +24,14 @@ import java.util.ResourceBundle;
 
 public class GarageController implements Initializable {
 
+    public BorderPane instructionsPane;
     private Parent root;
     public Rectangle startGamePoint;
     public Rectangle upgradeTankPoint;
     public Rectangle exitGamePoint;
     private PlayerTank playerTank;
+    private AnimationTimer animationTimer;
+    private static boolean instructionsGiven;
     GraphicsContext gc;
     ArrayList<String> input = new ArrayList<>();
     Point mousePos = new Point();
@@ -60,7 +65,7 @@ public class GarageController implements Initializable {
         );
 
 
-        AnimationTimer animationTimer = new AnimationTimer() {
+        animationTimer = new AnimationTimer() {
             @Override
             public void handle(long CurrentNanoTime) {
                 playerTank.operate(input, mousePos);
@@ -69,6 +74,15 @@ public class GarageController implements Initializable {
             }
         };
         animationTimer.start();
+        if(!instructionsGiven){
+            showInstructions();
+        }
+    }
+
+    private void showInstructions() {
+        animationTimer.stop();
+        instructionsPane.setDisable(false);
+        instructionsPane.setOpacity(1);
     }
 
     private Rectangle getNeededRectangle() {
@@ -121,5 +135,12 @@ public class GarageController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void hideInstructions(MouseEvent mouseEvent) {
+        animationTimer.start();
+        instructionsPane.setDisable(true);
+        instructionsPane.setOpacity(0);
+        instructionsGiven = true;
     }
 }
