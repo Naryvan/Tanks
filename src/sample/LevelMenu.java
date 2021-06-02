@@ -2,7 +2,7 @@ package sample;
 
 public class LevelMenu {
     private final String id;
-    private boolean locked = true;
+    private boolean locked;
     private boolean completed;
 
     LevelMenu(String id) {

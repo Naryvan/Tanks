@@ -39,16 +39,16 @@ public class LevelBuilder {
                 secondLevelLayout();
                 break;
             case 2:
-                //thirdLevelLayout();
+                thirdLevelLayout();
                 break;
             case 3:
-                //fourthLevelLayout();
+                fourthLevelLayout();
                 break;
             case 4:
-                //fifthLevelLayout();
+                fifthLevelLayout();
                 break;
             case 5:
-                //sixthLevelLayout();
+                sixthLevelLayout();
                 break;
         }
     }
@@ -62,6 +62,34 @@ public class LevelBuilder {
     }
 
     private void secondLevelLayout() {
+        for (int i = 25; i < 700; i += 50) {
+            walls.add(new Wall(25, i));
+            walls.add(new Wall(675, i));
+        }
+    }
+
+    private void thirdLevelLayout() {
+        for (int i = 25; i < 700; i += 50) {
+            walls.add(new Wall(25, i));
+            walls.add(new Wall(675, i));
+        }
+    }
+
+    private void fourthLevelLayout() {
+        for (int i = 25; i < 700; i += 50) {
+            walls.add(new Wall(25, i));
+            walls.add(new Wall(675, i));
+        }
+    }
+
+    private void fifthLevelLayout() {
+        for (int i = 25; i < 700; i += 50) {
+            walls.add(new Wall(25, i));
+            walls.add(new Wall(675, i));
+        }
+    }
+
+    private void sixthLevelLayout() {
         for (int i = 25; i < 700; i += 50) {
             walls.add(new Wall(25, i));
             walls.add(new Wall(675, i));
