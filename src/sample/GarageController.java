@@ -46,7 +46,7 @@ public class GarageController implements Initializable {
         currencyAmount.setText(Money.getAmount() + "$");
         tankEntity.setFocusTraversable(true);
         gc = tankEntity.getGraphicsContext2D();
-        playerTank = new PlayerTank(gc, 350, 450, 0, 4, 3);
+        playerTank = new PlayerTank(gc, 350, 450, 0);
         tankEntity.setOnKeyPressed(
                 keyEvent -> {
                     checkRect(getNeededRectangle());

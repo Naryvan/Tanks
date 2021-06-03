@@ -82,7 +82,7 @@ public class LevelBuilder {
         walls.add(new Wall(11 * 50 + 25, 3 * 50 + 25));
         walls.add(new Wall(12 * 50 + 25, 3 * 50 + 25));
 
-        playerTank = new PlayerTank(this, 525, 525, 0, 4, 2);
+        playerTank = new PlayerTank(this, 525, 525, 0);
         enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2));
         enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2));
     }

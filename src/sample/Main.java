@@ -58,7 +58,7 @@ public class Main extends Application {
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
 
-        PlayerTank tank = new PlayerTank(gc, 50, 50, 0, 4, 2);
+        PlayerTank tank = new PlayerTank(gc, 50, 50, 0);
 
         new AnimationTimer() {
             @Override

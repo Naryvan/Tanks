@@ -13,13 +13,13 @@ public class PlayerTank extends Tank {
     public static int aimSpeed = 2;
 
     //For garage
-    public PlayerTank(GraphicsContext gc, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
-        super(gc, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
+    public PlayerTank(GraphicsContext gc, double xPos, double yPos, int direction) {
+        super(gc, xPos, yPos, direction, maxSpeed, aimSpeed);
     }
 
     //For levels
-    public PlayerTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
-        super(levelBuilder, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
+    public PlayerTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction) {
+        super(levelBuilder, xPos, yPos, direction, maxSpeed, aimSpeed);
     }
 
     public double getX() {
