@@ -73,15 +73,13 @@ public class LevelController implements Initializable {
         playerTank = levelBuilder.getPlayerTank();
         levelBuilder.setGc(gc);
 
-        PlayerTank tank = new PlayerTank(levelBuilder, 350, 500, 0, 4, 2);
-
         enemyTanks.get(0).freeze();
         gameField.setOnMouseClicked(
                 mouseEvent -> {
-                    if(tank.b == true){
-                        tank.createBullet(gameField.getGraphicsContext2D());
+                    if(playerTank.b == true){
+                        playerTank.createBullet(gameField.getGraphicsContext2D());
                     }
-                    tank.b = false;
+                    playerTank.b = false;
                 }
         );
 
