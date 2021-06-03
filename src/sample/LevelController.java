@@ -70,6 +70,7 @@ public class LevelController implements Initializable {
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long CurrentNanoTime) {
+
                 playerTank.operate(input, mousePos);
                 for(EnemyTank enemyTank : enemyTanks) {
                     enemyTank.operate();
@@ -77,15 +78,15 @@ public class LevelController implements Initializable {
 
                 gc.clearRect(0, 0, gameField.getWidth(), gameField.getHeight());
 
+                for (Wall wall : walls) {
+                    wall.render(gc);
+                }
+
                 for(EnemyTank enemyTank : enemyTanks) {
                     enemyTank.render();
                 }
 
                 playerTank.render();
-
-                for (Wall wall : walls) {
-                    wall.render(gc);
-                }
             }
         };
         animationTimer.start();
