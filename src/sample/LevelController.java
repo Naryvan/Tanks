@@ -31,6 +31,7 @@ public class LevelController implements Initializable {
 
     private LevelBuilder levelBuilder;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -58,6 +59,9 @@ public class LevelController implements Initializable {
                     input.remove(code);
                 }
         );
+
+
+
         gameField.setOnMouseMoved(
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
@@ -67,8 +71,19 @@ public class LevelController implements Initializable {
         walls = levelBuilder.getWalls();
         enemyTanks = levelBuilder.getEnemyTanks();
         playerTank = levelBuilder.getPlayerTank();
+        levelBuilder.setGc(gc);
+
+        PlayerTank tank = new PlayerTank(levelBuilder, 350, 500, 0, 4, 2);
 
         enemyTanks.get(0).freeze();
+        gameField.setOnMouseClicked(
+                mouseEvent -> {
+                    if(tank.b == true){
+                        tank.createBullet(gameField.getGraphicsContext2D());
+                    }
+                    tank.b = false;
+                }
+        );
 
         animationTimer = new AnimationTimer() {
             @Override
