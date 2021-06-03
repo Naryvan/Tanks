@@ -23,7 +23,9 @@ import java.util.Random;
 
 public class LevelBuilder {
 
-    protected ArrayList<Wall> walls = new ArrayList<>();
+    protected static ArrayList<Wall> walls = new ArrayList<>();
+    protected PlayerTank playerTank;
+    protected ArrayList<EnemyTank> enemyTanks = new ArrayList<>();
     protected GraphicsContext gc;
 
     public void setGc(GraphicsContext gc) {
@@ -46,7 +48,43 @@ public class LevelBuilder {
             walls.add(new Wall(i, 25));
             walls.add(new Wall(25, i));
             walls.add(new Wall(675, i));
+            walls.add(new Wall(i, 675));
         }
+        walls.add(new Wall(2 * 50 + 25, 2 * 50 + 25));
+        walls.add(new Wall(2 * 50 + 25, 3 * 50 + 25));
+        walls.add(new Wall(2 * 50 + 25, 4 * 50 + 25));
+        walls.add(new Wall(2 * 50 + 25, 6 * 50 + 25));
+        walls.add(new Wall(1 * 50 + 25, 6 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 2 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 3 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 4 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 5 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 6 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 7 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 8 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 9 * 50 + 25));
+        walls.add(new Wall(3 * 50 + 25, 9 * 50 + 25));
+        walls.add(new Wall(2 * 50 + 25, 9 * 50 + 25));
+        walls.add(new Wall(2 * 50 + 25, 8 * 50 + 25));
+        walls.add(new Wall(2 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(3 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(4 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(5 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(6 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(7 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(8 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(9 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(10 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(11 * 50 + 25, 11 * 50 + 25));
+        walls.add(new Wall(10 * 50 + 25, 1 * 50 + 25));
+        walls.add(new Wall(10 * 50 + 25, 2 * 50 + 25));
+        walls.add(new Wall(10 * 50 + 25, 3 * 50 + 25));
+        walls.add(new Wall(11 * 50 + 25, 3 * 50 + 25));
+        walls.add(new Wall(12 * 50 + 25, 3 * 50 + 25));
+
+        playerTank = new PlayerTank(this, 525, 525, 0, 4, 2);
+        enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2));
+        enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2));
     }
 
     private void secondLevelLayout() {
@@ -104,4 +142,13 @@ public class LevelBuilder {
     public GraphicsContext getGraphicsContext() {
         return gc;
     }
+
+    public PlayerTank getPlayerTank() {
+        return playerTank;
+    }
+
+    public ArrayList<EnemyTank> getEnemyTanks() {
+        return enemyTanks;
+    }
+
 }

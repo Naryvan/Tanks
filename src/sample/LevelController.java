@@ -26,6 +26,11 @@ public class LevelController implements Initializable {
     private GraphicsContext gc;
     AnimationTimer animationTimer;
 
+    private PlayerTank playerTank;
+    private ArrayList<EnemyTank> enemyTanks;
+
+    private LevelBuilder levelBuilder;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -57,24 +62,34 @@ public class LevelController implements Initializable {
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
 
+        levelBuilder.setGc(gc);
         levelBuilder.addWalls(StartMenuController.getCurrentLevelId());
         walls = levelBuilder.getWalls();
-        levelBuilder.setGc(gc);
-        PlayerTank tank = new PlayerTank(levelBuilder, 350, 500, 0, 4, 2);
+        enemyTanks = levelBuilder.getEnemyTanks();
+        playerTank = levelBuilder.getPlayerTank();
 
+        enemyTanks.get(0).freeze();
 
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long CurrentNanoTime) {
-                tank.operate(input, mousePos);
+
+                playerTank.operate(input, mousePos);
+                for(EnemyTank enemyTank : enemyTanks) {
+                    enemyTank.operate();
+                }
 
                 gc.clearRect(0, 0, gameField.getWidth(), gameField.getHeight());
-
-                tank.render();
 
                 for (Wall wall : walls) {
                     wall.render(gc);
                 }
+
+                for(EnemyTank enemyTank : enemyTanks) {
+                    enemyTank.render();
+                }
+
+                playerTank.render();
             }
         };
         animationTimer.start();
@@ -107,4 +122,5 @@ public class LevelController implements Initializable {
     public void exitGame(MouseEvent mouseEvent) {
         Platform.exit();
     }
+
 }
