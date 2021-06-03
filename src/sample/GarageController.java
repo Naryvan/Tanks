@@ -13,6 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,6 +26,7 @@ import java.util.ResourceBundle;
 public class GarageController implements Initializable {
 
     public BorderPane instructionsPane;
+    public Text currencyAmount;
     private Parent root;
     public Rectangle startGamePoint;
     public Rectangle upgradeTankPoint;
@@ -41,6 +43,7 @@ public class GarageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currencyAmount.setText(Money.getAmount() + "$");
         tankEntity.setFocusTraversable(true);
         gc = tankEntity.getGraphicsContext2D();
         playerTank = new PlayerTank(gc, 350, 450, 0, 4, 3);
@@ -74,7 +77,7 @@ public class GarageController implements Initializable {
             }
         };
         animationTimer.start();
-        if(!instructionsGiven){
+        if (!instructionsGiven) {
             showInstructions();
         }
     }
@@ -119,7 +122,7 @@ public class GarageController implements Initializable {
             } else if (startGamePoint.equals(rectangle)) {
                 fadeTransition.setOnFinished(actionEvent -> changeScene("start_menu.fxml"));
             } else if (upgradeTankPoint.equals(rectangle)) {
-                fadeTransition.setOnFinished(actionEvent -> changeScene("tank_upgrade_menu.fxml"));
+                fadeTransition.setOnFinished(actionEvent -> changeScene("tank_upgrade.fxml"));
             }
             fadeTransition.play();
         }
