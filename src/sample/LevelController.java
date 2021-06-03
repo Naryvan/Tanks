@@ -69,8 +69,10 @@ public class LevelController implements Initializable {
         PlayerTank tank = new PlayerTank(levelBuilder, 350, 500, 0, 4, 2);
 
         gameField.setOnMouseClicked(
-                mouseEvent -> {System.out.println("fire!");
-                    tank.createBullet(gameField.getGraphicsContext2D());}
+                mouseEvent -> {
+                    tank.createBullet(gameField.getGraphicsContext2D());
+                    System.out.println(tank.gunDirection);
+                }
         );
 
         animationTimer = new AnimationTimer() {
