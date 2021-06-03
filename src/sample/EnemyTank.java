@@ -181,6 +181,9 @@ public class EnemyTank extends Tank {
                     //System.out.println(currentNode.tile);
                     if(nextNode.tile.equals(destinationTile)) {
                         currentNode.isLast = true;
+                        if(currentNode == startNode) {
+                            return true;
+                        }
                         //System.out.println("{" + currentNode.tile + "}");
                         currentNode = currentNode.notBlockedGetPreviousNode();
                         //System.out.println(currentNode.tile);
