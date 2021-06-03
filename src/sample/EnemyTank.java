@@ -8,26 +8,24 @@ public class EnemyTank extends Tank {
 
     PlayerTank playerTank;
     Path currentPath;
-    int pathCounter = 0;
+    int newPathCounter = 0;
 
     Point lastPlayerTankPos;
 
     public EnemyTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         super(levelBuilder, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
         playerTank = levelBuilder.getPlayerTank();
-        //findPath();
-        //System.out.println(currentPath);
     }
 
     public void operate() {
-        if(pathCounter == 0) {
-            pathCounter = 60;
+        if(newPathCounter == 0) {
+            newPathCounter = 60;
             if(currentPath == null) {
                 findPath();
             }
         }
-        else /*if(currentPath == null)*/ {
-            pathCounter--;
+        else {
+            newPathCounter--;
         }
 
         if(currentPath != null) {
@@ -56,9 +54,6 @@ public class EnemyTank extends Tank {
         if(currentNodeY < yPos) {
             isMoving = true;
             direction = 0;
-            if(isTopBlocked) {
-                //findPath();
-            }
             if(currentNodeX > xPos) {
                 direction = 1;
             }
@@ -69,9 +64,6 @@ public class EnemyTank extends Tank {
         else if(currentNodeY > yPos) {
             isMoving = true;
             direction = 4;
-            if(isBottomBlocked) {
-                //findPath();
-            }
             if(currentNodeX > xPos) {
                 direction = 3;
             }
@@ -82,16 +74,10 @@ public class EnemyTank extends Tank {
         else if(currentNodeX > xPos) {
             isMoving = true;
             direction = 2;
-            if(isRightBlocked) {
-                //findPath();
-            }
         }
         else if(currentNodeX < xPos) {
             isMoving = true;
             direction = 6;
-            if(isLeftBlocked) {
-                //findPath();
-            }
         }
         else {
             isMoving = false;
@@ -105,7 +91,6 @@ public class EnemyTank extends Tank {
         if(path.findPath(new Tile(playerTank.getTileCoordinates()))) {
             currentPath = path;
             path.drawPath();
-            //System.out.println(path);
             lastPlayerTankPos = playerTank.getTileCoordinates();
         }
         else {
@@ -113,35 +98,17 @@ public class EnemyTank extends Tank {
         }
     }
 
-    /*@Override
-    protected void checkCollision() {
-        super.checkCollision();
-
-        if(getTopBoundary().intersects(playerTank.getBoundary())) {
-            isTopBlocked = true;
-        }
-        if(getBottomBoundary().intersects(playerTank.getBoundary())) {
-            isBottomBlocked = true;
-        }
-        if(getLeftBoundary().intersects(playerTank.getBoundary())) {
-            isLeftBlocked = true;
-        }
-        if(getRightBoundary().intersects(playerTank.getBoundary())) {
-            isRightBlocked = true;
-        }
-    }*/
-
     class Path {
         ArrayList<Tile> blockedTiles;
 
         Node startNode;
         Node currentNode;
 
-        public Path(Point point) {
-            startNode = new Node(new Tile(point), null, Node.START);
+        public Path(Point startPoint) {
+            startNode = new Node(new Tile(startPoint), null, Node.START);
             currentNode = startNode;
             blockedTiles = getBlockedTiles();
-            blockedTiles.add(new Tile(point));
+            blockedTiles.add(new Tile(startPoint));
         }
 
         public Node nextNode() {
@@ -155,9 +122,6 @@ public class EnemyTank extends Tank {
         public boolean findPath(Tile destinationTile) {
             while(true) {
                 Node nextNode = currentNode.findNextNode(blockedTiles, destinationTile);
-                if(currentNode == startNode) {
-                    System.out.println("Start:");
-                }
                 if(nextNode == null) {
                     if(currentNode.isNodeBlocked()) {
                         if(currentNode == startNode) {
@@ -167,7 +131,6 @@ public class EnemyTank extends Tank {
                     }
                     else {
                         if(currentNode == startNode) {
-                            //System.out.println(this);
                             currentNode.notBlockedGetPreviousNode();
                             return true;
                         }
@@ -178,15 +141,12 @@ public class EnemyTank extends Tank {
                     }
                 }
                 else {
-                    //System.out.println(currentNode.tile);
                     if(nextNode.tile.equals(destinationTile)) {
                         currentNode.isLast = true;
                         if(currentNode == startNode) {
                             return true;
                         }
-                        //System.out.println("{" + currentNode.tile + "}");
                         currentNode = currentNode.notBlockedGetPreviousNode();
-                        //System.out.println(currentNode.tile);
                     }
                     else {
                         blockedTiles.add(nextNode.tile);
@@ -216,10 +176,6 @@ public class EnemyTank extends Tank {
             int nodeType;
 
             boolean isLast;
-            boolean isTopBlocked;
-            boolean isLeftBlocked;
-            boolean isRightBlocked;
-            boolean isBottomBlocked;
 
             int stepsTopToDestination = 0;
             int stepsBottomToDestination = 0;
@@ -305,24 +261,17 @@ public class EnemyTank extends Tank {
 
             private Node getBestNode(ArrayList<Node> possibleNodes, Tile destinationTile) {
                 Node bestNode = possibleNodes.get(0);
-                System.out.println(">Nodes:");
-                for(Node node : possibleNodes) {
-                    System.out.println(node.tile);
-                }
 
                 int distance = Math.abs(destinationTile.xCord - bestNode.tile.xCord) +
                         Math.abs(destinationTile.yCord - bestNode.tile.yCord);
-                System.out.println("Distance 1: " + distance);
                 for(int i = 1; i < possibleNodes.size(); i++) {
                     int newDistance = Math.abs(destinationTile.xCord - possibleNodes.get(i).tile.xCord) +
                             Math.abs(destinationTile.yCord - possibleNodes.get(i).tile.yCord);
-                    System.out.println("Distance " + (i + 1) + ": " + newDistance);
                     if(newDistance < distance) {
                         distance = newDistance;
                         bestNode = possibleNodes.get(i);
                     }
                 }
-                System.out.println("Best node: " + bestNode.tile);
                 return bestNode;
             }
 
@@ -362,26 +311,20 @@ public class EnemyTank extends Tank {
                     if(stepsTopToDestination != -1) {
                         stepsToDest = stepsTopToDestination;
                         nextNode = nextTopNode;
-                        //System.out.println(nextNode.tile);
                     }
                     if(stepsBottomToDestination != -1 && (stepsToDest == -1 || stepsBottomToDestination < stepsToDest)) {
                         stepsToDest = stepsBottomToDestination;
                         nextNode = nextBottomNode;
-                        //System.out.println(nextNode.tile);
                     }
                     if(stepsLeftToDestination != -1 && (stepsToDest == -1 || stepsLeftToDestination < stepsToDest)) {
                         stepsToDest = stepsLeftToDestination;
                         nextNode = nextLeftNode;
-                        //System.out.println(nextNode.tile);
                     }
                     if(stepsRightToDestination != -1 && (stepsToDest == -1 || stepsRightToDestination < stepsToDest)) {
                         stepsToDest = stepsRightToDestination;
                         nextNode = nextRightNode;
-                        //System.out.println(nextNode.tile);
                     }
                 }
-
-                //System.out.println(stepsToDest);
 
                 switch(nodeType) {
                     case TOP -> {
@@ -420,18 +363,6 @@ public class EnemyTank extends Tank {
                 currentNode = currentNode.nextNode;
             }
             gc.fillOval(currentNode.tile.xCord - 5, currentNode.tile.yCord - 5, 10, 10);
-        }
-
-        public String toString() {
-            String string = "{";
-
-            Node currentNode = startNode;
-            while(currentNode.nextNode != null) {
-                string += "[" + currentNode.tile.xCord + ", " + currentNode.tile.yCord + "], ";
-                currentNode = currentNode.nextNode;
-            }
-            string += "[" + currentNode.tile.xCord + ", " + currentNode.tile.yCord + "]}";
-            return string;
         }
 
     }
@@ -507,9 +438,6 @@ public class EnemyTank extends Tank {
             return Objects.hash(xCord, yCord);
         }
 
-        public String toString() {
-            return "[" + xCord + ", " + yCord + "]";
-        }
     }
 
 }

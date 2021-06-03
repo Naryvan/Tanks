@@ -34,24 +34,12 @@ public class LevelBuilder {
 
     protected void addWalls(int currentLevelId) {
         switch (currentLevelId) {
-            case 0:
-                firstLevelLayout();
-                break;
-            case 1:
-                secondLevelLayout();
-                break;
-            case 2:
-                thirdLevelLayout();
-                break;
-            case 3:
-                fourthLevelLayout();
-                break;
-            case 4:
-                fifthLevelLayout();
-                break;
-            case 5:
-                sixthLevelLayout();
-                break;
+            case 0 -> firstLevelLayout();
+            case 1 -> secondLevelLayout();
+            case 2 -> thirdLevelLayout();
+            case 3 -> fourthLevelLayout();
+            case 4 -> fifthLevelLayout();
+            case 5 -> sixthLevelLayout();
         }
     }
 
@@ -91,7 +79,7 @@ public class LevelBuilder {
 
         playerTank = new PlayerTank(this, 525, 525, 0, 4, 2);
         enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2));
-        //enemyTanks.add(new EnemyTank(this, 475, 125, 0, 2, 2));
+        enemyTanks.add(new EnemyTank(this, 475, 125, 0, 2, 2));
     }
 
     private void secondLevelLayout() {
