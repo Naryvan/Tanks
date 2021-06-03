@@ -3,14 +3,21 @@ package sample;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class EnemyTank extends Tank {
+
+    private final static int NEW_PATH_COUNTER = 60;
+    private final static int NEW_IDLE_DIRECTION_COUNTER = 240;
 
     PlayerTank playerTank;
     Path currentPath;
     int newPathCounter = 0;
+    int newIdleDirectionCounter = 0;
 
     Point lastPlayerTankPos;
+
+    Random random = new Random();
 
     public EnemyTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         super(levelBuilder, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
@@ -19,7 +26,7 @@ public class EnemyTank extends Tank {
 
     public void operate() {
         if(newPathCounter == 0) {
-            newPathCounter = 60;
+            newPathCounter = NEW_PATH_COUNTER;
             if(currentPath == null) {
                 findPath();
             }
@@ -30,6 +37,9 @@ public class EnemyTank extends Tank {
 
         if(currentPath != null) {
             followPath();
+        }
+        else {
+            idleMovement();
         }
 
         rotateGun(new Point((int)playerTank.getX(), (int)playerTank.getY()));
@@ -83,6 +93,38 @@ public class EnemyTank extends Tank {
             isMoving = false;
         }
 
+        processMovement();
+    }
+
+    private void idleMovement() {
+        if(isTopBlocked && isLeftBlocked && isRightBlocked && isBottomBlocked) {
+            isMoving = false;
+            return;
+        }
+
+        if(newIdleDirectionCounter == 0) {
+            newIdleDirectionCounter = NEW_IDLE_DIRECTION_COUNTER;
+            while(true) {
+                direction = random.nextInt(4) * 2;
+                if(direction == 0 && isTopBlocked) {
+                    continue;
+                }
+                else if(direction == 2 && isRightBlocked) {
+                    continue;
+                }
+                else if(direction == 4 && isBottomBlocked) {
+                    continue;
+                }
+                else if(direction == 6 && isLeftBlocked) {
+                    continue;
+                }
+                break;
+            }
+        }
+        else {
+            newIdleDirectionCounter--;
+        }
+        isMoving = true;
         processMovement();
     }
 
