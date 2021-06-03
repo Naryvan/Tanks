@@ -3,6 +3,9 @@ package sample;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Bullet {
 
@@ -18,8 +21,8 @@ public class Bullet {
         this.angle = angle;
         this.gc = gc;
     }
-//
-    //
+
+
 
     public void renderBullet(){
         gc.save();
@@ -29,7 +32,8 @@ public class Bullet {
     }
 
     public void moveBullet(){
-
+        bulletX += (Math.cos(Math.toRadians(angle)))*10;
+        bulletY += (Math.sin(Math.toRadians(angle)))*10;
     }
 
 }

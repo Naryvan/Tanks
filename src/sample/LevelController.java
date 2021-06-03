@@ -28,6 +28,7 @@ public class LevelController implements Initializable {
     private GraphicsContext gc;
     AnimationTimer animationTimer;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -70,8 +71,10 @@ public class LevelController implements Initializable {
 
         gameField.setOnMouseClicked(
                 mouseEvent -> {
-                    tank.createBullet(gameField.getGraphicsContext2D());
-                    System.out.println(tank.gunDirection);
+                    if(tank.b == true){
+                        tank.createBullet(gameField.getGraphicsContext2D());
+                    }
+                    tank.b = false;
                 }
         );
 

@@ -27,7 +27,8 @@ public class Tank {
     double gunDirection;
     double gunRotationSpeed;
     Bullet bullet;
-
+    boolean b = true;
+    int reloadTimer = 0;
 
     boolean isTopBlocked;
     boolean isBottomBlocked;
@@ -300,8 +301,17 @@ public class Tank {
         if(bullet == null){
             return;
         }
+        bullet.moveBullet();
         bullet.renderBullet();
 
+        if(!b){
+           reloadTimer++;
+        }
+
+        if(reloadTimer > 160){
+            b = true;
+            reloadTimer = 0;
+        }
     }
 
     private void renderBody() {
