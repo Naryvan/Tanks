@@ -25,6 +25,9 @@ public class TankUpgradeController implements Initializable {
     public Button attackUpgradeButton;
     public Button speedUpgradeButton;
     public Text currencyAmount;
+    public Text aimPrice;
+    public Text currentAimSpeed;
+    public Button aimSpeedUpgradeButton;
     private Parent root;
 
     @Override
@@ -85,9 +88,21 @@ public class TankUpgradeController implements Initializable {
         if (TankUpgradeData.getCurrentHPUpgradePrice() > Money.getAmount()) {
             hpUpgradeButton.setDisable(true);
         }
+
+        if (TankUpgradeData.getAimSpeedLevel() == 5) {
+            aimSpeedUpgradeButton.setDisable(true);
+            aimPrice.setText("Max lvl");
+        } else {
+            aimPrice.setText(TankUpgradeData.getCurrentHPUpgradePrice() + "$");
+        }
+
+        if (TankUpgradeData.getCurrentAimSpeedUpgradePrice() > Money.getAmount()) {
+            aimSpeedUpgradeButton.setDisable(true);
+        }
         currentSpeed.setText(String.valueOf(PlayerTank.maxSpeed));
         currentAttack.setText(String.valueOf(PlayerTank.attack));
         currentHP.setText(String.valueOf(PlayerTank.hp));
+        currentAimSpeed.setText(String.valueOf(PlayerTank.aimSpeed));
     }
 
     public void upgradeAttack(MouseEvent mouseEvent) {
@@ -101,6 +116,13 @@ public class TankUpgradeController implements Initializable {
         Money.decreaseAmount(TankUpgradeData.getCurrentHPUpgradePrice());
         TankUpgradeData.setHpLevel(TankUpgradeData.getHpLevel() + 1);
         PlayerTank.hp += 20;
+        setData();
+    }
+
+    public void upgradeAimSpeed(MouseEvent mouseEvent) {
+        Money.decreaseAmount(TankUpgradeData.getCurrentAimSpeedUpgradePrice());
+        TankUpgradeData.setAimSpeedLevel(TankUpgradeData.getAimSpeedLevel() + 1);
+        PlayerTank.aimSpeed++;
         setData();
     }
 }

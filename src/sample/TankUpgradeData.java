@@ -4,10 +4,12 @@ public class TankUpgradeData {
     private static int speedLevel = 0;
     private static int attackLevel = 0;
     private static int hpLevel = 0;
+    private static int aimSpeedLevel = 0;
 
     private static final int speedMinPrice = 15;
     private static final int attackMinPrice = 25;
     private static final int hpMinPrice = 20;
+    private static final int aimSpeedMinPrice = 10;
 
     private static final int increment = 5;
 
@@ -23,6 +25,10 @@ public class TankUpgradeData {
         TankUpgradeData.speedLevel = speedLevel;
     }
 
+    public static void setAimSpeedLevel(int aimSpeedLevel) {
+        TankUpgradeData.aimSpeedLevel = aimSpeedLevel;
+    }
+
     public static int getAttackLevel() {
         return attackLevel;
     }
@@ -35,6 +41,10 @@ public class TankUpgradeData {
         return hpLevel;
     }
 
+    public static int getAimSpeedLevel() {
+        return aimSpeedLevel;
+    }
+
     static int getCurrentAttackUpgradePrice() {
         return attackMinPrice + increment * attackLevel;
     }
@@ -45,5 +55,9 @@ public class TankUpgradeData {
 
     static int getCurrentSpeedUpgradePrice() {
         return speedMinPrice + increment * speedLevel;
+    }
+
+    static int getCurrentAimSpeedUpgradePrice() {
+        return aimSpeedMinPrice + increment * aimSpeedLevel;
     }
 }
