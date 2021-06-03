@@ -11,11 +11,9 @@ public class EnemyTank extends Tank {
     private final static int NEW_IDLE_DIRECTION_COUNTER = 240;
 
     PlayerTank playerTank;
-    Path currentPath;
-    int newPathCounter = 0;
-    int newIdleDirectionCounter = 0;
-
-    Point lastPlayerTankPos;
+    private Path currentPath;
+    private int newPathCounter = 0;
+    private int newIdleDirectionCounter = 0;
 
     Random random = new Random();
 
@@ -132,28 +130,26 @@ public class EnemyTank extends Tank {
         Path path = new Path(this.getTileCoordinates());
         if(path.findPath(new Tile(playerTank.getTileCoordinates()))) {
             currentPath = path;
-            path.drawPath();
-            lastPlayerTankPos = playerTank.getTileCoordinates();
         }
         else {
             currentPath = null;
         }
     }
 
-    class Path {
+    private class Path {
         ArrayList<Tile> blockedTiles;
 
         Node startNode;
         Node currentNode;
 
-        public Path(Point startPoint) {
+        private Path(Point startPoint) {
             startNode = new Node(new Tile(startPoint), null, Node.START);
             currentNode = startNode;
             blockedTiles = getBlockedTiles();
             blockedTiles.add(new Tile(startPoint));
         }
 
-        public Node nextNode() {
+        private Node nextNode() {
             if(!currentNode.isLast) {
                 currentNode = currentNode.nextNode;
                 return currentNode;
@@ -161,8 +157,9 @@ public class EnemyTank extends Tank {
             return null;
         }
 
-        public boolean findPath(Tile destinationTile) {
+        private boolean findPath(Tile destinationTile) {
             while(true) {
+                assert currentNode != null;
                 Node nextNode = currentNode.findNextNode(blockedTiles, destinationTile);
                 if(nextNode == null) {
                     if(currentNode.isNodeBlocked()) {
@@ -206,7 +203,7 @@ public class EnemyTank extends Tank {
             return blockedTiles;
         }
 
-        public class Node {
+        private class Node {
             private static final int START = 0;
             private static final int TOP = 1;
             private static final int BOTTOM = 2;
@@ -232,13 +229,13 @@ public class EnemyTank extends Tank {
             Node nextLeftNode;
             Node nextRightNode;
 
-            public Node(Tile tile, Node previousNode, int nodeType) {
+            private Node(Tile tile, Node previousNode, int nodeType) {
                 this.tile = tile;
                 this.previousNode = previousNode;
                 this.nodeType = nodeType;
             }
 
-            public Node findNextNode(ArrayList<Tile> blockedTiles, Tile destinationTile) {
+            private Node findNextNode(ArrayList<Tile> blockedTiles, Tile destinationTile) {
                 ArrayList<Node> possibleNodes = new ArrayList<>();
                 if(stepsTopToDestination == 0) {
                     if(tile.isTopTileBlocked(blockedTiles)) {
@@ -317,7 +314,7 @@ public class EnemyTank extends Tank {
                 return bestNode;
             }
 
-            public Node blockedGetPreviousNode() {
+            private Node blockedGetPreviousNode() {
                 switch (nodeType) {
                     case TOP -> {
                         previousNode.nextTopNode = null;
@@ -343,7 +340,7 @@ public class EnemyTank extends Tank {
                 return previousNode;
             }
 
-            public Node notBlockedGetPreviousNode() {
+            private Node notBlockedGetPreviousNode() {
                 int stepsToDest = -1;
 
                 if(isLast) {
@@ -398,48 +395,39 @@ public class EnemyTank extends Tank {
 
         }
 
-        public void drawPath() {
-            Node currentNode = startNode;
-            while(currentNode.nextNode != null) {
-                gc.fillOval(currentNode.tile.xCord - 5, currentNode.tile.yCord - 5, 10, 10);
-                currentNode = currentNode.nextNode;
-            }
-            gc.fillOval(currentNode.tile.xCord - 5, currentNode.tile.yCord - 5, 10, 10);
-        }
-
     }
 
-    class Tile {
+    private class Tile {
         int xCord;
         int yCord;
 
-        public Tile(int x, int y) {
+        private Tile(int x, int y) {
             xCord = x;
             yCord = y;
         }
 
-        public Tile(Point point) {
+        private Tile(Point point) {
             xCord = point.x;
             yCord = point.y;
         }
 
-        public Tile getTopTile() {
+        private Tile getTopTile() {
             return new Tile(xCord, yCord - 50);
         }
 
-        public Tile getBottomTile() {
+        private Tile getBottomTile() {
             return new Tile(xCord, yCord + 50);
         }
 
-        public Tile getLeftTile() {
+        private Tile getLeftTile() {
             return new Tile(xCord - 50, yCord);
         }
 
-        public Tile getRightTile() {
+        private Tile getRightTile() {
             return new Tile(xCord + 50, yCord);
         }
 
-        public boolean isTileBlocked(ArrayList<Tile> blockedTiles) {
+        private boolean isTileBlocked(ArrayList<Tile> blockedTiles) {
             if(xCord < 0 || xCord > gc.getCanvas().getWidth() || yCord < 0 || yCord > gc.getCanvas().getHeight()) {
                 return true;
             }
@@ -451,19 +439,19 @@ public class EnemyTank extends Tank {
             return blockedTiles.contains(this);
         }
 
-        public boolean isTopTileBlocked(ArrayList<Tile> blockedTiles) {
+        private boolean isTopTileBlocked(ArrayList<Tile> blockedTiles) {
             return getTopTile().isTileBlocked(blockedTiles);
         }
 
-        public boolean isBottomTileBlocked(ArrayList<Tile> blockedTiles) {
+        private boolean isBottomTileBlocked(ArrayList<Tile> blockedTiles) {
             return getBottomTile().isTileBlocked(blockedTiles);
         }
 
-        public boolean isLeftTileBlocked(ArrayList<Tile> blockedTiles) {
+        private boolean isLeftTileBlocked(ArrayList<Tile> blockedTiles) {
             return getLeftTile().isTileBlocked(blockedTiles);
         }
 
-        public boolean isRightTileBlocked(ArrayList<Tile> blockedTiles) {
+        private boolean isRightTileBlocked(ArrayList<Tile> blockedTiles) {
             return getRightTile().isTileBlocked(blockedTiles);
         }
 
