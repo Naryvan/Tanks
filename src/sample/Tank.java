@@ -26,6 +26,8 @@ public class Tank {
 
     double gunDirection;
     double gunRotationSpeed;
+    Bullet bullet;
+
 
     boolean isTopBlocked;
     boolean isBottomBlocked;
@@ -46,6 +48,7 @@ public class Tank {
         gunRotationSpeed = 2;
         this.levelWindow = levelWindow;
         this.gc = levelWindow.getGraphicsContext();
+
     }
 
     public Tank(LevelBuilder levelWindow, double xPos, double yPos) {
@@ -73,6 +76,7 @@ public class Tank {
         this.gunRotationSpeed = gunRotationSpeed;
         this.levelWindow = levelWindow;
         this.gc = levelWindow.getGraphicsContext();
+        bullet = new Bullet(0, 0, 0, levelWindow.getGraphicsContext());
     }
 
     //For garage
@@ -293,6 +297,11 @@ public class Tank {
     public void render() {
         renderBody();
         renderGun();
+        if(bullet == null){
+            return;
+        }
+        bullet.renderBullet();
+
     }
 
     private void renderBody() {
@@ -315,6 +324,10 @@ public class Tank {
         gc.setFill(Color.rgb(0, 90, 0));
         gc.strokeOval(xPos - 12.5, yPos - 12.5, 25, 25);
         gc.fillOval(xPos - 12.5, yPos - 12.5, 25, 25);
+    }
+
+    public void createBullet(GraphicsContext graphicsContext2D){
+        this.bullet = new Bullet(xPos, yPos, gunDirection, graphicsContext2D);
     }
 
     private double calculateGunDirection(Point targetPos) {

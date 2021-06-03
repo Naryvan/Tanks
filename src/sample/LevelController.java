@@ -2,6 +2,8 @@ package sample;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -53,6 +55,9 @@ public class LevelController implements Initializable {
                     input.remove(code);
                 }
         );
+
+
+
         gameField.setOnMouseMoved(
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
@@ -60,8 +65,13 @@ public class LevelController implements Initializable {
         levelBuilder.addWalls(StartMenuController.getCurrentLevelId());
         walls = levelBuilder.getWalls();
         levelBuilder.setGc(gc);
+
         PlayerTank tank = new PlayerTank(levelBuilder, 350, 500, 0, 4, 2);
 
+        gameField.setOnMouseClicked(
+                mouseEvent -> {System.out.println("fire!");
+                    tank.createBullet(gameField.getGraphicsContext2D());}
+        );
 
         animationTimer = new AnimationTimer() {
             @Override
