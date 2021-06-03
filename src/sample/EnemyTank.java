@@ -9,11 +9,16 @@ public class EnemyTank extends Tank {
 
     private final static int NEW_PATH_COUNTER = 60;
     private final static int NEW_IDLE_DIRECTION_COUNTER = 240;
+    private final static int FREEZE_COUNTER = 480;
 
     PlayerTank playerTank;
     private Path currentPath;
+
     private int newPathCounter = 0;
     private int newIdleDirectionCounter = 0;
+    private int frozenCounter = 0;
+
+    private boolean frozen = false;
 
     Random random = new Random();
 
@@ -23,6 +28,17 @@ public class EnemyTank extends Tank {
     }
 
     public void operate() {
+        if(frozen) {
+            if(frozenCounter == 0) {
+                frozen = false;
+            }
+            else {
+                frozenCounter--;
+                isMoving = false;
+                return;
+            }
+        }
+
         if(newPathCounter == 0) {
             newPathCounter = NEW_PATH_COUNTER;
             if(currentPath == null) {
@@ -41,6 +57,11 @@ public class EnemyTank extends Tank {
         }
 
         rotateGun(new Point((int)playerTank.getX(), (int)playerTank.getY()));
+    }
+
+    public void freeze() {
+        frozen = true;
+        frozenCounter = FREEZE_COUNTER;
     }
 
     private void followPath() {

@@ -67,6 +67,8 @@ public class LevelController implements Initializable {
         enemyTanks = levelBuilder.getEnemyTanks();
         playerTank = levelBuilder.getPlayerTank();
 
+        enemyTanks.get(0).freeze();
+
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long CurrentNanoTime) {
