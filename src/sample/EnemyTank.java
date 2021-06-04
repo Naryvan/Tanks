@@ -64,10 +64,10 @@ public class EnemyTank extends Tank {
             idleMovement();
         }
 
-        if(b && hasLineOfSight()){
+        if(isLoaded && hasLineOfSight()){
             createBullet(gc);
         }
-        b = false;
+        isLoaded = false;
 
         rotateGun(new Point((int)playerTank.getX(), (int)playerTank.getY()));
     }
