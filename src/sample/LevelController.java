@@ -12,6 +12,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -25,6 +26,7 @@ public class LevelController implements Initializable {
     public ProgressBar reloadBar;
     public Pane levelFailed;
     public Pane levelCompleted;
+    public Text levelCompletedText;
     private Parent root;
     public Canvas gameField;
     public GridPane menuWin;
@@ -82,7 +84,7 @@ public class LevelController implements Initializable {
         playerTank = levelBuilder.getPlayerTank();
         levelBuilder.setGc(gc);
 
-        enemyTanks.get(0).freeze();
+        //enemyTanks.get(0).freeze();
         gameField.setOnMouseClicked(
                 mouseEvent -> {
                     if (playerTank.isLoaded) {
@@ -175,7 +177,13 @@ public class LevelController implements Initializable {
     }
 
     private void openLevelCompletedWindow() {
+        int currentLvlId = StartMenuController.getCurrentLevelId();
         animationTimer.stop();
+        if (currentLvlId == 5) {
+            levelCompletedText.setText("Congratulations!!!\nGame completed! :) ");
+        } else {
+            levelCompletedText.setText("Congratulations!!!\nLevel completed!");
+        }
         levelCompleted.setDisable(false);
         levelCompleted.setOpacity(1);
     }
@@ -187,11 +195,14 @@ public class LevelController implements Initializable {
     }
 
     public void levelCompletedAction(MouseEvent mouseEvent) {
+        int currentLvlId = StartMenuController.getCurrentLevelId();
         levelCompleted.setDisable(true);
         levelCompleted.setOpacity(0);
         levelBuilder.addWalls(-1);
-        StartMenuController.getLevels()[StartMenuController.getCurrentLevelId()].setCompleted(true);
-        StartMenuController.getLevels()[StartMenuController.getCurrentLevelId() + 1].setLocked(false);
+        StartMenuController.getLevels()[currentLvlId].setCompleted(true);
+        if (currentLvlId != 5) {
+            StartMenuController.getLevels()[currentLvlId + 1].setLocked(false);
+        }
         returnToGarage();
     }
 

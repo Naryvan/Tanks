@@ -17,8 +17,8 @@ public class Wall {
     private void drawWall(GraphicsContext gc){
         gc.setFill(Color.rgb(156,36,36));
         gc.save();
-        gc.fillRect(x - 25,  y - 25, 50, 50);
-        gc.strokeRect(x - 25, y - 25, 50, 50);
+        gc.fillRect(x,  y, 50, 50);
+        gc.strokeRect(x, y, 50, 50);
         gc.restore();
     }
 
@@ -27,6 +27,6 @@ public class Wall {
     }
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(x - 25, y - 25, 50, 50);
+        return new Rectangle2D(x , y, 50, 50);
     }
 }
