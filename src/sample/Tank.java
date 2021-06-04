@@ -18,6 +18,7 @@ public class Tank {
     double yPos;
     int direction;
     double currentDirection;
+    boolean penetration = false;
 
     double maxSpeed;
     double acceleration;
@@ -27,7 +28,7 @@ public class Tank {
     double gunDirection;
     double gunRotationSpeed;
     Bullet bullet;
-    protected boolean b = true;
+    protected boolean isLoaded = true;
     int reloadTimer = 0;
 
     boolean isTopBlocked;
@@ -35,10 +36,7 @@ public class Tank {
     boolean isLeftBlocked;
     boolean isRightBlocked;
 
-    boolean isTopBlockedForBullet;
-    boolean isBottomBlockedForBullet;
-    boolean isLeftBlockedForBullet;
-    boolean isRightBlockedForBullet;
+    boolean isBulletBlocked;
 
     LevelBuilder levelBuilder;
     GraphicsContext gc;
@@ -82,7 +80,7 @@ public class Tank {
         this.gunRotationSpeed = gunRotationSpeed;
         this.levelBuilder = levelBuilder;
         this.gc = levelBuilder.getGraphicsContext();
-        bullet = new Bullet(0, 0, 0, levelBuilder.getGraphicsContext());
+
     }
 
     //For garage
@@ -339,51 +337,42 @@ public class Tank {
     public void render() {
         renderBody();
         renderGun();
-        if(bullet == null){
-            return;
-        }
-        if(!isTopBlockedForBullet &&
-                !isBottomBlockedForBullet &&
-                !isLeftBlockedForBullet &&
-                !isRightBlockedForBullet){
+
+        if(bullet == null) return;
+
+        checkBulletCollision();
+
+        if(!isBulletBlocked){
             bullet.moveBullet();
         }
 
-        checkBulletCollision();
-        bullet.renderBullet();
+         if(!penetration) {
+             bullet.renderBullet();
+         }
 
-        if(!b){
+        if(!isLoaded){
            reloadTimer++;
         }
 
         if(reloadTimer > 100){
-            b = true;
+            isLoaded = true;
             reloadTimer = 1;
         }
     }
     public void checkBulletCollision(){
-        isTopBlockedForBullet = false;
-        isBottomBlockedForBullet = false;
-        isLeftBlockedForBullet = false;
-        isRightBlockedForBullet = false;
 
-        ArrayList<Wall> walls = levelBuilder.getCloseWalls(bullet.bulletX, bullet.bulletY);
+        isBulletBlocked = false;
+
+        ArrayList<Wall> walls = levelBuilder.getWalls();
 
         for(Wall wall : walls) {
-            if(getTopBoundaryOfBullet().intersects(wall.getBoundary())) {
-                isTopBlockedForBullet = true;
+            if(getBoundaryOfBullet().intersects(wall.getBoundary())) {
+                isBulletBlocked = true;
+                penetration = true;
+                bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
+                walls.remove(wall);
+                return;
             }
-            if(getBottomBoundaryOfBullet().intersects(wall.getBoundary())) {
-                isBottomBlockedForBullet = true;
-            }
-            if(getLeftBoundaryOfBullet().intersects(wall.getBoundary())) {
-                isLeftBlockedForBullet = true;
-            }
-            if(getRightBoundaryOfBullet().intersects(wall.getBoundary())) {
-                isRightBlockedForBullet = true;
-            }
-
-
         }
     }
     private void renderBody() {
@@ -429,20 +418,11 @@ public class Tank {
 
     public Rectangle2D getBottomBoundary() { return new Rectangle2D(xPos - WIDTH / 2, yPos + HEIGHT / 2 + 5, WIDTH, 1); }
 
-    public Rectangle2D getLeftBoundary() {
-        return new Rectangle2D(xPos - WIDTH / 2 - 6, yPos - HEIGHT / 2, 1, HEIGHT);
-    }
+    public Rectangle2D getLeftBoundary() { return new Rectangle2D(xPos - WIDTH / 2 - 6, yPos - HEIGHT / 2, 1, HEIGHT); }
 
     public Rectangle2D getRightBoundary() { return new Rectangle2D(xPos + WIDTH / 2 + 5, yPos - HEIGHT / 2, 1, HEIGHT); }
 
-
-    public Rectangle2D getTopBoundaryOfBullet() { return new Rectangle2D(bullet.bulletX -30, bullet.bulletY -30-6, 10, 1); }
-
-    public Rectangle2D getBottomBoundaryOfBullet() { return new Rectangle2D(bullet.bulletX -30, bullet.bulletY +30+5, 10, 1); }
-
-    public Rectangle2D getLeftBoundaryOfBullet() {  return new Rectangle2D(bullet.bulletX -30-6, bullet.bulletY -30, 1, 10); }
-
-    public Rectangle2D getRightBoundaryOfBullet() { return new Rectangle2D(bullet.bulletX +30+5, bullet.bulletY -30, 1, 10); }
+    public Rectangle2D getBoundaryOfBullet(){ return new Rectangle2D( bullet.bulletX , bullet.bulletY , 10, 10); }
 
     public Point getTileCoordinates() {
         int tileX = ((int)xPos / 50 + 1) * 50 - 25;

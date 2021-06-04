@@ -12,6 +12,7 @@ public class Bullet {
     double bulletX;
     double bulletY;
     double angle;
+    int bulletSpeed = 20;
 
     GraphicsContext gc;
 
@@ -30,8 +31,8 @@ public class Bullet {
     }
 
     public void moveBullet(){
-        bulletX += (Math.cos(Math.toRadians(angle)))*10;
-        bulletY += (Math.sin(Math.toRadians(angle)))*10;
+        bulletX += (Math.cos(Math.toRadians(angle)))*bulletSpeed;
+        bulletY += (Math.sin(Math.toRadians(angle)))*bulletSpeed;
     }
 
 }
