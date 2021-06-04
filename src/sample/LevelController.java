@@ -84,20 +84,23 @@ public class LevelController implements Initializable {
         enemyTanks.get(0).freeze();
         gameField.setOnMouseClicked(
                 mouseEvent -> {
-                    if (playerTank.b) {
+                    Bullet bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
+                    if (playerTank.isLoaded) {
+
+                        playerTank.penetration = false;
                         playerTank.createBullet(gameField.getGraphicsContext2D());
                         reloadBarAnimation();
                         //setHP();
                     }
-                    playerTank.b = false;
-
+                    playerTank.isLoaded = false;
                 }
         );
 
         animationTimer = new AnimationTimer() {
             @Override
-            public void handle(long CurrentNanoTime) {
 
+            public void handle(long CurrentNanoTime) {
+                walls = levelBuilder.getWalls();
                 playerTank.operate(input, mousePos);
                 for (EnemyTank enemyTank : enemyTanks) {
                     enemyTank.operate();
@@ -124,7 +127,7 @@ public class LevelController implements Initializable {
 
             @Override
             public void handle(long l) {
-                if (!playerTank.b) {
+                if (!playerTank.isLoaded) {
                     reloadBar.setProgress((double) playerTank.reloadTimer / 100.00);
                 }
 
