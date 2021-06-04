@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,11 +17,13 @@ public class PlayerTank extends Tank {
     //For garage
     public PlayerTank(GraphicsContext gc, double xPos, double yPos, int direction) {
         super(gc, xPos, yPos, direction, maxSpeed, aimSpeed);
+        spriteName = "PlayerTank";
     }
 
     //For levels
     public PlayerTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction) {
         super(levelBuilder, xPos, yPos, direction, maxSpeed, aimSpeed);
+        spriteName = "PlayerTank";
     }
 
     public double getX() {

@@ -70,6 +70,10 @@ public class LevelController implements Initializable {
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
 
+        gameField.setOnMouseDragged(
+                mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
+        );
+
         levelBuilder.setGc(gc);
         levelBuilder.addWalls(StartMenuController.getCurrentLevelId());
         walls = levelBuilder.getWalls();

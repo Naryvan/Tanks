@@ -3,6 +3,7 @@ package sample;
 import com.sun.javafx.geom.Line2D;
 import com.sun.javafx.geom.Point2D;
 import com.sun.javafx.geom.RectBounds;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
@@ -31,6 +32,7 @@ public class EnemyTank extends Tank {
     public EnemyTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         super(levelBuilder, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
         playerTank = levelBuilder.getPlayerTank();
+        spriteName = "EnemyTank";
     }
 
     public void operate() {
