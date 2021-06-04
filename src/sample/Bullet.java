@@ -22,8 +22,6 @@ public class Bullet {
         this.gc = gc;
     }
 
-
-
     public void renderBullet(){
         gc.save();
         gc.setFill(Color.BLACK);

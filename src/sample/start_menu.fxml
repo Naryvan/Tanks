@@ -10,7 +10,7 @@
 
 <Pane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StartMenuController">
    <children>
-      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="43.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
+      <SplitPane fx:id="backLevelPane0" dividerPositions="0.5" layoutX="152.0" layoutY="43.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -33,7 +33,7 @@
             </Text>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="138.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
+      <SplitPane fx:id="backLevelPane1" dividerPositions="0.5" layoutX="152.0" layoutY="138.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -50,7 +50,7 @@
             </Text>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="230.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="396.0">
+      <SplitPane fx:id="backLevelPane2" dividerPositions="0.5" layoutX="152.0" layoutY="230.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -67,7 +67,7 @@
             </Text>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="320.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
+      <SplitPane fx:id="backLevelPane3" dividerPositions="0.5" layoutX="152.0" layoutY="320.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -84,7 +84,7 @@
             </Text>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="413.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="396.0">
+      <SplitPane fx:id="backLevelPane4" dividerPositions="0.5" layoutX="152.0" layoutY="413.0" orientation="VERTICAL" prefHeight="73.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>
@@ -101,7 +101,7 @@
             </Text>
          </items>
       </SplitPane>
-      <SplitPane dividerPositions="0.5" layoutX="152.0" layoutY="509.0" orientation="VERTICAL" prefHeight="71.0" prefWidth="396.0">
+      <SplitPane fx:id="backLevelPane5" dividerPositions="0.5" layoutX="152.0" layoutY="509.0" orientation="VERTICAL" prefHeight="71.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor>

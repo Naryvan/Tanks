@@ -1,6 +1,13 @@
 package sample;
 
-import java.awt.*;
+import com.sun.javafx.geom.Line2D;
+import com.sun.javafx.geom.Point2D;
+import com.sun.javafx.geom.RectBounds;
+import javafx.scene.image.Image;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -25,6 +32,7 @@ public class EnemyTank extends Tank {
     public EnemyTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
         super(levelBuilder, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
         playerTank = levelBuilder.getPlayerTank();
+        spriteName = "EnemyTank";
     }
 
     public void operate() {
@@ -55,6 +63,11 @@ public class EnemyTank extends Tank {
         else {
             idleMovement();
         }
+
+        if(b && hasLineOfSight()){
+            createBullet(gc);
+        }
+        b = false;
 
         rotateGun(new Point((int)playerTank.getX(), (int)playerTank.getY()));
     }
@@ -145,6 +158,24 @@ public class EnemyTank extends Tank {
         }
         isMoving = true;
         processMovement();
+    }
+
+    private boolean hasLineOfSight() {
+        Line lineOfSight = new Line(xPos, yPos, playerTank.xPos, playerTank.yPos);
+
+        ArrayList<Wall> walls = levelBuilder.getWalls();
+        for(Wall wall : walls) {
+            Rectangle wallBoundary = new Rectangle(wall.x - 25, wall.y - 25, 50, 50);
+            if(lineOfSight.getBoundsInParent().intersects(wallBoundary.getBoundsInParent())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void render() {
+        super.render();
     }
 
     private void findPath() {

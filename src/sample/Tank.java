@@ -2,6 +2,7 @@ package sample;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
@@ -13,6 +14,10 @@ public class Tank {
 
     final static double WIDTH = 40;
     final static double HEIGHT = 40;
+
+    protected String spriteName;
+    private int currentSpriteIteration = 1;
+    private int changeSpriteTimer = 10;
 
     double xPos;
     double yPos;
@@ -27,7 +32,7 @@ public class Tank {
     double gunDirection;
     double gunRotationSpeed;
     Bullet bullet;
-    boolean b = true;
+    protected boolean b = true;
     int reloadTimer = 0;
 
     boolean isTopBlocked;
@@ -346,16 +351,23 @@ public class Tank {
 
         if(reloadTimer > 100){
             b = true;
-            reloadTimer = 0;
+            reloadTimer = 1;
         }
     }
 
     private void renderBody() {
         gc.save();
         gc.transform(new Affine(new Rotate(currentDirection, xPos, yPos)));
-        gc.setFill(javafx.scene.paint.Color.rgb(0, 60, 0));
-        gc.fillRoundRect(xPos - WIDTH / 2, yPos - HEIGHT / 2, WIDTH, HEIGHT, 5, 5);
-        gc.strokeRoundRect(xPos - WIDTH / 2, yPos - HEIGHT / 2, WIDTH, HEIGHT, 5, 5);
+
+        if(changeSpriteTimer == 0) {
+            changeSpriteTimer = 10;
+        }
+        changeSpriteTimer--;
+        if(isMoving && changeSpriteTimer == 0) {
+            currentSpriteIteration = currentSpriteIteration == 1 ? 2 : 1;
+        }
+        gc.drawImage(new Image("images/" + spriteName + currentSpriteIteration + ".png"), xPos - 20, yPos - 20);
+
         gc.restore();
     }
 
@@ -363,13 +375,9 @@ public class Tank {
         gc.setFill(javafx.scene.paint.Color.rgb(0, 75, 0));
         gc.save();
         gc.transform(new Affine(new Rotate(gunDirection, xPos, yPos)));
-        gc.fillRect(xPos, yPos - 5, 30, 10);
-        gc.strokeRect(xPos, yPos - 5, 30, 10);
+        gc.drawImage(new Image("images/" + spriteName + "Barrel.png"), xPos, yPos - 5);
+        gc.drawImage(new Image("images/" + spriteName + "Tower.png"), xPos - 20, yPos - 20);
         gc.restore();
-
-        gc.setFill(Color.rgb(0, 90, 0));
-        gc.strokeOval(xPos - 12.5, yPos - 12.5, 25, 25);
-        gc.fillOval(xPos - 12.5, yPos - 12.5, 25, 25);
     }
 
     public void createBullet(GraphicsContext graphicsContext2D){

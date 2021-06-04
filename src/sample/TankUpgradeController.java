@@ -101,7 +101,7 @@ public class TankUpgradeController implements Initializable {
         }
         currentSpeed.setText(String.valueOf(PlayerTank.maxSpeed));
         currentAttack.setText(String.valueOf(PlayerTank.attack));
-        currentHP.setText(String.valueOf(PlayerTank.hp));
+        currentHP.setText(String.valueOf(PlayerTank.maxHP));
         currentAimSpeed.setText(String.valueOf(PlayerTank.aimSpeed));
     }
 
@@ -115,7 +115,7 @@ public class TankUpgradeController implements Initializable {
     public void upgradeHP(MouseEvent mouseEvent) {
         Money.decreaseAmount(TankUpgradeData.getCurrentHPUpgradePrice());
         TankUpgradeData.setHpLevel(TankUpgradeData.getHpLevel() + 1);
-        PlayerTank.hp += 20;
+        PlayerTank.maxHP += 20;
         setData();
     }
 

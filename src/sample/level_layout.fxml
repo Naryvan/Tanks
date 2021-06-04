@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -25,5 +26,40 @@
             <Button mnemonicParsing="false" onMouseClicked="#exitGame" prefHeight="53.0" prefWidth="205.0" style="-fx-border-width: 3;" text="Exit game" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
+      <ProgressBar fx:id="hpBar" disable="true" layoutX="14.0" layoutY="647.0" opacity="0.75" prefHeight="15.0" prefWidth="200.0" progress="0.0" />
+      <Text disable="true" fill="MAROON" layoutX="102.0" layoutY="659.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HP" wrappingWidth="24.857421875">
+         <font>
+            <Font name="Comic Sans MS Italic" size="13.0" />
+         </font>
+      </Text>
+      <ProgressBar fx:id="reloadBar" disable="true" layoutX="14.0" layoutY="670.0" opacity="0.75" prefHeight="9.0" prefWidth="200.0" progress="0.0" />
+      <Pane fx:id="levelCompleted" disable="true" layoutX="175.0" layoutY="230.0" opacity="0.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 2;">
+         <children>
+            <Text fill="MAROON" layoutX="40.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Congratulations!!!&#10;Level completed" textAlignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="34.0" />
+               </font>
+            </Text>
+            <Button layoutX="64.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#levelCompletedAction" prefHeight="43.0" prefWidth="223.0" text="Return to garage" textFill="MAROON">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="21.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="levelFailed" disable="true" layoutX="175.0" layoutY="230.0" opacity="0.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 2;">
+         <children>
+            <Text fill="MAROON" layoutX="83.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bad luck...&#10;Level failed" textAlignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="34.0" />
+               </font>
+            </Text>
+            <Button layoutX="64.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#levelFailedAction" prefHeight="43.0" prefWidth="223.0" text="Return to garage" textFill="MAROON">
+               <font>
+                  <Font name="Comic Sans MS Italic" size="21.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </Pane>

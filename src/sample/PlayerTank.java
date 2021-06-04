@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,18 +9,21 @@ import java.util.ArrayList;
 public class PlayerTank extends Tank {
 
     public static int attack = 25;
-    public static int hp = 100;
+    public static int maxHP = 100;
+    public static int currentHP = maxHP;
     public static int maxSpeed = 2;
     public static int aimSpeed = 2;
 
     //For garage
     public PlayerTank(GraphicsContext gc, double xPos, double yPos, int direction) {
         super(gc, xPos, yPos, direction, maxSpeed, aimSpeed);
+        spriteName = "PlayerTank";
     }
 
     //For levels
     public PlayerTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction) {
         super(levelBuilder, xPos, yPos, direction, maxSpeed, aimSpeed);
+        spriteName = "PlayerTank";
     }
 
     public double getX() {
