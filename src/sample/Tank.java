@@ -344,7 +344,7 @@ public class Tank {
            reloadTimer++;
         }
 
-        if(reloadTimer > 80){
+        if(reloadTimer > 100){
             b = true;
             reloadTimer = 1;
         }
