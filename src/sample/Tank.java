@@ -85,7 +85,7 @@ public class Tank {
         this.gunRotationSpeed = gunRotationSpeed;
         this.levelBuilder = levelBuilder;
         this.gc = levelBuilder.getGraphicsContext();
-
+        bullet = new Bullet(0, 0, 0, levelBuilder.getGraphicsContext());
     }
 
     //For garage
@@ -105,29 +105,28 @@ public class Tank {
     protected void processMovement() {
         checkCollision();
 
-        if(isMoving) {
+        if (isMoving) {
             accelerate();
-        }
-        else {
+        } else {
             slowDown();
         }
 
         switch (direction) {
             case 0 -> {
-                if(!isTopBlocked) {
+                if (!isTopBlocked) {
                     yPos -= currentSpeed;
                 }
             }
             case 1 -> {
-                if(!isTopBlocked) {
+                if (!isTopBlocked) {
                     yPos -= currentSpeed / Math.sqrt(2);
                 }
-                if(!isRightBlocked) {
+                if (!isRightBlocked) {
                     xPos += currentSpeed / Math.sqrt(2);
                 }
             }
             case 2 -> {
-                if(!isRightBlocked) {
+                if (!isRightBlocked) {
                     xPos += currentSpeed;
                 }
             }
@@ -342,6 +341,11 @@ public class Tank {
     public void render() {
         renderBody();
         renderGun();
+        if (bullet == null) {
+            return;
+        }
+        bullet.moveBullet();
+        bullet.renderBullet();
 
         if(bullet == null) return;
 
@@ -405,7 +409,7 @@ public class Tank {
         gc.restore();
     }
 
-    public void createBullet(GraphicsContext graphicsContext2D){
+    public void createBullet(GraphicsContext graphicsContext2D) {
         this.bullet = new Bullet(xPos, yPos, gunDirection, graphicsContext2D);
     }
 
