@@ -30,6 +30,7 @@ public class LevelController implements Initializable {
     public GridPane menuWin;
     private ArrayList<Wall> walls;
     private GraphicsContext gc;
+    private LevelBuilder levelBuilder;
     AnimationTimer animationTimer;
 
     private PlayerTank playerTank;
@@ -40,7 +41,7 @@ public class LevelController implements Initializable {
         hpBar.setProgress(1);
         hpBar.setStyle("-fx-accent: #9acd32");
         reloadBar.setProgress(1);
-        LevelBuilder levelBuilder = new LevelBuilder();
+        levelBuilder = new LevelBuilder();
         menuWin.setDisable(true);
         gc = gameField.getGraphicsContext2D();
         gameField.setFocusTraversable(true);
@@ -84,20 +85,32 @@ public class LevelController implements Initializable {
         enemyTanks.get(0).freeze();
         gameField.setOnMouseClicked(
                 mouseEvent -> {
-                    if (playerTank.b) {
-                        playerTank.createBullet(gameField.getGraphicsContext2D());
+                    if (playerTank.isLoaded) {
+                        playerTank.penetration = false;
+                        playerTank.createBullet(gameField.getGraphicsContext2D(), true);
                         reloadBarAnimation();
-                        //setHP();
-                    }
-                    playerTank.b = false;
 
+                    }
+                    playerTank.isLoaded = false;
                 }
         );
 
         animationTimer = new AnimationTimer() {
             @Override
+
             public void handle(long CurrentNanoTime) {
 
+                if (PlayerTank.currentHP <= 0) {
+                    animationTimer.stop();
+                    openLevelFailedWindow();
+                }
+
+                if (enemyTanks.size() == 0) {
+                    animationTimer.stop();
+                    openLevelCompletedWindow();
+                }
+                hpBar.setProgress((double) PlayerTank.currentHP / PlayerTank.maxHP);
+                walls = levelBuilder.getWalls();
                 playerTank.operate(input, mousePos);
                 for (EnemyTank enemyTank : enemyTanks) {
                     enemyTank.operate();
@@ -124,17 +137,12 @@ public class LevelController implements Initializable {
 
             @Override
             public void handle(long l) {
-                if (!playerTank.b) {
+                if (!playerTank.isLoaded) {
                     reloadBar.setProgress((double) playerTank.reloadTimer / 100.00);
                 }
 
             }
         }.start();
-    }
-
-    private void setHP() {
-        PlayerTank.currentHP -= 50;
-        hpBar.setProgress((double) PlayerTank.currentHP / PlayerTank.maxHP);
     }
 
     private void menu() {
@@ -150,6 +158,7 @@ public class LevelController implements Initializable {
     }
 
     public void returnToMenu(MouseEvent mouseEvent) {
+        levelBuilder.addWalls(-1);
         try {
             root = FXMLLoader.load(getClass().getResource("start_menu.fxml"));
         } catch (IOException ioException) {
@@ -180,6 +189,7 @@ public class LevelController implements Initializable {
     public void levelCompletedAction(MouseEvent mouseEvent) {
         levelCompleted.setDisable(true);
         levelCompleted.setOpacity(0);
+        levelBuilder.addWalls(-1);
         StartMenuController.getLevels()[StartMenuController.getCurrentLevelId()].setCompleted(true);
         StartMenuController.getLevels()[StartMenuController.getCurrentLevelId() + 1].setLocked(false);
         returnToGarage();
@@ -188,6 +198,7 @@ public class LevelController implements Initializable {
     public void levelFailedAction(MouseEvent mouseEvent) {
         levelFailed.setDisable(true);
         levelFailed.setOpacity(0);
+        levelBuilder.addWalls(-1);
         returnToGarage();
     }
 

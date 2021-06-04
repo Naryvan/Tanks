@@ -6,19 +6,19 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="textPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TitleController">
+<Pane fx:id="textPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TitleController">
    <children>
-      <ImageView fx:id="backgroundImage" fitHeight="557.0" fitWidth="700.0" onKeyPressed="#switchToGarageScene" onMouseClicked="#switchToGarageScene" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="backgroundImage" fitHeight="535.0" fitWidth="702.0" onKeyPressed="#switchToGarageScene" onMouseClicked="#switchToGarageScene" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/GameBack.jpg" />
          </image>
       </ImageView>
-      <Text layoutX="146.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanks 2021">
+      <Text disable="true" layoutX="146.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanks 2021">
          <font>
             <Font name="Comic Sans MS" size="48.0" />
          </font>
       </Text>
-      <Text fx:id="keyPressPrompt" layoutX="274.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="press any key to start">
+      <Text fx:id="keyPressPrompt" disable="true" layoutX="274.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="press any key to start">
          <font>
             <Font name="Comic Sans MS" size="36.0" />
          </font>
