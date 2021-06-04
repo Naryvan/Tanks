@@ -2,11 +2,13 @@ package sample;
 
 public class LevelMenu {
     private final String id;
-    private boolean locked;
+    private final String backId;
+    private boolean locked = true;
     private boolean completed;
 
-    LevelMenu(String id) {
+    LevelMenu(String id, String backId) {
         this.id = id;
+        this.backId = backId;
     }
 
     public String getLevelPane() {
@@ -27,5 +29,9 @@ public class LevelMenu {
 
     public boolean isLocked() {
         return locked;
+    }
+
+    public String getBackId() {
+        return backId;
     }
 }

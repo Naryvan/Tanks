@@ -19,7 +19,7 @@ public class TitleWindow extends Application {
     public void start(Stage primaryStage) {
         LevelMenu[] levels = StartMenuController.getLevels();
         for(int i = 0; i < levels.length; i++){
-            levels[i] = new LevelMenu("#level" + i);
+            levels[i] = new LevelMenu("#level" + i, "#backLevelPane"+i);
         }
         levels[0].setLocked(false);
         Parent root = new Group();
