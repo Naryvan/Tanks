@@ -2,6 +2,7 @@ package sample;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Wall {
@@ -11,21 +12,21 @@ public class Wall {
 
     public boolean isDamaged = false;
 
+    protected Image sprite;
+
     public Wall(int x, int y){
         this.x = x;
         this.y = y;
+        sprite = new Image("/images/wall.png");
     }
 
     private void drawWall(GraphicsContext gc){
-        gc.setFill(Color.rgb(156,36,36));
-        gc.save();
-        gc.fillRect(x - 25,  y - 25, 50, 50);
-        gc.strokeRect(x - 25, y - 25, 50, 50);
-        if(isDamaged) {
-            gc.strokeLine(x - 25, y - 25, x + 25, y + 25);
-            gc.strokeLine(x - 25, y + 25, x + 25, y - 25);
-        }
-        gc.restore();
+        gc.drawImage(sprite, x - 25, y - 25);
+    }
+
+    public void damage() {
+        isDamaged = true;
+        sprite = new Image("/images/DamagedWall.png");
     }
 
     public void render(GraphicsContext gc) {
