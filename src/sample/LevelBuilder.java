@@ -28,6 +28,9 @@ public class LevelBuilder {
     protected ArrayList<EnemyTank> enemyTanks = new ArrayList<>();
     protected GraphicsContext gc;
 
+    private final int enemyAttack = 15;
+    private final int enemyHP = 100;
+
     public void setGc(GraphicsContext gc) {
         this.gc = gc;
     }
@@ -40,7 +43,13 @@ public class LevelBuilder {
             case 3 -> fourthLevelLayout();
             case 4 -> fifthLevelLayout();
             case 5 -> sixthLevelLayout();
+            default -> clearLayout();
         }
+    }
+
+    private void clearLayout() {
+        walls = new ArrayList<>();
+        enemyTanks = new ArrayList<>();
     }
 
     private void firstLevelLayout() {
@@ -83,7 +92,8 @@ public class LevelBuilder {
         walls.add(new Wall(12 * 50 + 25, 3 * 50 + 25));
 
         playerTank = new PlayerTank(this, 525, 525, 0);
-        enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2));
+        PlayerTank.currentHP = PlayerTank.maxHP;
+        enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2, enemyAttack, enemyHP));
         //enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2));
     }
 
