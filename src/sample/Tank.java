@@ -396,17 +396,8 @@ public class Tank {
             if(getBoundaryOfBullet().intersects(playerTank.getBoundary()) && !bullet.isPlayerBullet()){
                 PlayerTank.currentHP -= enemyTank.getAttackPower();
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
-                if(PlayerTank.currentHP <= 0){
-                    System.out.println("DEAD");
-                }
             }
         }
-
-
-
-
-
-
     }
 
     private void renderBody() {

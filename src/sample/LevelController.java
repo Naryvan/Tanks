@@ -100,7 +100,7 @@ public class LevelController implements Initializable {
 
             public void handle(long CurrentNanoTime) {
 
-                if (PlayerTank.currentHP == 0) {
+                if (PlayerTank.currentHP <= 0) {
                     animationTimer.stop();
                     openLevelFailedWindow();
                 }
