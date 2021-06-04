@@ -1,6 +1,12 @@
 package sample;
 
-import java.awt.*;
+import com.sun.javafx.geom.Line2D;
+import com.sun.javafx.geom.Point2D;
+import com.sun.javafx.geom.RectBounds;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -56,7 +62,7 @@ public class EnemyTank extends Tank {
             idleMovement();
         }
 
-        if(b){
+        if(b && hasLineOfSight()){
             createBullet(gc);
         }
         b = false;
@@ -150,6 +156,24 @@ public class EnemyTank extends Tank {
         }
         isMoving = true;
         processMovement();
+    }
+
+    private boolean hasLineOfSight() {
+        Line lineOfSight = new Line(xPos, yPos, playerTank.xPos, playerTank.yPos);
+
+        ArrayList<Wall> walls = levelBuilder.getWalls();
+        for(Wall wall : walls) {
+            Rectangle wallBoundary = new Rectangle(wall.x - 25, wall.y - 25, 50, 50);
+            if(lineOfSight.getBoundsInParent().intersects(wallBoundary.getBoundsInParent())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void render() {
+        super.render();
     }
 
     private void findPath() {

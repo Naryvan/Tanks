@@ -84,7 +84,7 @@ public class LevelBuilder {
 
         playerTank = new PlayerTank(this, 525, 525, 0);
         enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2));
-        enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2));
+        //enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2));
     }
 
     private void secondLevelLayout() {
