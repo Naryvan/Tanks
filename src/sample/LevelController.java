@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LevelController implements Initializable {
+    public ProgressBar hpBar;
+    public ProgressBar reloadBar;
     private Parent root;
     public Canvas gameField;
     public GridPane menuWin;
@@ -34,7 +37,9 @@ public class LevelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        hpBar.setProgress(1);
+        hpBar.setStyle("-fx-accent: #9acd32");
+        reloadBar.setProgress(1);
         LevelBuilder levelBuilder = new LevelBuilder();
         menuWin.setDisable(true);
         gc = gameField.getGraphicsContext2D();
@@ -61,7 +66,6 @@ public class LevelController implements Initializable {
         );
 
 
-
         gameField.setOnMouseMoved(
                 mouseEvent -> mousePos.setLocation(mouseEvent.getX(), mouseEvent.getY())
         );
@@ -76,10 +80,13 @@ public class LevelController implements Initializable {
         enemyTanks.get(0).freeze();
         gameField.setOnMouseClicked(
                 mouseEvent -> {
-                    if(playerTank.b == true){
+                    if (playerTank.b) {
                         playerTank.createBullet(gameField.getGraphicsContext2D());
+                        reloadBarAnimation();
+                        //setHP();
                     }
                     playerTank.b = false;
+
                 }
         );
 
@@ -88,7 +95,7 @@ public class LevelController implements Initializable {
             public void handle(long CurrentNanoTime) {
 
                 playerTank.operate(input, mousePos);
-                for(EnemyTank enemyTank : enemyTanks) {
+                for (EnemyTank enemyTank : enemyTanks) {
                     enemyTank.operate();
                 }
 
@@ -98,7 +105,7 @@ public class LevelController implements Initializable {
                     wall.render(gc);
                 }
 
-                for(EnemyTank enemyTank : enemyTanks) {
+                for (EnemyTank enemyTank : enemyTanks) {
                     enemyTank.render();
                 }
 
@@ -106,6 +113,24 @@ public class LevelController implements Initializable {
             }
         };
         animationTimer.start();
+    }
+
+    private void reloadBarAnimation() {
+        new AnimationTimer() {
+
+            @Override
+            public void handle(long l) {
+                if (!playerTank.b) {
+                    reloadBar.setProgress((double) playerTank.reloadTimer / 100.00);
+                }
+
+            }
+        }.start();
+    }
+
+    private void setHP() {
+        PlayerTank.currentHP -= 50;
+        hpBar.setProgress((double) PlayerTank.currentHP / PlayerTank.maxHP);
     }
 
     private void menu() {

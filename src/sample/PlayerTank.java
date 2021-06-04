@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class PlayerTank extends Tank {
 
     public static int attack = 25;
-    public static int hp = 100;
+    public static int maxHP = 100;
+    public static int currentHP = maxHP;
     public static int maxSpeed = 2;
     public static int aimSpeed = 2;
 
