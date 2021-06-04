@@ -11,6 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -22,6 +23,8 @@ import java.util.ResourceBundle;
 public class LevelController implements Initializable {
     public ProgressBar hpBar;
     public ProgressBar reloadBar;
+    public Pane levelFailed;
+    public Pane levelCompleted;
     private Parent root;
     public Canvas gameField;
     public GridPane menuWin;
@@ -31,9 +34,6 @@ public class LevelController implements Initializable {
 
     private PlayerTank playerTank;
     private ArrayList<EnemyTank> enemyTanks;
-
-    private LevelBuilder levelBuilder;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -165,4 +165,41 @@ public class LevelController implements Initializable {
         Platform.exit();
     }
 
+    private void openLevelCompletedWindow() {
+        animationTimer.stop();
+        levelCompleted.setDisable(false);
+        levelCompleted.setOpacity(1);
+    }
+
+    private void openLevelFailedWindow() {
+        animationTimer.stop();
+        levelFailed.setDisable(false);
+        levelFailed.setOpacity(1);
+    }
+
+    public void levelCompletedAction(MouseEvent mouseEvent) {
+        levelCompleted.setDisable(true);
+        levelCompleted.setOpacity(0);
+        StartMenuController.getLevels()[StartMenuController.getCurrentLevelId()].setCompleted(true);
+        StartMenuController.getLevels()[StartMenuController.getCurrentLevelId() + 1].setLocked(false);
+        returnToGarage();
+    }
+
+    public void levelFailedAction(MouseEvent mouseEvent) {
+        levelFailed.setDisable(true);
+        levelFailed.setOpacity(0);
+        returnToGarage();
+    }
+
+    private void returnToGarage() {
+        try {
+            root = FXMLLoader.load(getClass().getResource("garage_window.fxml"));
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Stage stage = (Stage) gameField.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
