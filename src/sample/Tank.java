@@ -374,7 +374,12 @@ public class Tank {
                 isBulletBlocked = true;
                 penetration = true;
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
-                walls.remove(wall);
+                if(!wall.isDamaged) {
+                    wall.isDamaged = true;
+                }
+                else {
+                    walls.remove(wall);
+                }
                 return;
             }
         }

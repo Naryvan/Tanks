@@ -9,6 +9,8 @@ public class Wall {
     int x;
     int y;
 
+    public boolean isDamaged = false;
+
     public Wall(int x, int y){
         this.x = x;
         this.y = y;
@@ -19,6 +21,10 @@ public class Wall {
         gc.save();
         gc.fillRect(x - 25,  y - 25, 50, 50);
         gc.strokeRect(x - 25, y - 25, 50, 50);
+        if(isDamaged) {
+            gc.strokeLine(x - 25, y - 25, x + 25, y + 25);
+            gc.strokeLine(x - 25, y + 25, x + 25, y - 25);
+        }
         gc.restore();
     }
 

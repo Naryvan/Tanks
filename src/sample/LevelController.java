@@ -82,7 +82,7 @@ public class LevelController implements Initializable {
         playerTank = levelBuilder.getPlayerTank();
         levelBuilder.setGc(gc);
 
-        enemyTanks.get(0).freeze();
+        //enemyTanks.get(0).freeze();
         gameField.setOnMouseClicked(
                 mouseEvent -> {
                     if (playerTank.isLoaded) {
