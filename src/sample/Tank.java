@@ -389,11 +389,12 @@ public class Tank {
                 enemyTank.setTotalHP(enemyTank.getTotalHP() - PlayerTank.attack);
                 if (enemyTank.getTotalHP() <= 0) {
                     enemyTanks.remove(enemyTank);
+                    Money.increaseAmount(15);
                 }
                 return;
             }
 
-            if(getBoundaryOfBullet().intersects(playerTank.getBoundary()) && !bullet.isPlayerBullet()){
+            if (getBoundaryOfBullet().intersects(playerTank.getBoundary()) && !bullet.isPlayerBullet()) {
                 PlayerTank.currentHP -= enemyTank.getAttackPower();
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
             }
