@@ -27,7 +27,7 @@ public class Tank {
     double gunDirection;
     double gunRotationSpeed;
     Bullet bullet;
-    boolean b = true;
+    protected boolean b = true;
     int reloadTimer = 0;
 
     boolean isTopBlocked;
@@ -346,7 +346,7 @@ public class Tank {
 
         if(reloadTimer > 100){
             b = true;
-            reloadTimer = 0;
+            reloadTimer = 1;
         }
     }
 
