@@ -3,7 +3,7 @@ package sample;
 public class LevelMenu {
     private final String id;
     private final String backId;
-    private boolean locked = true;
+    private boolean locked ;
     private boolean completed;
 
     LevelMenu(String id, String backId) {

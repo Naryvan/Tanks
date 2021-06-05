@@ -2,6 +2,7 @@ package sample;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Wall {
@@ -9,17 +10,25 @@ public class Wall {
     int x;
     int y;
 
+    public boolean isDamaged = false;
+
+    public boolean blocksBullets = true;
+
+    protected Image sprite;
+
     public Wall(int x, int y){
         this.x = x;
         this.y = y;
+        sprite = new Image("/images/Wall.png");
     }
 
     private void drawWall(GraphicsContext gc){
-        gc.setFill(Color.rgb(156,36,36));
-        gc.save();
-        gc.fillRect(x - 25,  y - 25, 50, 50);
-        gc.strokeRect(x - 25, y - 25, 50, 50);
-        gc.restore();
+        gc.drawImage(sprite, x, y);
+    }
+
+    public void damage() {
+        isDamaged = true;
+        sprite = new Image("/images/DamagedWall.png");
     }
 
     public void render(GraphicsContext gc) {
@@ -27,6 +36,6 @@ public class Wall {
     }
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(x - 25, y - 25, 50, 50);
+        return new Rectangle2D(x , y, 50, 50);
     }
 }

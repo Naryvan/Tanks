@@ -29,47 +29,65 @@ public class EnemyTank extends Tank {
 
     Random random = new Random();
 
-    public EnemyTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed) {
+    private int attackPower;
+    private int totalHP;
+
+    public int getAttackPower() {
+        return attackPower;
+    }
+
+    public int getTotalHP() {
+        return totalHP;
+    }
+
+    public void setTotalHP(int totalHP) {
+        this.totalHP = totalHP;
+    }
+
+    public void setAttackPower(int attackPower) {
+        this.attackPower = attackPower;
+    }
+
+    public EnemyTank(LevelBuilder levelBuilder, double xPos, double yPos, int direction, double maxSpeed, double gunRotationSpeed, int attackPower, int totalHP) {
         super(levelBuilder, xPos, yPos, direction, maxSpeed, gunRotationSpeed);
         playerTank = levelBuilder.getPlayerTank();
         spriteName = "EnemyTank";
+        this.attackPower = attackPower;
+        this.totalHP = totalHP;
     }
 
     public void operate() {
-        if(frozen) {
-            if(frozenCounter == 0) {
+        if (frozen) {
+            if (frozenCounter == 0) {
                 frozen = false;
-            }
-            else {
+            } else {
                 frozenCounter--;
                 isMoving = false;
                 return;
             }
         }
 
-        if(newPathCounter == 0) {
+        if (newPathCounter == 0) {
             newPathCounter = NEW_PATH_COUNTER;
-            if(currentPath == null) {
+            if (currentPath == null) {
                 findPath();
             }
-        }
-        else {
+        } else {
             newPathCounter--;
         }
 
-        if(currentPath != null) {
+        if (currentPath != null) {
             followPath();
-        }
-        else {
+        } else {
             idleMovement();
         }
 
-        if(isLoaded && hasLineOfSight()){
-            createBullet(gc);
+        if (isLoaded && hasLineOfSight()) {
+            createBullet(gc, false);
         }
         isLoaded = false;
 
-        rotateGun(new Point((int)playerTank.getX(), (int)playerTank.getY()));
+        rotateGun(new Point((int) playerTank.getX(), (int) playerTank.getY()));
     }
 
     public void freeze() {
@@ -80,48 +98,41 @@ public class EnemyTank extends Tank {
     private void followPath() {
         int currentNodeX = currentPath.currentNode.tile.xCord;
         int currentNodeY = currentPath.currentNode.tile.yCord;
-        if(Math.abs(currentNodeX - xPos) < 3 && Math.abs(currentNodeY - yPos) < 3) {
+        if (Math.abs(currentNodeX - xPos) < 3 && Math.abs(currentNodeY - yPos) < 3) {
             xPos = currentNodeX;
             yPos = currentNodeY;
-            if(currentPath.nextNode() == null) {
+            if (currentPath.nextNode() == null) {
                 isMoving = false;
                 currentPath = null;
-            }
-            else if(currentPath.currentNode.previousNode != currentPath.startNode) {
+            } else if (currentPath.currentNode.previousNode != currentPath.startNode) {
                 findPath();
             }
             return;
         }
 
-        if(currentNodeY < yPos) {
+        if (currentNodeY < yPos) {
             isMoving = true;
             direction = 0;
-            if(currentNodeX > xPos) {
+            if (currentNodeX > xPos) {
                 direction = 1;
-            }
-            else if(currentNodeX < xPos) {
+            } else if (currentNodeX < xPos) {
                 direction = 7;
             }
-        }
-        else if(currentNodeY > yPos) {
+        } else if (currentNodeY > yPos) {
             isMoving = true;
             direction = 4;
-            if(currentNodeX > xPos) {
+            if (currentNodeX > xPos) {
                 direction = 3;
-            }
-            else if(currentNodeX < xPos) {
+            } else if (currentNodeX < xPos) {
                 direction = 5;
             }
-        }
-        else if(currentNodeX > xPos) {
+        } else if (currentNodeX > xPos) {
             isMoving = true;
             direction = 2;
-        }
-        else if(currentNodeX < xPos) {
+        } else if (currentNodeX < xPos) {
             isMoving = true;
             direction = 6;
-        }
-        else {
+        } else {
             isMoving = false;
         }
 
@@ -129,31 +140,27 @@ public class EnemyTank extends Tank {
     }
 
     private void idleMovement() {
-        if(isTopBlocked && isLeftBlocked && isRightBlocked && isBottomBlocked) {
+        if (isTopBlocked && isLeftBlocked && isRightBlocked && isBottomBlocked) {
             isMoving = false;
             return;
         }
 
-        if(newIdleDirectionCounter == 0) {
+        if (newIdleDirectionCounter == 0) {
             newIdleDirectionCounter = NEW_IDLE_DIRECTION_COUNTER;
-            while(true) {
+            while (true) {
                 direction = random.nextInt(4) * 2;
-                if(direction == 0 && isTopBlocked) {
+                if (direction == 0 && isTopBlocked) {
                     continue;
-                }
-                else if(direction == 2 && isRightBlocked) {
+                } else if (direction == 2 && isRightBlocked) {
                     continue;
-                }
-                else if(direction == 4 && isBottomBlocked) {
+                } else if (direction == 4 && isBottomBlocked) {
                     continue;
-                }
-                else if(direction == 6 && isLeftBlocked) {
+                } else if (direction == 6 && isLeftBlocked) {
                     continue;
                 }
                 break;
             }
-        }
-        else {
+        } else {
             newIdleDirectionCounter--;
         }
         isMoving = true;
@@ -164,9 +171,12 @@ public class EnemyTank extends Tank {
         Line lineOfSight = new Line(xPos, yPos, playerTank.xPos, playerTank.yPos);
 
         ArrayList<Wall> walls = levelBuilder.getWalls();
-        for(Wall wall : walls) {
-            Rectangle wallBoundary = new Rectangle(wall.x - 25, wall.y - 25, 50, 50);
-            if(lineOfSight.getBoundsInParent().intersects(wallBoundary.getBoundsInParent())) {
+        for (Wall wall : walls) {
+            if(!wall.blocksBullets) {
+                continue;
+            }
+            Rectangle wallBoundary = new Rectangle(wall.x, wall.y, 50, 50);
+            if (lineOfSight.getBoundsInParent().intersects(wallBoundary.getBoundsInParent())) {
                 return false;
             }
         }
@@ -180,10 +190,9 @@ public class EnemyTank extends Tank {
 
     private void findPath() {
         Path path = new Path(this.getTileCoordinates());
-        if(path.findPath(new Tile(playerTank.getTileCoordinates()))) {
+        if (path.findPath(new Tile(playerTank.getTileCoordinates()))) {
             currentPath = path;
-        }
-        else {
+        } else {
             currentPath = null;
         }
     }
@@ -202,7 +211,7 @@ public class EnemyTank extends Tank {
         }
 
         private Node nextNode() {
-            if(!currentNode.isLast) {
+            if (!currentNode.isLast) {
                 currentNode = currentNode.nextNode;
                 return currentNode;
             }
@@ -210,36 +219,33 @@ public class EnemyTank extends Tank {
         }
 
         private boolean findPath(Tile destinationTile) {
-            while(true) {
+            while (true) {
                 assert currentNode != null;
                 Node nextNode = currentNode.findNextNode(blockedTiles, destinationTile);
-                if(nextNode == null) {
-                    if(currentNode.isNodeBlocked()) {
-                        if(currentNode == startNode) {
+                if (nextNode == null) {
+                    if (currentNode.isNodeBlocked()) {
+                        if (currentNode == startNode) {
                             return false;
                         }
                         currentNode = currentNode.blockedGetPreviousNode();
-                    }
-                    else {
-                        if(currentNode == startNode) {
+                    } else {
+                        if (currentNode == startNode) {
                             currentNode.notBlockedGetPreviousNode();
                             return true;
                         }
                         currentNode = currentNode.notBlockedGetPreviousNode();
-                        if(currentNode == startNode) {
+                        if (currentNode == startNode) {
                             blockedTiles = getBlockedTiles();
                         }
                     }
-                }
-                else {
-                    if(nextNode.tile.equals(destinationTile)) {
+                } else {
+                    if (nextNode.tile.equals(destinationTile)) {
                         currentNode.isLast = true;
-                        if(currentNode == startNode) {
+                        if (currentNode == startNode) {
                             return true;
                         }
                         currentNode = currentNode.notBlockedGetPreviousNode();
-                    }
-                    else {
+                    } else {
                         blockedTiles.add(nextNode.tile);
                         currentNode = nextNode;
                     }
@@ -249,8 +255,8 @@ public class EnemyTank extends Tank {
 
         private ArrayList<Tile> getBlockedTiles() {
             ArrayList<Tile> blockedTiles = new ArrayList<>();
-            for(Wall wall : levelBuilder.getWalls()) {
-                blockedTiles.add(new Tile(wall.x, wall.y));
+            for (Wall wall : levelBuilder.getWalls()) {
+                blockedTiles.add(new Tile(wall.x + 25, wall.y + 25));
             }
             return blockedTiles;
         }
@@ -289,46 +295,42 @@ public class EnemyTank extends Tank {
 
             private Node findNextNode(ArrayList<Tile> blockedTiles, Tile destinationTile) {
                 ArrayList<Node> possibleNodes = new ArrayList<>();
-                if(stepsTopToDestination == 0) {
-                    if(tile.isTopTileBlocked(blockedTiles)) {
+                if (stepsTopToDestination == 0) {
+                    if (tile.isTopTileBlocked(blockedTiles)) {
                         stepsTopToDestination = -1;
-                    }
-                    else {
+                    } else {
                         possibleNodes.add(new Node(tile.getTopTile(), this, TOP));
                     }
                 }
-                if(stepsBottomToDestination == 0) {
-                    if(tile.isBottomTileBlocked(blockedTiles)) {
+                if (stepsBottomToDestination == 0) {
+                    if (tile.isBottomTileBlocked(blockedTiles)) {
                         stepsBottomToDestination = -1;
-                    }
-                    else {
+                    } else {
                         possibleNodes.add(new Node(tile.getBottomTile(), this, BOTTOM));
                     }
                 }
-                if(stepsLeftToDestination == 0) {
-                    if(tile.isLeftTileBlocked(blockedTiles)) {
+                if (stepsLeftToDestination == 0) {
+                    if (tile.isLeftTileBlocked(blockedTiles)) {
                         stepsLeftToDestination = -1;
-                    }
-                    else {
+                    } else {
                         possibleNodes.add(new Node(tile.getLeftTile(), this, LEFT));
                     }
                 }
-                if(stepsRightToDestination == 0) {
-                    if(tile.isRightTileBlocked(blockedTiles)) {
+                if (stepsRightToDestination == 0) {
+                    if (tile.isRightTileBlocked(blockedTiles)) {
                         stepsRightToDestination = -1;
-                    }
-                    else {
+                    } else {
                         possibleNodes.add(new Node(tile.getRightTile(), this, RIGHT));
                     }
                 }
 
-                if(possibleNodes.size() == 0) {
+                if (possibleNodes.size() == 0) {
                     return null;
                 }
 
                 Node bestNode = getBestNode(possibleNodes, destinationTile);
 
-                switch(bestNode.nodeType) {
+                switch (bestNode.nodeType) {
                     case TOP -> {
                         nextTopNode = bestNode;
                         return nextTopNode;
@@ -355,10 +357,10 @@ public class EnemyTank extends Tank {
 
                 int distance = Math.abs(destinationTile.xCord - bestNode.tile.xCord) +
                         Math.abs(destinationTile.yCord - bestNode.tile.yCord);
-                for(int i = 1; i < possibleNodes.size(); i++) {
+                for (int i = 1; i < possibleNodes.size(); i++) {
                     int newDistance = Math.abs(destinationTile.xCord - possibleNodes.get(i).tile.xCord) +
                             Math.abs(destinationTile.yCord - possibleNodes.get(i).tile.yCord);
-                    if(newDistance < distance) {
+                    if (newDistance < distance) {
                         distance = newDistance;
                         bestNode = possibleNodes.get(i);
                     }
@@ -395,29 +397,28 @@ public class EnemyTank extends Tank {
             private Node notBlockedGetPreviousNode() {
                 int stepsToDest = -1;
 
-                if(isLast) {
+                if (isLast) {
                     stepsToDest = 0;
-                }
-                else {
-                    if(stepsTopToDestination != -1) {
+                } else {
+                    if (stepsTopToDestination != -1) {
                         stepsToDest = stepsTopToDestination;
                         nextNode = nextTopNode;
                     }
-                    if(stepsBottomToDestination != -1 && (stepsToDest == -1 || stepsBottomToDestination < stepsToDest)) {
+                    if (stepsBottomToDestination != -1 && (stepsToDest == -1 || stepsBottomToDestination < stepsToDest)) {
                         stepsToDest = stepsBottomToDestination;
                         nextNode = nextBottomNode;
                     }
-                    if(stepsLeftToDestination != -1 && (stepsToDest == -1 || stepsLeftToDestination < stepsToDest)) {
+                    if (stepsLeftToDestination != -1 && (stepsToDest == -1 || stepsLeftToDestination < stepsToDest)) {
                         stepsToDest = stepsLeftToDestination;
                         nextNode = nextLeftNode;
                     }
-                    if(stepsRightToDestination != -1 && (stepsToDest == -1 || stepsRightToDestination < stepsToDest)) {
+                    if (stepsRightToDestination != -1 && (stepsToDest == -1 || stepsRightToDestination < stepsToDest)) {
                         stepsToDest = stepsRightToDestination;
                         nextNode = nextRightNode;
                     }
                 }
 
-                switch(nodeType) {
+                switch (nodeType) {
                     case TOP -> {
                         previousNode.stepsTopToDestination = stepsToDest + 1;
                         return previousNode;
@@ -480,11 +481,11 @@ public class EnemyTank extends Tank {
         }
 
         private boolean isTileBlocked(ArrayList<Tile> blockedTiles) {
-            if(xCord < 0 || xCord > gc.getCanvas().getWidth() || yCord < 0 || yCord > gc.getCanvas().getHeight()) {
+            if (xCord < 0 || xCord > gc.getCanvas().getWidth() || yCord < 0 || yCord > gc.getCanvas().getHeight()) {
                 return true;
             }
-            for(EnemyTank enemyTank : levelBuilder.enemyTanks) {
-                if(enemyTank.getBoundary().contains(xCord, yCord)) {
+            for (EnemyTank enemyTank : levelBuilder.enemyTanks) {
+                if (enemyTank.getBoundary().contains(xCord, yCord)) {
                     return true;
                 }
             }

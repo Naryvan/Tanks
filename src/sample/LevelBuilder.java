@@ -28,6 +28,9 @@ public class LevelBuilder {
     protected ArrayList<EnemyTank> enemyTanks = new ArrayList<>();
     protected GraphicsContext gc;
 
+    private int enemyAttack;
+    private int enemyHP;
+
     public void setGc(GraphicsContext gc) {
         this.gc = gc;
     }
@@ -40,86 +43,170 @@ public class LevelBuilder {
             case 3 -> fourthLevelLayout();
             case 4 -> fifthLevelLayout();
             case 5 -> sixthLevelLayout();
+            default -> clearLayout();
         }
+    }
+
+    private void clearLayout() {
+        walls = new ArrayList<>();
+        enemyTanks = new ArrayList<>();
     }
 
     private void firstLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(i, 25));
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
-            walls.add(new Wall(i, 675));
-        }
-        walls.add(new Wall(2 * 50 + 25, 2 * 50 + 25));
-        walls.add(new Wall(2 * 50 + 25, 3 * 50 + 25));
-        walls.add(new Wall(2 * 50 + 25, 4 * 50 + 25));
-        walls.add(new Wall(2 * 50 + 25, 6 * 50 + 25));
-        walls.add(new Wall(1 * 50 + 25, 6 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 2 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 3 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 4 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 5 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 6 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 7 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 8 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 9 * 50 + 25));
-        walls.add(new Wall(3 * 50 + 25, 9 * 50 + 25));
-        walls.add(new Wall(2 * 50 + 25, 9 * 50 + 25));
-        walls.add(new Wall(2 * 50 + 25, 8 * 50 + 25));
-        walls.add(new Wall(2 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(3 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(4 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(5 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(6 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(7 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(8 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(9 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(10 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(11 * 50 + 25, 11 * 50 + 25));
-        walls.add(new Wall(10 * 50 + 25, 1 * 50 + 25));
-        walls.add(new Wall(10 * 50 + 25, 2 * 50 + 25));
-        walls.add(new Wall(10 * 50 + 25, 3 * 50 + 25));
-        walls.add(new Wall(11 * 50 + 25, 3 * 50 + 25));
-        walls.add(new Wall(12 * 50 + 25, 3 * 50 + 25));
+        enemyAttack = 15;
+        enemyHP = 100;
+        setWallBorder();
+        walls.add(new Wall(200, 50));
+        walls.add(new Wall(200, 100));
+        walls.add(new Wall(200, 150));
+        walls.add(new Wall(200, 200));
+        walls.add(new Wall(200, 250));
+        walls.add(new Wall(150, 250));
 
-        playerTank = new PlayerTank(this, 525, 525, 0);
-        enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2));
-        //enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2));
+
+        walls.add(new Wall(450, 600));
+        walls.add(new Wall(450, 550));
+        walls.add(new Wall(450, 500));
+        walls.add(new Wall(450, 450));
+        walls.add(new Wall(450, 400));
+        walls.add(new Wall(500, 400));
+
+
+        playerTank = new PlayerTank(this, 560, 560, 0);
+        PlayerTank.currentHP = PlayerTank.maxHP;
+        enemyTanks.add(new EnemyTank(this, 90, 90, 0, 2, 2, enemyAttack, enemyHP));
+    }
+
+    private void setWallBorder() {
+        walls.add(new Wall(0, 0));
+        for (int i = 0; i < 700; i += 50) {
+            walls.add(new Wall(i, 0));
+            walls.add(new Wall(0, i));
+            walls.add(new Wall(650, i));
+            walls.add(new Wall(i, 650));
+        }
     }
 
     private void secondLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
+        enemyAttack = 20;
+        enemyHP = 120;
+        setWallBorder();
+        for (int i = 100; i < 500; i += 50) {
+            walls.add(new Wall(i, 200));
         }
+
+        for (int i = 200; i < 600; i += 50) {
+            walls.add(new Wall(i, 400));
+        }
+
+
+        playerTank = new PlayerTank(this, 560, 560, 0);
+        PlayerTank.currentHP = PlayerTank.maxHP;
+        enemyTanks.add(new EnemyTank(this, 90, 90, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 610, 90, 0, 2, 2, enemyAttack, enemyHP));
+
     }
 
     private void thirdLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
+        enemyAttack = 20;
+        enemyHP = 120;
+        setWallBorder();
+
+        for (int k = 0; k < 2; k++) {
+            for (int i = 100; i < 700; i += 150) {
+                walls.add(new Wall(i, 50 + 300 * k));
+            }
+
+            for (int i = 150; i < 700; i += 150) {
+                walls.add(new Wall(i, 150 + 300 * k));
+            }
+
+            for (int i = 50; i < 700; i += 150) {
+                walls.add(new Wall(i, 250 + 300 * k));
+            }
         }
+
+
+        playerTank = new PlayerTank(this, 560, 560, 0);
+        PlayerTank.currentHP = PlayerTank.maxHP;
+        enemyTanks.add(new EnemyTank(this, 90, 90, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 90, 610, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 610, 90, 0, 2, 2, enemyAttack, enemyHP));
     }
 
     private void fourthLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
+        enemyAttack = 30;
+        enemyHP = 160;
+        setWallBorder();
+
+        for (int i = 150; i < 300; i += 50) {
+            walls.add(new Wall(i, 150));
+            walls.add(new Wall(i + 250, 150));
+            walls.add(new Wall(i + 250, 500));
+            walls.add(new Wall(i, 500));
         }
+
+        for (int i = 200; i < 300; i += 50) {
+            walls.add(new Wall(150, i));
+            walls.add(new Wall(150, i + 200));
+            walls.add(new Wall(500, i + 200));
+            walls.add(new Wall(500, i));
+        }
+
+
+        playerTank = new PlayerTank(this, 350, 350, 0);
+        PlayerTank.currentHP = PlayerTank.maxHP;
+        enemyTanks.add(new EnemyTank(this, 90, 90, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 90, 610, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 610, 90, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 610, 610, 0, 2, 2, enemyAttack, enemyHP));
     }
 
     private void fifthLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
+        enemyAttack = 35;
+        enemyHP = 180;
+        setWallBorder();
+
+        for (int i = 50; i < 350; i += 50) {
+            walls.add(new Wall(200, i));
+            walls.add(new Wall(450, 650-i));
+
+            walls.add(new Wall(i, 450));
+            walls.add(new Wall(650-i, 200));
         }
+
+
+        playerTank = new PlayerTank(this, 560, 560, 0);
+        PlayerTank.currentHP = PlayerTank.maxHP;
+        enemyTanks.add(new EnemyTank(this, 90, 90, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 90, 610, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 610, 90, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 350, 350, 0, 2, 2, enemyAttack, enemyHP));
     }
 
     private void sixthLevelLayout() {
-        for (int i = 25; i < 700; i += 50) {
-            walls.add(new Wall(25, i));
-            walls.add(new Wall(675, i));
+        enemyAttack = 60;
+        enemyHP = 200;
+        setWallBorder();
+
+        for (int i = 50; i < 650; i += 50) {
+            walls.add(new Wall(i, 250));
+            walls.add(new Wall(i, 400));
+            walls.add(new Wall(250, i));
+            walls.add(new Wall(400, i));
         }
+
+
+        playerTank = new PlayerTank(this, 350, 350, 0);
+        PlayerTank.currentHP = PlayerTank.maxHP;
+        enemyTanks.add(new EnemyTank(this, 150, 80, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 80, 150, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 150, 620, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 80, 570, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 620, 150, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 570, 80, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 620, 570, 0, 2, 2, enemyAttack, enemyHP));
+        enemyTanks.add(new EnemyTank(this, 570, 620, 0, 2, 2, enemyAttack, enemyHP));
     }
 
     public ArrayList<Wall> getWalls() {
