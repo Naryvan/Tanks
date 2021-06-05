@@ -172,6 +172,9 @@ public class EnemyTank extends Tank {
 
         ArrayList<Wall> walls = levelBuilder.getWalls();
         for (Wall wall : walls) {
+            if(!wall.blocksBullets) {
+                continue;
+            }
             Rectangle wallBoundary = new Rectangle(wall.x - 25, wall.y - 25, 50, 50);
             if (lineOfSight.getBoundsInParent().intersects(wallBoundary.getBoundsInParent())) {
                 return false;

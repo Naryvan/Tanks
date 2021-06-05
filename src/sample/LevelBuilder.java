@@ -91,10 +91,32 @@ public class LevelBuilder {
         walls.add(new Wall(11 * 50 + 25, 3 * 50 + 25));
         walls.add(new Wall(12 * 50 + 25, 3 * 50 + 25));
 
+        walls.add(new Water(6 * 50 + 25, 1 * 50 + 25));
+        walls.add(new Water(6 * 50 + 25, 2 * 50 + 25));
+        walls.add(new Water(6 * 50 + 25, 3 * 50 + 25));
+        walls.add(new Water(6 * 50 + 25, 4 * 50 + 25));
+        walls.add(new Water(6 * 50 + 25, 5 * 50 + 25));
+        walls.add(new Water(6 * 50 + 25, 6 * 50 + 25));
+        walls.add(new Water(6 * 50 + 25, 7 * 50 + 25));
+        walls.add(new Water(7 * 50 + 25, 1 * 50 + 25));
+        walls.add(new Water(7 * 50 + 25, 2 * 50 + 25));
+        walls.add(new Water(7 * 50 + 25, 3 * 50 + 25));
+        walls.add(new Water(7 * 50 + 25, 4 * 50 + 25));
+        walls.add(new Water(7 * 50 + 25, 5 * 50 + 25));
+        walls.add(new Water(7 * 50 + 25, 6 * 50 + 25));
+        walls.add(new Water(7 * 50 + 25, 7 * 50 + 25));
+        walls.add(new Water(8 * 50 + 25, 1 * 50 + 25));
+        walls.add(new Water(8 * 50 + 25, 2 * 50 + 25));
+        walls.add(new Water(8 * 50 + 25, 3 * 50 + 25));
+        walls.add(new Water(8 * 50 + 25, 4 * 50 + 25));
+        walls.add(new Water(8 * 50 + 25, 5 * 50 + 25));
+        walls.add(new Water(8 * 50 + 25, 6 * 50 + 25));
+        walls.add(new Water(8 * 50 + 25, 7 * 50 + 25));
+
         playerTank = new PlayerTank(this, 525, 525, 0);
         PlayerTank.currentHP = PlayerTank.maxHP;
         enemyTanks.add(new EnemyTank(this, 75, 75, 0, 2, 2, enemyAttack, enemyHP));
-        //enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2));
+        //enemyTanks.add(new EnemyTank(this, 575, 125, 0, 2, 2, enemyAttack, enemyHP));
     }
 
     private void secondLevelLayout() {

@@ -370,6 +370,9 @@ public class Tank {
         ArrayList<Wall> walls = levelBuilder.getWalls();
 
         for (Wall wall : walls) {
+            if(!wall.blocksBullets) {
+                continue;
+            }
             if (getBoundaryOfBullet().intersects(wall.getBoundary())) {
                 isBulletBlocked = true;
                 penetration = true;
