@@ -26,7 +26,9 @@ public class LevelBuilder {
     protected static ArrayList<Wall> walls = new ArrayList<>();
     protected PlayerTank playerTank;
     protected ArrayList<EnemyTank> enemyTanks = new ArrayList<>();
+    protected  static ArrayList<Bonus> bonuses = new ArrayList<>();
     protected GraphicsContext gc;
+
 
     private int enemyAttack;
     private int enemyHP;
@@ -49,6 +51,7 @@ public class LevelBuilder {
 
     private void clearLayout() {
         walls = new ArrayList<>();
+        bonuses = new ArrayList<>();
         enemyTanks = new ArrayList<>();
     }
 
@@ -70,6 +73,10 @@ public class LevelBuilder {
         walls.add(new Wall(450, 450));
         walls.add(new Wall(450, 400));
         walls.add(new Wall(500, 400));
+
+        bonuses.add(new Freeze(500, 100, 0));
+        bonuses.add(new Heal(500, 200, 2));
+        bonuses.add(new Haste(500, 300, 1));
 
 
         playerTank = new PlayerTank(this, 560, 560, 0);
@@ -98,6 +105,7 @@ public class LevelBuilder {
         for (int i = 200; i < 650; i += 50) {
             walls.add(new Wall(i, 400));
         }
+        bonuses.add(new Freeze(100, 500, 0));
 
 
         playerTank = new PlayerTank(this, 560, 560, 0);
@@ -125,6 +133,7 @@ public class LevelBuilder {
                 walls.add(new Wall(i, 250 + 300 * k));
             }
         }
+        bonuses.add(new Haste(60, 500, 1));
 
 
         playerTank = new PlayerTank(this, 560, 560, 0);
@@ -235,6 +244,8 @@ public class LevelBuilder {
     public ArrayList<Wall> getWalls() {
         return walls;
     }
+
+    public ArrayList<Bonus> getBonuses() {return bonuses;}
 
     public ArrayList<Wall> getCloseWalls(double xPos, double yPos) {
         ArrayList<Wall> closeWalls = new ArrayList<>();

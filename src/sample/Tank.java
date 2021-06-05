@@ -37,6 +37,9 @@ public class Tank {
     protected boolean isLoaded = true;
     int reloadTimer = 0;
 
+    boolean haste = false;
+    int hasteCounter = 0;
+
     boolean isTopBlocked;
     boolean isBottomBlocked;
     boolean isLeftBlocked;
@@ -106,6 +109,13 @@ public class Tank {
     protected void processMovement() {
         checkCollision();
 
+        if(hasteCounter > 0){
+            haste = true;
+            hasteCounter --;
+        }else{
+            haste = false;
+        }
+
         if (isMoving) {
             accelerate();
         } else {
@@ -170,11 +180,17 @@ public class Tank {
     }
 
     private void accelerate() {
-        if (currentSpeed >= maxSpeed) {
-            currentSpeed = maxSpeed;
-        } else {
-            currentSpeed += acceleration;
+        double tempMaxSpeed = maxSpeed;
+        if(haste){
+           tempMaxSpeed =+ 5;
         }
+
+        if (currentSpeed >= tempMaxSpeed) {
+            currentSpeed = tempMaxSpeed;
+        } else {
+            currentSpeed += tempMaxSpeed/40;
+        }
+
     }
 
     private void slowDown() {
@@ -253,6 +269,29 @@ public class Tank {
         }
 
     }
+    protected void checkBonusCollision(){
+
+        if(levelBuilder == null){
+            return;
+        }
+        ArrayList<Bonus> bonuses = new ArrayList<Bonus>(levelBuilder.getBonuses());
+
+        for (Bonus bonus : bonuses) {
+            if (getBoundary().intersects(bonus.getBoundaryOfBonus())) {
+                levelBuilder.getBonuses().remove(bonus);
+                for(EnemyTank enemyTank : levelBuilder.getEnemyTanks()){
+                    if(bonus.getType() == 0){
+                        enemyTank.freeze();
+                    }else if(bonus.getType() == 1){
+                        hasteCounter = 240;
+
+                    }else if(bonus.getType() == 2){
+                        PlayerTank.currentHP += 80;
+                    }
+                }
+            }
+        }
+    }
 
     protected void checkCollision() {
         isTopBlocked = false;
@@ -326,6 +365,8 @@ public class Tank {
             isRightBlocked = true;
         }
 
+
+
     }
 
     public boolean isNearWall() {
@@ -335,6 +376,8 @@ public class Tank {
     public void render() {
         renderBody();
         renderGun();
+
+
         if (bullet == null) {
             return;
         }
@@ -362,6 +405,8 @@ public class Tank {
             reloadTimer = 1;
         }
     }
+
+
 
     public void checkBulletCollision() {
 
@@ -469,6 +514,7 @@ public class Tank {
     public Rectangle2D getBoundaryOfBullet() {
         return new Rectangle2D(bullet.bulletX, bullet.bulletY, 10, 10);
     }
+
 
     public Point getTileCoordinates() {
         int tileX = ((int) xPos / 50 + 1) * 50 - 25;

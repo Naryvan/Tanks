@@ -19,6 +19,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LevelController implements Initializable {
@@ -31,6 +32,7 @@ public class LevelController implements Initializable {
     public Canvas gameField;
     public GridPane menuWin;
     private ArrayList<Wall> walls;
+    private ArrayList<Bonus> bonuses;
     private GraphicsContext gc;
     private LevelBuilder levelBuilder;
     AnimationTimer animationTimer;
@@ -80,6 +82,7 @@ public class LevelController implements Initializable {
         levelBuilder.setGc(gc);
         levelBuilder.addWalls(StartMenuController.getCurrentLevelId());
         walls = levelBuilder.getWalls();
+        bonuses = levelBuilder.getBonuses();
         enemyTanks = levelBuilder.getEnemyTanks();
         playerTank = levelBuilder.getPlayerTank();
         levelBuilder.setGc(gc);
@@ -113,6 +116,7 @@ public class LevelController implements Initializable {
                 }
                 hpBar.setProgress((double) PlayerTank.currentHP / PlayerTank.maxHP);
                 walls = levelBuilder.getWalls();
+                bonuses = levelBuilder.getBonuses();
                 playerTank.operate(input, mousePos);
                 for (EnemyTank enemyTank : enemyTanks) {
                     enemyTank.operate();
@@ -123,6 +127,12 @@ public class LevelController implements Initializable {
                 for (Wall wall : walls) {
                     wall.render(gc);
                 }
+
+                for (Bonus bonus : bonuses){
+                    bonus.render(gc);
+                }
+
+
 
                 for (EnemyTank enemyTank : enemyTanks) {
                     enemyTank.render();
