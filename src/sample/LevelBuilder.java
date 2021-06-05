@@ -27,6 +27,7 @@ public class LevelBuilder {
     protected PlayerTank playerTank;
     protected ArrayList<EnemyTank> enemyTanks = new ArrayList<>();
     protected GraphicsContext gc;
+    protected ArrayList<Effect> effects = new ArrayList<>();
 
     private int enemyAttack;
     private int enemyHP;
@@ -261,4 +262,7 @@ public class LevelBuilder {
         return enemyTanks;
     }
 
+    public ArrayList<Effect> getEffects() {
+        return effects;
+    }
 }

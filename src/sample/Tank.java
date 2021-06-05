@@ -2,9 +2,7 @@ package sample;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 
@@ -391,6 +389,7 @@ public class Tank {
         PlayerTank playerTank = levelBuilder.getPlayerTank();
         for (EnemyTank enemyTank : enemyTanks) {
             if (getBoundaryOfBullet().intersects(enemyTank.getBoundary()) && bullet.isPlayerBullet()) {
+                new BulletExplosionEffect(levelBuilder, enemyTank, (int)bullet.bulletX, (int)bullet.bulletY);
                 isBulletBlocked = true;
                 penetration = true;
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
@@ -403,6 +402,7 @@ public class Tank {
             }
 
             if (getBoundaryOfBullet().intersects(playerTank.getBoundary()) && !bullet.isPlayerBullet()) {
+                new BulletExplosionEffect(levelBuilder, playerTank, (int)bullet.bulletX, (int)bullet.bulletY);
                 PlayerTank.currentHP -= enemyTank.getAttackPower();
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
             }

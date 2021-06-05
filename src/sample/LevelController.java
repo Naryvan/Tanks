@@ -37,6 +37,7 @@ public class LevelController implements Initializable {
 
     private PlayerTank playerTank;
     private ArrayList<EnemyTank> enemyTanks;
+    protected ArrayList<Effect> effects;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,6 +83,7 @@ public class LevelController implements Initializable {
         walls = levelBuilder.getWalls();
         enemyTanks = levelBuilder.getEnemyTanks();
         playerTank = levelBuilder.getPlayerTank();
+        effects = levelBuilder.getEffects();
         levelBuilder.setGc(gc);
 
         //enemyTanks.get(0).freeze();
@@ -129,6 +131,11 @@ public class LevelController implements Initializable {
                 }
 
                 playerTank.render();
+
+                ArrayList<Effect> effectsTemp = new ArrayList<>(effects);
+                for(Effect effect : effectsTemp) {
+                    effect.process();
+                }
             }
         };
         animationTimer.start();
