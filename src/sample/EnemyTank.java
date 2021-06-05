@@ -58,6 +58,7 @@ public class EnemyTank extends Tank {
 
     public void operate() {
         if (frozen) {
+
             if (frozenCounter == 0) {
                 frozen = false;
             } else {
