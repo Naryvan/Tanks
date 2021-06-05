@@ -389,9 +389,9 @@ public class Tank {
             bodySprite2 = new Image("images/" + spriteName + "2.png");
             towerSprite = new Image("images/" + spriteName + "Tower.png");
             barrelSprite = new Image("images/" + spriteName + "Barrel.png");
-            bodySpriteFrozen = new Image("images/" + spriteName + "Frozen.png");
-            towerSpriteFrozen = new Image("images/" + spriteName + "TowerFrozen.png");
-            barrelSpriteFrozen = new Image("images/" + spriteName + "BarrelFrozen.png");
+            bodySpriteFrozen = new Image("images/EnemyTankFrozen.png");
+            towerSpriteFrozen = new Image("images/EnemyTankTowerFrozen.png");
+            barrelSpriteFrozen = new Image("images/EnemyTankBarrelFrozen.png");
         }
 
         renderBody();
