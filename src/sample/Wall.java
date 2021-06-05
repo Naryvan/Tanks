@@ -23,12 +23,11 @@ public class Wall {
     }
 
     private void drawWall(GraphicsContext gc){
-        gc.drawImage(sprite, x - 25, y - 25);
-    }
-
-    public void damage() {
-        isDamaged = true;
-        sprite = new Image("/images/DamagedWall.png");
+        gc.setFill(Color.rgb(156,36,36));
+        gc.save();
+        gc.fillRect(x,  y, 50, 50);
+        gc.strokeRect(x, y, 50, 50);
+        gc.restore();
     }
 
     public void render(GraphicsContext gc) {
@@ -36,6 +35,6 @@ public class Wall {
     }
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(x - 25, y - 25, 50, 50);
+        return new Rectangle2D(x , y, 50, 50);
     }
 }

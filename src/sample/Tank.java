@@ -86,7 +86,7 @@ public class Tank {
         this.gunRotationSpeed = gunRotationSpeed;
         this.levelBuilder = levelBuilder;
         this.gc = levelBuilder.getGraphicsContext();
-        bullet = new Bullet(0, 0, 0, levelBuilder.getGraphicsContext());
+        bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
     }
 
     //For garage
@@ -357,7 +357,7 @@ public class Tank {
             reloadTimer++;
         }
 
-        if (reloadTimer > 100) {
+        if (reloadTimer > 80) {
             isLoaded = true;
             reloadTimer = 1;
         }

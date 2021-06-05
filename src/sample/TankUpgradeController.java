@@ -108,7 +108,7 @@ public class TankUpgradeController implements Initializable {
     public void upgradeAttack(MouseEvent mouseEvent) {
         Money.decreaseAmount(TankUpgradeData.getCurrentAttackUpgradePrice());
         TankUpgradeData.setAttackLevel(TankUpgradeData.getAttackLevel() + 1);
-        PlayerTank.attack += 5;
+        PlayerTank.attack += 10;
         setData();
     }
 
