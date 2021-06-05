@@ -23,12 +23,12 @@ public class Bonus {
     }
 
     private void drawBonus(GraphicsContext gc){
-        gc.drawImage(sprite, x, y);
+        gc.drawImage(sprite, x + 10, y + 10);
     }
 
     public void render(GraphicsContext gc) { drawBonus(gc); }
 
     public Rectangle2D getBoundaryOfBonus() {
-        return new Rectangle2D(x , y, 50, 50);
+        return new Rectangle2D(x + 10 , y + 10.5, 30, 30);
     }
 }

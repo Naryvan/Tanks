@@ -4,11 +4,10 @@ import javafx.scene.image.Image;
 
 public class Haste extends Bonus{
 
-    public Haste(int x, int y, int type){
-
-        super(x, y, type);
-        sprite = new Image("/images/Haste.png");
+    public Haste(int x, int y){
+        super(x, y, 1);
+        sprite = new Image("images/SpeedBonus.png");
 
     }
-    int type = 1;
+
 }

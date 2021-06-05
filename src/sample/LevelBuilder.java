@@ -75,9 +75,9 @@ public class LevelBuilder {
         walls.add(new Wall(450, 400));
         walls.add(new Wall(500, 400));
 
-        bonuses.add(new Freeze(500, 100, 0));
-        bonuses.add(new Heal(500, 200, 2));
-        bonuses.add(new Haste(500, 300, 1));
+        bonuses.add(new Freeze(500, 100));
+        bonuses.add(new Heal(500, 200));
+        bonuses.add(new Haste(500, 300));
 
 
         playerTank = new PlayerTank(this, 560, 560, 0);
@@ -106,7 +106,7 @@ public class LevelBuilder {
         for (int i = 200; i < 650; i += 50) {
             walls.add(new Wall(i, 400));
         }
-        bonuses.add(new Freeze(100, 500, 0));
+        bonuses.add(new Freeze(100, 500));
 
 
         playerTank = new PlayerTank(this, 560, 560, 0);
@@ -134,7 +134,7 @@ public class LevelBuilder {
                 walls.add(new Wall(i, 250 + 300 * k));
             }
         }
-        bonuses.add(new Haste(60, 500, 1));
+        bonuses.add(new Haste(60, 500));
 
 
         playerTank = new PlayerTank(this, 610, 610, 0);

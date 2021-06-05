@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -133,6 +134,8 @@ public class LevelController implements Initializable {
                 for (Bonus bonus : bonuses){
                     bonus.render(gc);
                 }
+
+                //gc.drawImage(new Image("images/FreezeBonus.png"), 50, 50);
 
 
 
