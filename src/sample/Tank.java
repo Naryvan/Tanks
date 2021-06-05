@@ -18,6 +18,8 @@ public class Tank {
     private int currentSpriteIteration = 1;
     private int changeSpriteTimer = 10;
 
+    Image bodySprite1, bodySprite2, towerSprite, barrelSprite;
+
     double xPos;
     double yPos;
     int direction;
@@ -331,6 +333,13 @@ public class Tank {
     }
 
     public void render() {
+        if(bodySprite1 == null) {
+            bodySprite1 = new Image("images/" + spriteName + "1.png");
+            bodySprite2 = new Image("images/" + spriteName + "2.png");
+            towerSprite = new Image("images/" + spriteName + "Tower.png");
+            barrelSprite = new Image("images/" + spriteName + "Barrel.png");
+        }
+
         renderBody();
         renderGun();
         if (bullet == null) {
@@ -420,7 +429,7 @@ public class Tank {
         if (isMoving && changeSpriteTimer == 0) {
             currentSpriteIteration = currentSpriteIteration == 1 ? 2 : 1;
         }
-        gc.drawImage(new Image("images/" + spriteName + currentSpriteIteration + ".png"), xPos - 20, yPos - 20);
+        gc.drawImage(currentSpriteIteration == 1 ? bodySprite1 : bodySprite2, xPos - 20, yPos - 20);
 
         gc.restore();
     }
@@ -429,8 +438,8 @@ public class Tank {
         gc.setFill(javafx.scene.paint.Color.rgb(0, 75, 0));
         gc.save();
         gc.transform(new Affine(new Rotate(gunDirection, xPos, yPos)));
-        gc.drawImage(new Image("images/" + spriteName + "Barrel.png"), xPos, yPos - 5);
-        gc.drawImage(new Image("images/" + spriteName + "Tower.png"), xPos - 20, yPos - 20);
+        gc.drawImage(barrelSprite, xPos, yPos - 5);
+        gc.drawImage(towerSprite, xPos - 20, yPos - 20);
         gc.restore();
     }
 
