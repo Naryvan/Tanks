@@ -9,210 +9,219 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TankUpgradeController">
-   <bottom>
-      <Button mnemonicParsing="false" onMouseClicked="#returnToGarage" prefHeight="34.0" prefWidth="334.0" text="Return" textFill="MAROON" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Comic Sans MS Italic" size="34.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets bottom="25.0" top="25.0" />
-         </BorderPane.margin>
-      </Button>
-   </bottom>
-   <center>
-      <GridPane gridLinesVisible="true" BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <GridPane>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="currentSpeed" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="speedUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeSpeed" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="27.0" />
-                     </font>
-                  </Button>
-                  <Text fx:id="speedPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="speedPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="33.0" />
-                     </font>
-                  </Text>
-               </children>
-            </GridPane>
-            <GridPane GridPane.rowIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="currentAttack" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="attackUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeAttack" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="27.0" />
-                     </font>
-                  </Button>
-                  <Text fx:id="attackPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="attackPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="33.0" />
-                     </font>
-                  </Text>
-               </children>
-            </GridPane>
-            <GridPane GridPane.rowIndex="2">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="HP" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="currentHP" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="hpUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeHP" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="27.0" />
-                     </font>
-                  </Button>
-                  <Text fx:id="hpPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="hpPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="33.0" />
-                     </font>
-                  </Text>
-               </children>
-            </GridPane>
-            <GridPane GridPane.rowIndex="3">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Aim&#10;   speed" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="currentAimSpeed" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="42.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="aimSpeedUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeAimSpeed" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="27.0" />
-                     </font>
-                  </Button>
-                  <Text fx:id="aimPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="hpPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Comic Sans MS Italic" size="33.0" />
-                     </font>
-                  </Text>
-               </children>
-            </GridPane>
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" right="10.0" />
-         </BorderPane.margin>
-      </GridPane>
-   </center>
-   <top>
-      <GridPane BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="583.0" minWidth="10.0" prefWidth="453.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="247.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Workshop" wrappingWidth="170.171875" GridPane.halignment="RIGHT">
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TankUpgradeController">
+   <children>
+      <ImageView fitHeight="700.0" fitWidth="700.0">
+         <image>
+            <Image url="@../images/workshop_background.png" />
+         </image>
+      </ImageView>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0">
+         <bottom>
+            <Button mnemonicParsing="false" onMouseClicked="#returnToGarage" prefHeight="34.0" prefWidth="334.0" text="Return" textFill="MAROON" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Comic Sans MS" size="34.0" />
+                  <Font name="Comic Sans MS Italic" size="34.0" />
                </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Text>
-            <GridPane GridPane.columnIndex="1">
+               <BorderPane.margin>
+                  <Insets bottom="25.0" top="25.0" />
+               </BorderPane.margin>
+            </Button>
+         </bottom>
+         <center>
+            <GridPane gridLinesVisible="true" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="118.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="129.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Speed" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="currentSpeed" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="speedUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeSpeed" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="27.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="speedPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="speedPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="33.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="1">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="currentAttack" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="attackUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeAttack" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="27.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="attackPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="attackPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="33.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="2">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="HP" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="currentHP" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="hpUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeHP" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="27.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="hpPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="hpPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="33.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.rowIndex="3">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Aim&#10;   speed" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="currentAimSpeed" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="value" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="42.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="aimSpeedUpgradeButton" mnemonicParsing="false" onMouseClicked="#upgradeAimSpeed" text="Upgrade" textFill="MAROON" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="27.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="aimPrice" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="hpPrice" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="33.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </GridPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </BorderPane.margin>
+            </GridPane>
+         </center>
+         <top>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="583.0" minWidth="10.0" prefWidth="453.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="345.0" minWidth="10.0" prefWidth="247.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ImageView fitHeight="55.0" fitWidth="55.0" GridPane.halignment="RIGHT">
-                     <image>
-                        <Image url="@../images/coin_icon.png" />
-                     </image>
-                  </ImageView>
-                  <Text fx:id="currencyAmount" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="amount" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                  <Text fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="Workshop" wrappingWidth="170.171875" GridPane.halignment="RIGHT">
                      <font>
-                        <Font name="Comic Sans MS Italic" size="22.0" />
+                        <Font name="Comic Sans MS" size="34.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
                   </Text>
+                  <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="118.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="129.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="55.0" GridPane.halignment="RIGHT">
+                           <image>
+                              <Image url="@../images/coin_icon.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="currencyAmount" fill="MAROON" strokeType="OUTSIDE" strokeWidth="0.0" text="amount" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                           <font>
+                              <Font name="Comic Sans MS Italic" size="22.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </GridPane>
                </children>
+               <BorderPane.margin>
+                  <Insets bottom="25.0" top="20.0" />
+               </BorderPane.margin>
             </GridPane>
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="25.0" top="20.0" />
-         </BorderPane.margin>
-      </GridPane>
-   </top>
-</BorderPane>
+         </top>
+      </BorderPane>
+   </children>
+</Pane>

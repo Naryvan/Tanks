@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
@@ -10,6 +11,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LevelController">
    <children>
+      <ImageView fitHeight="700.0" fitWidth="700.0">
+         <image>
+            <Image url="@../images/grass_background.png" />
+         </image>
+      </ImageView>
       <Canvas fx:id="gameField" height="700.0" width="700.0" />
       <GridPane fx:id="menuWin" layoutX="204.0" layoutY="218.0" opacity="0.0" prefHeight="276.0" prefWidth="292.0" style="-fx-border-width: 1; -fx-border-color: #000000; -fx-background-color: #ccebff;">
         <columnConstraints>
