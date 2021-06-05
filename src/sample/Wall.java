@@ -10,17 +10,25 @@ public class Wall {
     int x;
     int y;
 
+    public boolean isDamaged = false;
+
+    public boolean blocksBullets = true;
+
+    protected Image sprite;
+
     public Wall(int x, int y){
         this.x = x;
         this.y = y;
+        sprite = new Image("/images/Wall.png");
     }
 
     private void drawWall(GraphicsContext gc){
-        gc.setFill(Color.rgb(156,36,36));
-        gc.save();
-        gc.fillRect(x,  y, 50, 50);
-        gc.strokeRect(x, y, 50, 50);
-        gc.restore();
+        gc.drawImage(sprite, x - 25, y - 25);
+    }
+
+    public void damage() {
+        isDamaged = true;
+        sprite = new Image("/images/DamagedWall.png");
     }
 
     public void render(GraphicsContext gc) {
