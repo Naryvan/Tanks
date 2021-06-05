@@ -137,7 +137,7 @@ public class LevelBuilder {
         bonuses.add(new Haste(60, 500, 1));
 
 
-        playerTank = new PlayerTank(this, 560, 560, 0);
+        playerTank = new PlayerTank(this, 610, 610, 0);
         PlayerTank.currentHP = PlayerTank.maxHP;
         enemyTanks.add(new EnemyTank(this, 90, 90, 0, 2, 2, enemyAttack, enemyHP));
         enemyTanks.add(new EnemyTank(this, 90, 610, 0, 2, 2, enemyAttack, enemyHP));

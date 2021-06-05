@@ -115,10 +115,10 @@ public class Tank {
     protected void processMovement() {
         checkCollision();
 
-        if(hasteCounter > 0){
+        if (hasteCounter > 0) {
             haste = true;
-            hasteCounter --;
-        }else{
+            hasteCounter--;
+        } else {
             haste = false;
         }
 
@@ -186,15 +186,17 @@ public class Tank {
     }
 
     private void accelerate() {
-        double tempMaxSpeed = maxSpeed;
-        if(haste){
-           tempMaxSpeed =+ 5;
-        }
 
+        double tempMaxSpeed = maxSpeed;
+
+        if (haste) {
+            tempMaxSpeed += 3;
+        }
+        System.out.println(tempMaxSpeed);
         if (currentSpeed >= tempMaxSpeed) {
             currentSpeed = tempMaxSpeed;
         } else {
-            currentSpeed += tempMaxSpeed/40;
+            currentSpeed += tempMaxSpeed / 40;
         }
 
     }
@@ -275,9 +277,10 @@ public class Tank {
         }
 
     }
-    protected void checkBonusCollision(){
 
-        if(levelBuilder == null){
+    protected void checkBonusCollision() {
+
+        if (levelBuilder == null) {
             return;
         }
         ArrayList<Bonus> bonuses = new ArrayList<Bonus>(levelBuilder.getBonuses());
@@ -285,13 +288,12 @@ public class Tank {
         for (Bonus bonus : bonuses) {
             if (getBoundary().intersects(bonus.getBoundaryOfBonus())) {
                 levelBuilder.getBonuses().remove(bonus);
-                for(EnemyTank enemyTank : levelBuilder.getEnemyTanks()){
-                    if(bonus.getType() == 0){
+                for (EnemyTank enemyTank : levelBuilder.getEnemyTanks()) {
+                    if (bonus.getType() == 0) {
                         enemyTank.freeze();
-                    }else if(bonus.getType() == 1){
+                    } else if (bonus.getType() == 1) {
                         hasteCounter = 240;
-
-                    }else if(bonus.getType() == 2){
+                    } else if (bonus.getType() == 2) {
                         PlayerTank.currentHP += 80;
                     }
                 }
@@ -372,7 +374,6 @@ public class Tank {
         }
 
 
-
     }
 
     public boolean isNearWall() {
@@ -380,7 +381,7 @@ public class Tank {
     }
 
     public void render() {
-        if(bodySprite1 == null) {
+        if (bodySprite1 == null) {
             bodySprite1 = new Image("images/" + spriteName + "1.png");
             bodySprite2 = new Image("images/" + spriteName + "2.png");
             towerSprite = new Image("images/" + spriteName + "Tower.png");
@@ -420,7 +421,6 @@ public class Tank {
     }
 
 
-
     public void checkBulletCollision() {
 
         isBulletBlocked = false;
@@ -428,17 +428,16 @@ public class Tank {
         ArrayList<Wall> walls = levelBuilder.getWalls();
 
         for (Wall wall : walls) {
-            if(!wall.blocksBullets) {
+            if (!wall.blocksBullets) {
                 continue;
             }
             if (getBoundaryOfBullet().intersects(wall.getBoundary())) {
                 isBulletBlocked = true;
                 penetration = true;
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
-                if(!wall.isDamaged) {
+                if (!wall.isDamaged) {
                     wall.damage();
-                }
-                else {
+                } else {
                     walls.remove(wall);
                 }
                 return;
@@ -449,7 +448,7 @@ public class Tank {
         PlayerTank playerTank = levelBuilder.getPlayerTank();
         for (EnemyTank enemyTank : enemyTanks) {
             if (getBoundaryOfBullet().intersects(enemyTank.getBoundary()) && bullet.isPlayerBullet()) {
-                new BulletExplosionEffect(levelBuilder, enemyTank, (int)bullet.bulletX, (int)bullet.bulletY);
+                new BulletExplosionEffect(levelBuilder, enemyTank, (int) bullet.bulletX, (int) bullet.bulletY);
                 isBulletBlocked = true;
                 penetration = true;
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
@@ -462,7 +461,7 @@ public class Tank {
             }
 
             if (getBoundaryOfBullet().intersects(playerTank.getBoundary()) && !bullet.isPlayerBullet()) {
-                new BulletExplosionEffect(levelBuilder, playerTank, (int)bullet.bulletX, (int)bullet.bulletY);
+                new BulletExplosionEffect(levelBuilder, playerTank, (int) bullet.bulletX, (int) bullet.bulletY);
                 PlayerTank.currentHP -= enemyTank.getAttackPower();
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
             }
