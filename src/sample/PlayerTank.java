@@ -34,6 +34,12 @@ public class PlayerTank extends Tank {
         return yPos;
     }
 
+    protected void checkCollision(){
+        super.checkCollision();
+        checkBonusCollision();
+    }
+
+
     public void operate(ArrayList<String> input, Point mousePos) {
         if (input.contains("W")) {
             isMoving = true;
