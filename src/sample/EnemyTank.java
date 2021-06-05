@@ -84,8 +84,8 @@ public class EnemyTank extends Tank {
 
         if (isLoaded && hasLineOfSight()) {
             createBullet(gc, false);
+            isLoaded = false;
         }
-        isLoaded = false;
 
         rotateGun(new Point((int) playerTank.getX(), (int) playerTank.getY()));
     }
@@ -163,7 +163,9 @@ public class EnemyTank extends Tank {
         } else {
             newIdleDirectionCounter--;
         }
-        isMoving = true;
+
+        isMoving = (direction != 0 || !isTopBlocked) && (direction != 2 || !isRightBlocked) &&
+                (direction != 4 || !isBottomBlocked) && (direction != 6 || !isLeftBlocked);
         processMovement();
     }
 
@@ -360,7 +362,7 @@ public class EnemyTank extends Tank {
                 for (int i = 1; i < possibleNodes.size(); i++) {
                     int newDistance = Math.abs(destinationTile.xCord - possibleNodes.get(i).tile.xCord) +
                             Math.abs(destinationTile.yCord - possibleNodes.get(i).tile.yCord);
-                    if (newDistance < distance) {
+                    if (newDistance <= distance) {
                         distance = newDistance;
                         bestNode = possibleNodes.get(i);
                     }

@@ -27,6 +27,7 @@ public class LevelBuilder {
     protected PlayerTank playerTank;
     protected ArrayList<EnemyTank> enemyTanks = new ArrayList<>();
     protected GraphicsContext gc;
+    protected ArrayList<Effect> effects = new ArrayList<>();
 
     private int enemyAttack;
     private int enemyHP;
@@ -208,8 +209,6 @@ public class LevelBuilder {
         for (int i = 50; i < 650; i += 50) {
             walls.add(new Wall(i, 250));
             walls.add(new Wall(i, 400));
-            // walls.add(new Wall(250, i));
-            //walls.add(new Wall(400, i));
         }
 
         for (int i = 50; i < 250; i += 50) {
@@ -261,4 +260,7 @@ public class LevelBuilder {
         return enemyTanks;
     }
 
+    public ArrayList<Effect> getEffects() {
+        return effects;
+    }
 }

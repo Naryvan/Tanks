@@ -2,13 +2,15 @@ package sample;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Tank {
@@ -19,6 +21,8 @@ public class Tank {
     protected String spriteName;
     private int currentSpriteIteration = 1;
     private int changeSpriteTimer = 10;
+
+    Image bodySprite1, bodySprite2, towerSprite, barrelSprite;
 
     double xPos;
     double yPos;
@@ -46,6 +50,8 @@ public class Tank {
 
     LevelBuilder levelBuilder;
     GraphicsContext gc;
+
+    AudioClip shotSound = new AudioClip(getClass().getResource("/sounds/Shot.mp3").toExternalForm());
 
     public Tank(LevelBuilder levelBuilder) {
         this.xPos = 50;
@@ -333,6 +339,13 @@ public class Tank {
     }
 
     public void render() {
+        if(bodySprite1 == null) {
+            bodySprite1 = new Image("images/" + spriteName + "1.png");
+            bodySprite2 = new Image("images/" + spriteName + "2.png");
+            towerSprite = new Image("images/" + spriteName + "Tower.png");
+            barrelSprite = new Image("images/" + spriteName + "Barrel.png");
+        }
+
         renderBody();
         renderGun();
         if (bullet == null) {
@@ -391,6 +404,7 @@ public class Tank {
         PlayerTank playerTank = levelBuilder.getPlayerTank();
         for (EnemyTank enemyTank : enemyTanks) {
             if (getBoundaryOfBullet().intersects(enemyTank.getBoundary()) && bullet.isPlayerBullet()) {
+                new BulletExplosionEffect(levelBuilder, enemyTank, (int)bullet.bulletX, (int)bullet.bulletY);
                 isBulletBlocked = true;
                 penetration = true;
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
@@ -403,6 +417,7 @@ public class Tank {
             }
 
             if (getBoundaryOfBullet().intersects(playerTank.getBoundary()) && !bullet.isPlayerBullet()) {
+                new BulletExplosionEffect(levelBuilder, playerTank, (int)bullet.bulletX, (int)bullet.bulletY);
                 PlayerTank.currentHP -= enemyTank.getAttackPower();
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
             }
@@ -420,7 +435,7 @@ public class Tank {
         if (isMoving && changeSpriteTimer == 0) {
             currentSpriteIteration = currentSpriteIteration == 1 ? 2 : 1;
         }
-        gc.drawImage(new Image("images/" + spriteName + currentSpriteIteration + ".png"), xPos - 20, yPos - 20);
+        gc.drawImage(currentSpriteIteration == 1 ? bodySprite1 : bodySprite2, xPos - 20, yPos - 20);
 
         gc.restore();
     }
@@ -429,12 +444,13 @@ public class Tank {
         gc.setFill(javafx.scene.paint.Color.rgb(0, 75, 0));
         gc.save();
         gc.transform(new Affine(new Rotate(gunDirection, xPos, yPos)));
-        gc.drawImage(new Image("images/" + spriteName + "Barrel.png"), xPos, yPos - 5);
-        gc.drawImage(new Image("images/" + spriteName + "Tower.png"), xPos - 20, yPos - 20);
+        gc.drawImage(barrelSprite, xPos, yPos - 5);
+        gc.drawImage(towerSprite, xPos - 20, yPos - 20);
         gc.restore();
     }
 
     public void createBullet(GraphicsContext graphicsContext2D, boolean playerBullet) {
+        shotSound.play();
         this.bullet = new Bullet(xPos, yPos, gunDirection, graphicsContext2D);
         bullet.setPlayerBullet(playerBullet);
     }
