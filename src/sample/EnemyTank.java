@@ -163,7 +163,9 @@ public class EnemyTank extends Tank {
         } else {
             newIdleDirectionCounter--;
         }
-        isMoving = true;
+
+        isMoving = (direction != 0 || !isTopBlocked) && (direction != 2 || !isRightBlocked) &&
+                (direction != 4 || !isBottomBlocked) && (direction != 6 || !isLeftBlocked);
         processMovement();
     }
 
