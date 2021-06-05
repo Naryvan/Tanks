@@ -175,7 +175,7 @@ public class EnemyTank extends Tank {
             if(!wall.blocksBullets) {
                 continue;
             }
-            Rectangle wallBoundary = new Rectangle(wall.x - 25, wall.y - 25, 50, 50);
+            Rectangle wallBoundary = new Rectangle(wall.x, wall.y, 50, 50);
             if (lineOfSight.getBoundsInParent().intersects(wallBoundary.getBoundsInParent())) {
                 return false;
             }
@@ -256,7 +256,7 @@ public class EnemyTank extends Tank {
         private ArrayList<Tile> getBlockedTiles() {
             ArrayList<Tile> blockedTiles = new ArrayList<>();
             for (Wall wall : levelBuilder.getWalls()) {
-                blockedTiles.add(new Tile(wall.x, wall.y));
+                blockedTiles.add(new Tile(wall.x + 25, wall.y + 25));
             }
             return blockedTiles;
         }

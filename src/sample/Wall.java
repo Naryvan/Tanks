@@ -23,7 +23,7 @@ public class Wall {
     }
 
     private void drawWall(GraphicsContext gc){
-        gc.drawImage(sprite, x - 25, y - 25);
+        gc.drawImage(sprite, x, y);
     }
 
     public void damage() {
