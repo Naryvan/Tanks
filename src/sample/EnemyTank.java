@@ -25,7 +25,7 @@ public class EnemyTank extends Tank {
     private int newIdleDirectionCounter = 0;
     private int frozenCounter = 0;
 
-    private boolean frozen = false;
+    //private boolean frozen = false;
 
     Random random = new Random();
 

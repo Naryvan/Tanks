@@ -23,6 +23,7 @@ public class Tank {
     private int changeSpriteTimer = 10;
 
     Image bodySprite1, bodySprite2, towerSprite, barrelSprite;
+    Image bodySpriteFrozen, towerSpriteFrozen, barrelSpriteFrozen;
 
     double xPos;
     double yPos;
@@ -47,6 +48,8 @@ public class Tank {
     boolean isRightBlocked;
 
     boolean isBulletBlocked;
+
+    protected boolean frozen = false;
 
     LevelBuilder levelBuilder;
     GraphicsContext gc;
@@ -344,6 +347,9 @@ public class Tank {
             bodySprite2 = new Image("images/" + spriteName + "2.png");
             towerSprite = new Image("images/" + spriteName + "Tower.png");
             barrelSprite = new Image("images/" + spriteName + "Barrel.png");
+            bodySpriteFrozen = new Image("images/" + spriteName + "Frozen.png");
+            towerSpriteFrozen = new Image("images/" + spriteName + "TowerFrozen.png");
+            barrelSpriteFrozen = new Image("images/" + spriteName + "BarrelFrozen.png");
         }
 
         renderBody();
@@ -435,7 +441,12 @@ public class Tank {
         if (isMoving && changeSpriteTimer == 0) {
             currentSpriteIteration = currentSpriteIteration == 1 ? 2 : 1;
         }
-        gc.drawImage(currentSpriteIteration == 1 ? bodySprite1 : bodySprite2, xPos - 20, yPos - 20);
+        if(frozen) {
+            gc.drawImage(bodySpriteFrozen, xPos - 20, yPos - 20);
+        }
+        else {
+            gc.drawImage(currentSpriteIteration == 1 ? bodySprite1 : bodySprite2, xPos - 20, yPos - 20);
+        }
 
         gc.restore();
     }
@@ -444,8 +455,14 @@ public class Tank {
         gc.setFill(javafx.scene.paint.Color.rgb(0, 75, 0));
         gc.save();
         gc.transform(new Affine(new Rotate(gunDirection, xPos, yPos)));
-        gc.drawImage(barrelSprite, xPos, yPos - 5);
-        gc.drawImage(towerSprite, xPos - 20, yPos - 20);
+        if(frozen) {
+            gc.drawImage(barrelSpriteFrozen, xPos, yPos - 5);
+            gc.drawImage(towerSpriteFrozen, xPos - 20, yPos - 20);
+        }
+        else {
+            gc.drawImage(barrelSprite, xPos, yPos - 5);
+            gc.drawImage(towerSprite, xPos - 20, yPos - 20);
+        }
         gc.restore();
     }
 
