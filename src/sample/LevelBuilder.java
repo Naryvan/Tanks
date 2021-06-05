@@ -91,11 +91,11 @@ public class LevelBuilder {
         enemyAttack = 20;
         enemyHP = 120;
         setWallBorder();
-        for (int i = 100; i < 500; i += 50) {
+        for (int i = 50; i < 500; i += 50) {
             walls.add(new Wall(i, 200));
         }
 
-        for (int i = 200; i < 600; i += 50) {
+        for (int i = 200; i < 650; i += 50) {
             walls.add(new Wall(i, 400));
         }
 
@@ -146,10 +146,15 @@ public class LevelBuilder {
             walls.add(new Wall(i, 500));
         }
 
-        for (int i = 200; i < 300; i += 50) {
+        walls.add(new Water(200, 300));
+        walls.add(new Water(200, 350));
+        walls.add(new Water(450, 300));
+        walls.add(new Water(450, 350));
+
+        for (int i = 200; i < 250; i += 50) {
             walls.add(new Wall(150, i));
-            walls.add(new Wall(150, i + 200));
-            walls.add(new Wall(500, i + 200));
+            walls.add(new Wall(150, i + 250));
+            walls.add(new Wall(500, i + 250));
             walls.add(new Wall(500, i));
         }
 
@@ -167,13 +172,24 @@ public class LevelBuilder {
         enemyHP = 180;
         setWallBorder();
 
-        for (int i = 50; i < 350; i += 50) {
+        for (int i = 150; i < 350; i += 50) {
             walls.add(new Wall(200, i));
-            walls.add(new Wall(450, 650-i));
-
+            walls.add(new Wall(450, 650 - i));
             walls.add(new Wall(i, 450));
-            walls.add(new Wall(650-i, 200));
+            walls.add(new Wall(650 - i, 200));
         }
+
+        walls.add(new Water(200, 50));
+        walls.add(new Water(200, 100));
+
+        walls.add(new Water(450, 600));
+        walls.add(new Water(450, 550));
+
+        walls.add(new Water(50, 450));
+        walls.add(new Water(100, 450));
+
+        walls.add(new Water(600, 200));
+        walls.add(new Water(550, 200));
 
 
         playerTank = new PlayerTank(this, 560, 560, 0);
@@ -192,8 +208,15 @@ public class LevelBuilder {
         for (int i = 50; i < 650; i += 50) {
             walls.add(new Wall(i, 250));
             walls.add(new Wall(i, 400));
-            walls.add(new Wall(250, i));
-            walls.add(new Wall(400, i));
+            // walls.add(new Wall(250, i));
+            //walls.add(new Wall(400, i));
+        }
+
+        for (int i = 50; i < 250; i += 50) {
+            walls.add(new Water(250, i));
+            walls.add(new Water(250, i + 400));
+            walls.add(new Water(450, i));
+            walls.add(new Water(450, i + 400));
         }
 
 
