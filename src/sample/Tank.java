@@ -3,10 +3,14 @@ package sample;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Rotate;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Tank {
@@ -46,6 +50,8 @@ public class Tank {
 
     LevelBuilder levelBuilder;
     GraphicsContext gc;
+
+    AudioClip shotSound = new AudioClip(getClass().getResource("/sounds/Shot.mp3").toExternalForm());
 
     public Tank(LevelBuilder levelBuilder) {
         this.xPos = 50;
@@ -444,6 +450,7 @@ public class Tank {
     }
 
     public void createBullet(GraphicsContext graphicsContext2D, boolean playerBullet) {
+        shotSound.play();
         this.bullet = new Bullet(xPos, yPos, gunDirection, graphicsContext2D);
         bullet.setPlayerBullet(playerBullet);
     }

@@ -84,8 +84,8 @@ public class EnemyTank extends Tank {
 
         if (isLoaded && hasLineOfSight()) {
             createBullet(gc, false);
+            isLoaded = false;
         }
-        isLoaded = false;
 
         rotateGun(new Point((int) playerTank.getX(), (int) playerTank.getY()));
     }
