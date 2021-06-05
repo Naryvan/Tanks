@@ -362,7 +362,7 @@ public class EnemyTank extends Tank {
                 for (int i = 1; i < possibleNodes.size(); i++) {
                     int newDistance = Math.abs(destinationTile.xCord - possibleNodes.get(i).tile.xCord) +
                             Math.abs(destinationTile.yCord - possibleNodes.get(i).tile.yCord);
-                    if (newDistance < distance) {
+                    if (newDistance <= distance) {
                         distance = newDistance;
                         bestNode = possibleNodes.get(i);
                     }
