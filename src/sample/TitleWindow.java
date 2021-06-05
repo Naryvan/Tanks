@@ -18,14 +18,20 @@ public class TitleWindow extends Application {
         launch(args);
     }
 
-
+    MediaPlayer mediaPlayer;
+    private void music(){
+        String name = "src/music/main_theme.mp3";
+        Media media = new Media(Paths.get(name).toUri().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+    }
 
     @Override
     public void start(Stage primaryStage) {
-
+        music();
         LevelMenu[] levels = StartMenuController.getLevels();
-        for(int i = 0; i < levels.length; i++){
-            levels[i] = new LevelMenu("#level" + i, "#backLevelPane"+i);
+        for (int i = 0; i < levels.length; i++) {
+            levels[i] = new LevelMenu("#level" + i, "#backLevelPane" + i);
         }
         levels[0].setLocked(false);
         Parent root = new Group();
