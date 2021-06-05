@@ -10,6 +10,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 public class TitleWindow extends Application {
 
@@ -38,16 +39,6 @@ public class TitleWindow extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        music();
-    }
-
-
-    MediaPlayer mediaPlayer;
-    public void music(){
-        String musicPath = "D:\\Java\\Tanks\\src\\music\\main_theme.mp3";
-        Media media = new Media(new File(musicPath).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
     }
 
 }
