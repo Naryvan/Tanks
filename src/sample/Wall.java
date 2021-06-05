@@ -10,16 +10,9 @@ public class Wall {
     int x;
     int y;
 
-    public boolean isDamaged = false;
-
-    public boolean blocksBullets = true;
-
-    protected Image sprite;
-
     public Wall(int x, int y){
         this.x = x;
         this.y = y;
-        sprite = new Image("/images/Wall.png");
     }
 
     private void drawWall(GraphicsContext gc){
