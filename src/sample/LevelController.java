@@ -140,7 +140,7 @@ public class LevelController implements Initializable {
             @Override
             public void handle(long l) {
                 if (!playerTank.isLoaded) {
-                    reloadBar.setProgress((double) playerTank.reloadTimer / 100.00);
+                    reloadBar.setProgress((double) playerTank.reloadTimer / 80.00);
                 }
 
             }
