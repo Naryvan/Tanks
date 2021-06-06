@@ -1,7 +1,7 @@
 package sample;
 
 public class Money {
-    private static int amount = 1000;
+    private static int amount = 100;
 
     public static int getAmount() {
         return amount;

@@ -43,7 +43,7 @@ public class TankUpgradeController implements Initializable {
 
     private void setData() {
         currencyAmount.setText(Money.getAmount() + "$");
-        if (TankUpgradeData.getSpeedLevel() == 5) {
+        if (TankUpgradeData.getSpeedLevel() == 3) {
             speedUpgradeButton.setDisable(true);
             speedPrice.setText("Max lvl");
         } else {
