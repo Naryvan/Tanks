@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
@@ -44,6 +45,10 @@ public class LevelController implements Initializable {
     private PlayerTank playerTank;
     private ArrayList<EnemyTank> enemyTanks;
     protected ArrayList<Effect> effects;
+
+    AudioClip winSound = new AudioClip(getClass().getResource("/sounds/win_sound.mp3").toExternalForm());
+    AudioClip gameCompletedSound = new AudioClip(getClass().getResource("/sounds/game_completed.mp3").toExternalForm());
+    AudioClip loseSound = new AudioClip(getClass().getResource("/sounds/lose_sound.mp3").toExternalForm());
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -206,13 +211,14 @@ public class LevelController implements Initializable {
 
     private void openLevelCompletedWindow() {
         playerTank.moveSound.stop();
-        winSound();
 
         int currentLvlId = StartMenuController.getCurrentLevelId();
         animationTimer.stop();
         if (currentLvlId == 5) {
+            gameCompletedSound.play();
             levelCompletedText.setText("Congratulations!!!\nGame completed! :) ");
         } else {
+            winSound.play();
             levelCompletedText.setText("Congratulations!!!\nLevel completed!");
         }
         levelCompleted.setDisable(false);
@@ -221,7 +227,7 @@ public class LevelController implements Initializable {
 
     private void openLevelFailedWindow() {
         playerTank.moveSound.stop();
-        loseSound();
+        loseSound.play();
         animationTimer.stop();
         levelFailed.setDisable(false);
         levelFailed.setOpacity(1);
@@ -248,22 +254,6 @@ public class LevelController implements Initializable {
         animationTimer.stop();
         playerTank = null;
         returnToGarage();
-    }
-
-    MediaPlayer mediaPlayer;
-
-    private void winSound() {
-        String name = "src/sounds/win_sound.mp3";
-        Media media = new Media(Paths.get(name).toUri().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-    }
-
-    private void loseSound() {
-        String name = "src/sounds/lose_sound.mp3";
-        Media media = new Media(Paths.get(name).toUri().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
     }
 
     private void returnToGarage() {
