@@ -27,9 +27,6 @@ import java.util.ResourceBundle;
 
 public class TitleController implements Initializable {
     public ImageView backgroundImage;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private Pane textPanel;
 
@@ -38,15 +35,9 @@ public class TitleController implements Initializable {
         fade.setOnFinished(new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                try {
-                    root = FXMLLoader.load(getClass().getResource("garage_window.fxml"));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+                fade.stop();
+                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                stage.setScene(Scenes.getGarageWindow(getClass()));
             }
         });
         fade.setNode(textPanel);

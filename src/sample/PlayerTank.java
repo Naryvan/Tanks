@@ -14,6 +14,13 @@ public class PlayerTank extends Tank {
     public static int maxSpeed = 2;
     public static int aimSpeed = 2;
 
+    public static void increaseCurrentHP(int increment) {
+        currentHP += increment;
+        if (currentHP > maxHP) {
+            currentHP = maxHP;
+        }
+    }
+
     //For garage
     public PlayerTank(GraphicsContext gc, double xPos, double yPos, int direction) {
         super(gc, xPos, yPos, direction, maxSpeed, aimSpeed);
@@ -34,7 +41,7 @@ public class PlayerTank extends Tank {
         return yPos;
     }
 
-    protected void checkCollision(){
+    protected void checkCollision() {
         super.checkCollision();
         checkBonusCollision();
     }

@@ -98,17 +98,8 @@ public class StartMenuController implements Initializable {
 
         currentLevelId = pane.getId().charAt(pane.getId().length() - 1) - '0';
         if (canStartLevel) {
-            try {
-                root = FXMLLoader.load(getClass().getResource("level_layout.fxml"));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
             Stage stage = (Stage) mainPanel.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } else {
-            System.out.println("Level locked");
+            stage.setScene(Scenes.getLevelScene(getClass()));
         }
     }
 }
