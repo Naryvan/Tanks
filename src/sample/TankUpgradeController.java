@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -28,6 +29,7 @@ public class TankUpgradeController implements Initializable {
     public Text aimPrice;
     public Text currentAimSpeed;
     public Button aimSpeedUpgradeButton;
+    AudioClip spendMoneySound = new AudioClip(getClass().getResource("/sounds/spend_money_sound.mp3").toExternalForm());
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -37,13 +39,6 @@ public class TankUpgradeController implements Initializable {
     public void returnToGarage(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setScene(Scenes.getGarageWindow(getClass()));
-    }
-
-    public void upgradeSpeed(MouseEvent mouseEvent) {
-        Money.decreaseAmount(TankUpgradeData.getCurrentSpeedUpgradePrice());
-        TankUpgradeData.setSpeedLevel(TankUpgradeData.getSpeedLevel() + 1);
-        PlayerTank.maxSpeed++;
-        setData();
     }
 
     private void setData() {
@@ -97,10 +92,19 @@ public class TankUpgradeController implements Initializable {
         currentAimSpeed.setText(String.valueOf(PlayerTank.aimSpeed));
     }
 
+    public void upgradeSpeed(MouseEvent mouseEvent) {
+        Money.decreaseAmount(TankUpgradeData.getCurrentSpeedUpgradePrice());
+        TankUpgradeData.setSpeedLevel(TankUpgradeData.getSpeedLevel() + 1);
+        PlayerTank.maxSpeed++;
+        spendMoneySound.play();
+        setData();
+    }
+
     public void upgradeAttack(MouseEvent mouseEvent) {
         Money.decreaseAmount(TankUpgradeData.getCurrentAttackUpgradePrice());
         TankUpgradeData.setAttackLevel(TankUpgradeData.getAttackLevel() + 1);
         PlayerTank.attack += 10;
+        spendMoneySound.play();
         setData();
     }
 
@@ -108,6 +112,7 @@ public class TankUpgradeController implements Initializable {
         Money.decreaseAmount(TankUpgradeData.getCurrentHPUpgradePrice());
         TankUpgradeData.setHpLevel(TankUpgradeData.getHpLevel() + 1);
         PlayerTank.maxHP += 20;
+        spendMoneySound.play();
         setData();
     }
 
@@ -115,6 +120,7 @@ public class TankUpgradeController implements Initializable {
         Money.decreaseAmount(TankUpgradeData.getCurrentAimSpeedUpgradePrice());
         TankUpgradeData.setAimSpeedLevel(TankUpgradeData.getAimSpeedLevel() + 1);
         PlayerTank.aimSpeed++;
+        spendMoneySound.play();
         setData();
     }
 }

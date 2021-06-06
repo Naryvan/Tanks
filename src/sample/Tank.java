@@ -11,6 +11,7 @@ import javafx.scene.transform.Rotate;
 
 import java.awt.*;
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Tank {
@@ -58,6 +59,7 @@ public class Tank {
     GraphicsContext gc;
 
     AudioClip shotSound = new AudioClip(getClass().getResource("/sounds/Shot.mp3").toExternalForm());
+    AudioClip moveSound =new AudioClip(getClass().getResource("/sounds/tank_moving.mp3").toExternalForm());
 
     public Tank(LevelBuilder levelBuilder) {
         this.xPos = 50;
@@ -99,6 +101,7 @@ public class Tank {
         this.levelBuilder = levelBuilder;
         this.gc = levelBuilder.getGraphicsContext();
         bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
+        moveSound.setVolume(0.1);
     }
 
     //For garage
@@ -113,6 +116,7 @@ public class Tank {
         this.gunRotationSpeed = gunRotationSpeed;
         this.levelBuilder = null;
         this.gc = gc;
+        moveSound.setVolume(0.1);
     }
 
     protected void processMovement() {
@@ -126,6 +130,8 @@ public class Tank {
         }
 
         if (isMoving) {
+
+            moveSound.play();
             accelerate();
         } else {
             slowDown();
@@ -208,6 +214,7 @@ public class Tank {
             currentSpeed -= acceleration * 2;
         }
         if (currentSpeed < 0) {
+            moveSound.stop();
             currentSpeed = 0;
         }
     }
@@ -299,9 +306,25 @@ public class Tank {
                         PlayerTank.increaseCurrentHP(80);
                     }
                 }
-
+                bonusTakenSound();
             }
         }
+    }
+
+    MediaPlayer mediaPlayer;
+
+    private void bonusTakenSound() {
+        String name = "src/sounds/bonus_collected.mp3";
+        Media media = new Media(Paths.get(name).toUri().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+    }
+
+    private void tankTakesDamageSound() {
+        String name = "src/sounds/tank_takes_damage.mp3";
+        Media media = new Media(Paths.get(name).toUri().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
     }
 
     protected void checkCollision() {
@@ -446,6 +469,7 @@ public class Tank {
                 } else {
                     walls.remove(wall);
                 }
+                tankTakesDamageSound();
                 return;
             }
         }
@@ -463,6 +487,7 @@ public class Tank {
                     enemyTanks.remove(enemyTank);
                     Money.increaseAmount(15);
                 }
+                tankTakesDamageSound();
                 return;
             }
 
@@ -470,6 +495,7 @@ public class Tank {
                 new BulletExplosionEffect(levelBuilder, playerTank, (int) bullet.bulletX, (int) bullet.bulletY);
                 PlayerTank.currentHP -= enemyTank.getAttackPower();
                 bullet = new Bullet(-100, -100, 0, levelBuilder.getGraphicsContext());
+                tankTakesDamageSound();
             }
         }
     }
@@ -485,10 +511,9 @@ public class Tank {
         if (isMoving && changeSpriteTimer == 0) {
             currentSpriteIteration = currentSpriteIteration == 1 ? 2 : 1;
         }
-        if(frozen) {
+        if (frozen) {
             gc.drawImage(bodySpriteFrozen, xPos - 20, yPos - 20);
-        }
-        else {
+        } else {
             gc.drawImage(currentSpriteIteration == 1 ? bodySprite1 : bodySprite2, xPos - 20, yPos - 20);
         }
 
@@ -500,11 +525,10 @@ public class Tank {
         gc.setFill(javafx.scene.paint.Color.rgb(0, 75, 0));
         gc.save();
         gc.transform(new Affine(new Rotate(gunDirection, xPos, yPos)));
-        if(frozen) {
+        if (frozen) {
             gc.drawImage(barrelSpriteFrozen, xPos, yPos - 5);
             gc.drawImage(towerSpriteFrozen, xPos - 20, yPos - 20);
-        }
-        else {
+        } else {
             gc.drawImage(barrelSprite, xPos, yPos - 5);
             gc.drawImage(towerSprite, xPos - 20, yPos - 20);
         }

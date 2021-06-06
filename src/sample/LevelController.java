@@ -13,12 +13,15 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -158,7 +161,7 @@ public class LevelController implements Initializable {
 
             @Override
             public void handle(long l) {
-                if(playerTank == null) {
+                if (playerTank == null) {
                     stop();
                     return;
                 }
@@ -200,6 +203,9 @@ public class LevelController implements Initializable {
     }
 
     private void openLevelCompletedWindow() {
+        playerTank.moveSound.stop();
+        winSound();
+
         int currentLvlId = StartMenuController.getCurrentLevelId();
         animationTimer.stop();
         if (currentLvlId == 5) {
@@ -212,6 +218,8 @@ public class LevelController implements Initializable {
     }
 
     private void openLevelFailedWindow() {
+        playerTank.moveSound.stop();
+        loseSound();
         animationTimer.stop();
         levelFailed.setDisable(false);
         levelFailed.setOpacity(1);
@@ -238,6 +246,22 @@ public class LevelController implements Initializable {
         animationTimer.stop();
         playerTank = null;
         returnToGarage();
+    }
+
+    MediaPlayer mediaPlayer;
+
+    private void winSound() {
+        String name = "src/sounds/win_sound.mp3";
+        Media media = new Media(Paths.get(name).toUri().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+    }
+
+    private void loseSound() {
+        String name = "src/sounds/lose_sound.mp3";
+        Media media = new Media(Paths.get(name).toUri().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
     }
 
     private void returnToGarage() {
