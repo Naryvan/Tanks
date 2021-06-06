@@ -75,9 +75,9 @@ public class LevelBuilder {
         walls.add(new Wall(450, 400));
         walls.add(new Wall(500, 400));
 
-        bonuses.add(new Freeze(500, 100));
-        bonuses.add(new Heal(500, 200));
-        bonuses.add(new Haste(500, 300));
+        bonuses.add(new Freeze(350, 200));
+        bonuses.add(new Heal(350, 350));
+        bonuses.add(new Haste(350, 500));
 
 
         playerTank = new PlayerTank(this, 560, 560, 0);
@@ -106,8 +106,10 @@ public class LevelBuilder {
         for (int i = 200; i < 650; i += 50) {
             walls.add(new Wall(i, 400));
         }
-        bonuses.add(new Freeze(100, 500));
 
+        bonuses.add(new Heal(350, 320));
+        bonuses.add(new Heal(350, 120));
+        bonuses.add(new Haste(350, 550));
 
         playerTank = new PlayerTank(this, 560, 560, 0);
         PlayerTank.currentHP = PlayerTank.maxHP;
@@ -134,7 +136,10 @@ public class LevelBuilder {
                 walls.add(new Wall(i, 250 + 300 * k));
             }
         }
-        bonuses.add(new Haste(60, 500));
+        bonuses.add(new Freeze(60, 60));
+        bonuses.add(new Heal(350, 610));
+        bonuses.add(new Heal(610, 110));
+        bonuses.add(new Haste(350, 350));
 
 
         playerTank = new PlayerTank(this, 610, 610, 0);
@@ -160,6 +165,11 @@ public class LevelBuilder {
         walls.add(new Water(200, 350));
         walls.add(new Water(450, 300));
         walls.add(new Water(450, 350));
+
+        bonuses.add(new Heal(210, 210));
+        bonuses.add(new Haste(440, 440));
+        bonuses.add(new Haste(590, 60));
+        bonuses.add(new Freeze(60, 590));
 
         for (int i = 200; i < 250; i += 50) {
             walls.add(new Wall(150, i));
@@ -201,6 +211,10 @@ public class LevelBuilder {
         walls.add(new Water(600, 200));
         walls.add(new Water(550, 200));
 
+        bonuses.add(new Heal(60, 60));
+        bonuses.add(new Haste(350, 350));
+        bonuses.add(new Freeze(60, 590));
+        bonuses.add(new Freeze(590, 60));
 
         playerTank = new PlayerTank(this, 560, 560, 0);
         PlayerTank.currentHP = PlayerTank.maxHP;
@@ -226,6 +240,13 @@ public class LevelBuilder {
             walls.add(new Water(450, i));
             walls.add(new Water(450, i + 400));
         }
+
+        bonuses.add(new Heal(60, 60));
+        bonuses.add(new Heal(590, 590));
+        bonuses.add(new Haste(60, 350));
+        bonuses.add(new Haste(590, 350));
+        bonuses.add(new Freeze(60, 590));
+        bonuses.add(new Freeze(590, 60));
 
 
         playerTank = new PlayerTank(this, 350, 350, 0);
