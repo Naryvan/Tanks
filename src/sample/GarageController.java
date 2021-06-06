@@ -38,7 +38,6 @@ public class GarageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(Runtime.getRuntime().freeMemory());
         System.gc();
         fadeTransition = new FadeTransition();
         currencyAmount.setText(Money.getAmount() + "$");
