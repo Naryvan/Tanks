@@ -16,7 +16,7 @@ public class EnemyTank extends Tank {
 
     private final static int NEW_PATH_COUNTER = 60;
     private final static int NEW_IDLE_DIRECTION_COUNTER = 240;
-    private final static int FREEZE_COUNTER = 480;
+    private final static int FREEZE_COUNTER = 240;
 
     PlayerTank playerTank;
     private Path currentPath;

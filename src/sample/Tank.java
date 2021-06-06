@@ -301,7 +301,7 @@ public class Tank {
                     if (bonus.getType() == 0) {
                         enemyTank.freeze();
                     } else if (bonus.getType() == 1) {
-                        hasteCounter = 240;
+                        hasteCounter = 480;
                     } else if (bonus.getType() == 2) {
                         PlayerTank.increaseCurrentHP(80);
                     }
