@@ -174,12 +174,14 @@ public class LevelController implements Initializable {
     }
 
     private void menu() {
+        playerTank.moveSound.stop();
         menuWin.setDisable(false);
         animationTimer.stop();
         menuWin.setOpacity(1);
     }
 
     public void resumeGame(MouseEvent mouseEvent) {
+        playerTank.moveSound.play();
         menuWin.setDisable(true);
         animationTimer.start();
         menuWin.setOpacity(0);
