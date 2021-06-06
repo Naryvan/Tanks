@@ -19,11 +19,12 @@ public class TitleWindow extends Application {
         launch(args);
     }
 
-    AudioClip mainTheme = new AudioClip(getClass().getResource("src/music/main_theme.mp3").toExternalForm());
+    AudioClip mainTheme = new AudioClip(getClass().getResource("/music/main_theme.mp3").toExternalForm());
 
     @Override
     public void start(Stage primaryStage) {
         mainTheme.setCycleCount(AudioClip.INDEFINITE);
+        mainTheme.play();
         LevelMenu[] levels = StartMenuController.getLevels();
         for (int i = 0; i < levels.length; i++) {
             levels[i] = new LevelMenu("#level" + i, "#backLevelPane" + i);
