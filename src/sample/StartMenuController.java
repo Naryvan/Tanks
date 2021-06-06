@@ -78,8 +78,8 @@ public class StartMenuController implements Initializable {
         }
 
         if (canChangeBorder) {
-            pane.setBorder(new Border(new BorderStroke(Color.web("#b50909"),
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+            pane.setBorder(new Border(new BorderStroke(Color.web("#000000"),
+                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
         }
     }
 
