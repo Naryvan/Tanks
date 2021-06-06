@@ -28,7 +28,6 @@ public class TankUpgradeController implements Initializable {
     public Text aimPrice;
     public Text currentAimSpeed;
     public Button aimSpeedUpgradeButton;
-    private Parent root;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,15 +35,8 @@ public class TankUpgradeController implements Initializable {
     }
 
     public void returnToGarage(MouseEvent mouseEvent) {
-        try {
-            root = FXMLLoader.load(getClass().getResource("garage_window.fxml"));
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        stage.setScene(Scenes.getGarageWindow(getClass()));
     }
 
     public void upgradeSpeed(MouseEvent mouseEvent) {

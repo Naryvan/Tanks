@@ -3,11 +3,8 @@ package sample;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -18,7 +15,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -27,7 +23,6 @@ public class GarageController implements Initializable {
 
     public BorderPane instructionsPane;
     public Text currencyAmount;
-    private Parent root;
     public Rectangle startGamePoint;
     public Rectangle upgradeTankPoint;
     public Rectangle exitGamePoint;
@@ -37,12 +32,15 @@ public class GarageController implements Initializable {
     GraphicsContext gc;
     ArrayList<String> input = new ArrayList<>();
     Point mousePos = new Point();
-    FadeTransition fadeTransition = new FadeTransition();
+    FadeTransition fadeTransition;
     @FXML
     private Canvas tankEntity;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(Runtime.getRuntime().freeMemory());
+        System.gc();
+        fadeTransition = new FadeTransition();
         currencyAmount.setText(Money.getAmount() + "$");
         tankEntity.setFocusTraversable(true);
         gc = tankEntity.getGraphicsContext2D();
@@ -120,24 +118,24 @@ public class GarageController implements Initializable {
             if (exitGamePoint.equals(rectangle)) {
                 fadeTransition.setOnFinished(actionEvent -> Platform.exit());
             } else if (startGamePoint.equals(rectangle)) {
-                fadeTransition.setOnFinished(actionEvent -> changeScene("start_menu.fxml"));
+                fadeTransition.setOnFinished(actionEvent -> changeScene(0));
             } else if (upgradeTankPoint.equals(rectangle)) {
-                fadeTransition.setOnFinished(actionEvent -> changeScene("tank_upgrade.fxml"));
+                fadeTransition.setOnFinished(actionEvent -> changeScene(1));
             }
             fadeTransition.play();
         }
     }
 
-    private void changeScene(String s) {
-        try {
-            root = FXMLLoader.load(getClass().getResource(s));
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+    private void changeScene(int index) {
         Stage stage = (Stage) tankEntity.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        switch (index) {
+            case 0 -> stage.setScene(Scenes.getStartGameMenu(getClass()));
+            case 1 -> stage.setScene(Scenes.getTankUpgradeWindow(getClass()));
+        }
+        animationTimer.stop();
+        tankEntity = null;
+        playerTank = null;
+
     }
 
     public void hideInstructions(MouseEvent mouseEvent) {

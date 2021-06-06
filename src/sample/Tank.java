@@ -195,7 +195,6 @@ public class Tank {
         if (haste) {
             tempMaxSpeed += 3;
         }
-        System.out.println(tempMaxSpeed);
         if (currentSpeed >= tempMaxSpeed) {
             currentSpeed = tempMaxSpeed;
         } else {
@@ -297,9 +296,10 @@ public class Tank {
                     } else if (bonus.getType() == 1) {
                         hasteCounter = 240;
                     } else if (bonus.getType() == 2) {
-                        PlayerTank.currentHP += 80;
+                        PlayerTank.increaseCurrentHP(80);
                     }
                 }
+
             }
         }
     }
@@ -493,6 +493,7 @@ public class Tank {
         }
 
         gc.restore();
+
     }
 
     private void renderGun() {

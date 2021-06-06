@@ -131,12 +131,11 @@ public class LevelController implements Initializable {
                     wall.render(gc);
                 }
 
-                for (Bonus bonus : bonuses){
+                for (Bonus bonus : bonuses) {
                     bonus.render(gc);
                 }
 
                 //gc.drawImage(new Image("images/FreezeBonus.png"), 50, 50);
-
 
 
                 for (EnemyTank enemyTank : enemyTanks) {
@@ -146,7 +145,7 @@ public class LevelController implements Initializable {
                 playerTank.render();
 
                 ArrayList<Effect> effectsTemp = new ArrayList<>(effects);
-                for(Effect effect : effectsTemp) {
+                for (Effect effect : effectsTemp) {
                     effect.process();
                 }
             }
@@ -159,6 +158,10 @@ public class LevelController implements Initializable {
 
             @Override
             public void handle(long l) {
+                if(playerTank == null) {
+                    stop();
+                    return;
+                }
                 if (!playerTank.isLoaded) {
                     reloadBar.setProgress((double) playerTank.reloadTimer / 80.00);
                 }
@@ -223,6 +226,8 @@ public class LevelController implements Initializable {
         if (currentLvlId != 5) {
             StartMenuController.getLevels()[currentLvlId + 1].setLocked(false);
         }
+        animationTimer.stop();
+        playerTank = null;
         returnToGarage();
     }
 
@@ -230,18 +235,13 @@ public class LevelController implements Initializable {
         levelFailed.setDisable(true);
         levelFailed.setOpacity(0);
         levelBuilder.addWalls(-1);
+        animationTimer.stop();
+        playerTank = null;
         returnToGarage();
     }
 
     private void returnToGarage() {
-        try {
-            root = FXMLLoader.load(getClass().getResource("garage_window.fxml"));
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
         Stage stage = (Stage) gameField.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        stage.setScene(Scenes.getGarageWindow(getClass()));
     }
 }
