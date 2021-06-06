@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -18,17 +19,11 @@ public class TitleWindow extends Application {
         launch(args);
     }
 
-    MediaPlayer mediaPlayer;
-    private void music(){
-        String name = "src/music/main_theme.mp3";
-        Media media = new Media(Paths.get(name).toUri().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-    }
+    AudioClip mainTheme = new AudioClip(getClass().getResource("src/music/main_theme.mp3").toExternalForm());
 
     @Override
     public void start(Stage primaryStage) {
-        music();
+        mainTheme.setCycleCount(AudioClip.INDEFINITE);
         LevelMenu[] levels = StartMenuController.getLevels();
         for (int i = 0; i < levels.length; i++) {
             levels[i] = new LevelMenu("#level" + i, "#backLevelPane" + i);
