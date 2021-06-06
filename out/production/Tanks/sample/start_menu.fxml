@@ -10,6 +10,11 @@
 
 <Pane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StartMenuController">
    <children>
+      <ImageView fitHeight="700.0" fitWidth="700.0">
+         <image>
+            <Image url="@../images/menu_background.png" />
+         </image>
+      </ImageView>
       <SplitPane fx:id="backLevelPane0" dividerPositions="0.5" layoutX="152.0" layoutY="43.0" orientation="VERTICAL" prefHeight="75.0" prefWidth="396.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
