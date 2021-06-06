@@ -80,7 +80,7 @@ public class TankUpgradeController implements Initializable {
             aimSpeedUpgradeButton.setDisable(true);
             aimPrice.setText("Max lvl");
         } else {
-            aimPrice.setText(TankUpgradeData.getCurrentHPUpgradePrice() + "$");
+            aimPrice.setText(TankUpgradeData.getCurrentAimSpeedUpgradePrice() + "$");
         }
 
         if (TankUpgradeData.getCurrentAimSpeedUpgradePrice() > Money.getAmount()) {
